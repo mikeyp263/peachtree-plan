@@ -1,867 +1,1032 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<meta name="apple-mobile-web-app-title" content="Peachtree Plan">
-<title>Peachtree 10K Training Plan</title>
+<meta charset="UTF-8" />
+<meta
+  name="viewport"
+  content="width=device-width, initial-scale=1.0, viewport-fit=cover"
+/>
+
+<title>Peachtree 10K Plan</title>
+
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+
 <style>
-:root {
-  --bg: #0f0f0f;
-  --card: #171717;
-  --card2: #1f1f1f;
-  --card3: #272727;
-  --line: rgba(255,255,255,0.08);
-  --line2: rgba(255,255,255,0.14);
-  --text: #f2f2f2;
-  --text2: #a0a0a0;
-  --text3: #606060;
-  --orange: #fb923c;
-  --orange-bg: rgba(251,146,60,0.1);
-  --orange-line: rgba(251,146,60,0.3);
-  --green: #4ade80;
-  --green-bg: rgba(74,222,128,0.08);
-  --green-line: rgba(74,222,128,0.25);
-  --red: #f87171;
-  --red-bg: rgba(248,113,113,0.08);
-  --red-line: rgba(248,113,113,0.25);
-  --blue: #7dd3fc;
-  --blue-bg: rgba(125,211,252,0.08);
-  --purple: #c4b5fd;
-  --purple-bg: rgba(196,181,253,0.08);
-  --today: rgba(251,146,60,0.06);
-  --today-line: rgba(251,146,60,0.5);
-  --past: rgba(255,255,255,0.025);
+
+:root{
+  --bg:#0b0b0c;
+
+  --card:#141416;
+  --card2:#1c1c1f;
+  --card3:#242428;
+
+  --line:rgba(255,255,255,.08);
+  --line2:rgba(255,255,255,.14);
+
+  --text:#f5f5f7;
+  --text2:#b0b0b7;
+  --text3:#72727a;
+
+  --orange:#ff9d57;
+  --orange-bg:rgba(255,157,87,.10);
+  --orange-line:rgba(255,157,87,.32);
+
+  --green:#57e389;
+  --green-bg:rgba(87,227,137,.10);
+  --green-line:rgba(87,227,137,.22);
+
+  --red:#ff7b7b;
+  --red-bg:rgba(255,123,123,.10);
+
+  --blue:#72cfff;
+  --blue-bg:rgba(114,207,255,.10);
+
+  --purple:#cdbdff;
+  --purple-bg:rgba(205,189,255,.10);
+
+  --today:rgba(255,157,87,.08);
 }
-* { margin:0; padding:0; box-sizing:border-box; -webkit-tap-highlight-color:transparent; }
-html { background:var(--bg); }
-body {
+
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  -webkit-tap-highlight-color:transparent;
+}
+
+html{
+  background:var(--bg);
+}
+
+body{
+  background:var(--bg);
   color:var(--text);
   font-family:'Inter',sans-serif;
-  font-size:14px;
-  line-height:1.5;
   min-height:100vh;
-  padding-bottom:calc(env(safe-area-inset-bottom,0px) + 48px);
+  padding-bottom:100px;
 }
-mono { font-family:'JetBrains Mono',monospace; }
 
-/* ─── TODAY HERO ─── */
-#today-hero {
-  background: var(--card);
-  border-bottom: 1px solid var(--line);
-  padding: 52px 18px 20px;
+/* HERO */
+
+#today-hero{
+  padding:
+    calc(env(safe-area-inset-top,0px) + 24px)
+    20px
+    24px;
+
+  background:
+    radial-gradient(circle at top right,
+    rgba(255,157,87,.12),
+    transparent 40%),
+    var(--bg);
+
+  position:sticky;
+  top:0;
+  z-index:10;
+
+  backdrop-filter:blur(18px);
+
+  border-bottom:1px solid var(--line);
 }
-.today-eyebrow {
-  font-size:10px; font-weight:600; letter-spacing:0.18em;
-  text-transform:uppercase; color:var(--orange); margin-bottom:14px;
-  display:flex; align-items:center; gap:6px;
-}
-.dot { width:5px; height:5px; border-radius:50%; background:var(--orange); display:inline-block; }
-.today-workout-box {
-  background:var(--today); border:1px solid var(--today-line);
-  border-radius:14px; padding:16px;
+
+.today-eyebrow{
+  font-size:11px;
+  letter-spacing:.16em;
+  text-transform:uppercase;
+  color:var(--orange);
+  font-weight:700;
+
   margin-bottom:16px;
+
+  display:flex;
+  align-items:center;
+  gap:8px;
 }
-.today-workout-label { font-size:10px; font-weight:600; letter-spacing:0.14em; text-transform:uppercase; color:var(--orange); margin-bottom:6px; }
-.today-workout-name { font-size:20px; font-weight:600; color:var(--text); margin-bottom:4px; line-height:1.2; }
-.today-workout-detail { font-size:13px; color:var(--text2); line-height:1.55; }
-.today-meta { display:grid; grid-template-columns:1fr 1fr 1fr; gap:8px; }
-.tmeta-cell {
-  background:var(--card2); border-radius:10px; padding:10px 12px;
+
+.dot{
+  width:6px;
+  height:6px;
+  border-radius:999px;
+  background:var(--orange);
+}
+
+.today-workout-box{
+  background:
+    linear-gradient(
+      180deg,
+      rgba(255,255,255,.03),
+      rgba(255,255,255,.01)
+    );
+
+  border:1px solid var(--orange-line);
+
+  border-radius:28px;
+
+  padding:24px;
+
+  margin-bottom:16px;
+
+  box-shadow:
+    0 8px 40px rgba(0,0,0,.30);
+}
+
+.today-workout-label{
+  font-size:11px;
+  font-weight:700;
+  text-transform:uppercase;
+  letter-spacing:.14em;
+
+  color:var(--orange);
+
+  margin-bottom:10px;
+}
+
+.today-workout-name{
+  font-size:34px;
+  line-height:1.05;
+  font-weight:800;
+
+  margin-bottom:10px;
+}
+
+.today-workout-detail{
+  font-size:15px;
+  line-height:1.65;
+  color:var(--text2);
+}
+
+.today-meta{
+  display:grid;
+  grid-template-columns:1fr 1fr 1fr;
+  gap:10px;
+}
+
+.tmeta-cell{
+  background:var(--card);
   border:1px solid var(--line);
-}
-.tmeta-label { font-size:9px; font-weight:600; letter-spacing:0.12em; text-transform:uppercase; color:var(--text3); margin-bottom:4px; }
-.tmeta-val { font-family:'JetBrains Mono',monospace; font-size:16px; font-weight:500; color:var(--text); line-height:1; }
-.tmeta-val.orange { color:var(--orange); }
-.tmeta-val.green { color:var(--green); }
-.countdown-bar {
-  margin-top:12px; height:4px; background:var(--card3);
-  border-radius:4px; overflow:hidden;
-}
-.countdown-fill { height:100%; background:var(--orange); border-radius:4px; transition:width 0.5s; }
 
-/* ─── SECTIONS ─── */
-.sec { padding:22px 18px 8px; }
-.sec-title {
-  font-size:10px; font-weight:600; letter-spacing:0.16em;
-  text-transform:uppercase; color:var(--text3); margin-bottom:12px;
+  border-radius:20px;
+
+  padding:14px 14px;
 }
 
-/* ─── ZONES ─── */
-.zone {
-  border-radius:12px; margin-bottom:8px;
-  border:1px solid var(--line); overflow:hidden; display:flex;
-}
-.zpip { width:3px; flex-shrink:0; }
-.zpip.e { background:var(--green); }
-.zpip.t { background:var(--orange); }
-.zpip.i { background:var(--red); }
-.zinner { padding:12px 14px; flex:1; }
-.ztop { display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:6px; gap:8px; }
-.zleft {}
-.zname { font-size:11px; font-weight:700; text-transform:uppercase; letter-spacing:0.1em; margin-bottom:2px; }
-.zname.e { color:var(--green); }
-.zname.t { color:var(--orange); }
-.zname.i { color:var(--red); }
-.zfeel { font-size:11px; color:var(--text2); }
-.zright { text-align:right; flex-shrink:0; }
-.zpace { font-family:'JetBrains Mono',monospace; font-size:14px; font-weight:500; color:var(--text); line-height:1.3; }
-.zhr { font-size:10px; color:var(--text3); margin-top:2px; }
-.zone.e { background:var(--green-bg); }
-.zone.t { background:var(--orange-bg); }
-.zone.i { background:var(--red-bg); }
-.zdesc { font-size:12px; color:var(--text2); line-height:1.6; border-top:1px solid var(--line); padding-top:8px; margin-top:4px; }
+.tmeta-label{
+  font-size:9px;
+  letter-spacing:.14em;
+  text-transform:uppercase;
+  color:var(--text3);
+  font-weight:700;
 
-/* ─── DRILLS BANNER ─── */
-.drills-banner {
-  margin:0 18px 12px;
-  background:var(--orange-bg); border:1px solid var(--orange-line);
-  border-radius:12px; padding:13px 15px;
-}
-.dbanner-head { font-size:12px; font-weight:600; color:var(--orange); margin-bottom:4px; }
-.dbanner-body { font-size:12px; color:var(--text2); line-height:1.55; }
-
-.drills-grid { padding:0 18px; display:grid; grid-template-columns:1fr 1fr; gap:6px; }
-.drill {
-  background:var(--card); border:1px solid var(--line);
-  border-radius:10px; padding:11px 12px;
-}
-.drill-name { font-size:12px; font-weight:600; color:var(--text); margin-bottom:2px; }
-.drill-reps { font-size:10px; font-weight:600; color:var(--orange); margin-bottom:4px; }
-.drill-desc { font-size:11px; color:var(--text2); line-height:1.5; }
-
-/* ─── WEEKS ─── */
-.weeks-wrap { padding:0 18px; }
-.week {
-  background:var(--card); border:1px solid var(--line);
-  border-radius:14px; margin-bottom:8px; overflow:hidden;
-  transition:border-color 0.2s;
-}
-.week.current-week { border-color:rgba(251,146,60,0.4); }
-.week.open { border-color:var(--line2); }
-.week.past-week { opacity:0.55; }
-
-.week-hd {
-  display:flex; align-items:center; gap:12px;
-  padding:13px 14px; cursor:pointer; user-select:none; position:relative;
-}
-.current-pip {
-  position:absolute; left:0; top:0; bottom:0; width:3px;
-  background:var(--orange); border-radius:14px 0 0 14px;
-}
-.wnum {
-  font-family:'JetBrains Mono',monospace; font-size:20px; font-weight:500;
-  color:var(--text3); width:24px; text-align:center; flex-shrink:0;
-  transition:color 0.2s;
-}
-.week.current-week .wnum, .week.open .wnum { color:var(--orange); }
-.wmeta { flex:1; min-width:0; }
-.wname { font-size:13px; font-weight:600; color:var(--text); line-height:1.2; }
-.wsub { font-size:11px; color:var(--text2); margin-top:2px; }
-.wbadge {
-  font-size:9px; font-weight:700; letter-spacing:0.1em;
-  text-transform:uppercase; padding:3px 8px; border-radius:20px; flex-shrink:0;
-}
-.bb { background:var(--blue-bg); color:var(--blue); }
-.bs { background:var(--purple-bg); color:var(--purple); }
-.bp { background:var(--orange-bg); color:var(--orange); }
-.br { background:var(--green-bg); color:var(--green); }
-.wchev { color:var(--text3); transition:transform 0.2s; flex-shrink:0; }
-.week.open .wchev { transform:rotate(180deg); }
-
-.wbody { display:none; padding:0 14px 14px; }
-.week.open .wbody { display:block; }
-.wdesc {
-  font-size:12px; color:var(--text2); line-height:1.65;
-  margin-bottom:12px; padding:10px 12px;
-  background:var(--card2); border-radius:8px;
+  margin-bottom:6px;
 }
 
-/* ─── DAY ROWS ─── */
-.days { display:flex; flex-direction:column; gap:5px; margin-bottom:10px; }
-.day {
-  display:flex; gap:10px; align-items:flex-start;
-  background:var(--card2); border-radius:10px;
-  padding:10px 12px; border:1px solid transparent;
-  transition:opacity 0.2s;
-}
-.day.rest { opacity:0.4; }
-.day.quality { background:var(--card3); border-color:var(--line2); }
-.day.today-day { background:var(--today); border-color:var(--today-line); }
-.day.past-day { opacity:0.3; }
-.day.race-day { background:var(--green-bg); border-color:var(--green-line); }
-
-.dow {
-  font-family:'JetBrains Mono',monospace; font-size:10px; font-weight:500;
-  color:var(--text3); min-width:30px; padding-top:2px; flex-shrink:0; line-height:1.4;
-}
-.day.today-day .dow { color:var(--orange); font-weight:700; }
-
-.dcontent { flex:1; min-width:0; }
-.dtype {
-  font-size:13px; font-weight:500; color:var(--text);
-  margin-bottom:3px; line-height:1.3;
-}
-.day.today-day .dtype { color:var(--orange); font-weight:600; }
-.day.race-day .dtype { color:var(--green); font-weight:600; }
-.ddetail { font-size:12px; color:var(--text2); line-height:1.55; }
-.dtag-row { display:flex; gap:5px; flex-wrap:wrap; margin-top:5px; }
-.dtag {
-  font-size:9px; font-weight:700; letter-spacing:0.08em;
-  text-transform:uppercase; padding:2px 7px; border-radius:8px;
-}
-.dtag.drill { background:var(--orange-bg); color:var(--orange); }
-.dtag.gym { background:var(--card3); color:var(--text3); border:1px solid var(--line2); }
-.dtag.t-zone { background:var(--orange-bg); color:var(--orange); border:1px solid var(--orange-line); }
-.dtag.i-zone { background:var(--red-bg); color:var(--red); border:1px solid var(--red-line); }
-.today-arrow {
-  font-size:10px; color:var(--orange); align-self:center;
-  margin-left:auto; flex-shrink:0; font-weight:600;
+.tmeta-val{
+  font-size:18px;
+  font-weight:700;
 }
 
-/* ─── NOTE ─── */
-.note {
-  font-size:12px; color:var(--text2); line-height:1.65;
-  border-left:2px solid var(--orange); background:var(--orange-bg);
-  border-radius:0 8px 8px 0; padding:10px 12px;
+.orange{
+  color:var(--orange);
 }
-.note.green { border-left-color:var(--green); background:var(--green-bg); }
 
-/* ─── MISC ─── */
-.divider { height:1px; background:var(--line); margin:16px 0; }
-.hr-note {
-  margin:0 18px 4px; padding:11px 13px;
-  background:var(--card); border:1px solid var(--line);
-  border-radius:10px; font-size:11px; color:var(--text2); line-height:1.6;
+.green{
+  color:var(--green);
 }
-.hr-note b { color:var(--text); font-weight:500; }
+
+.countdown-bar{
+  height:6px;
+  border-radius:999px;
+
+  background:var(--card3);
+
+  overflow:hidden;
+
+  margin-top:14px;
+}
+
+.countdown-fill{
+  height:100%;
+  width:0%;
+
+  border-radius:999px;
+
+  background:linear-gradient(
+    90deg,
+    var(--orange),
+    #ffb37a
+  );
+}
+
+/* SECTIONS */
+
+.sec{
+  padding:28px 20px 14px;
+}
+
+.sec-title{
+  font-size:11px;
+  letter-spacing:.16em;
+  text-transform:uppercase;
+  font-weight:700;
+
+  color:var(--text3);
+}
+
+/* ZONES */
+
+.zone{
+  margin:0 20px 10px;
+
+  border-radius:24px;
+
+  overflow:hidden;
+
+  border:1px solid var(--line);
+
+  background:var(--card);
+
+  box-shadow:
+    0 8px 30px rgba(0,0,0,.20);
+}
+
+.zinner{
+  padding:18px;
+}
+
+.ztop{
+  display:flex;
+  justify-content:space-between;
+  gap:14px;
+}
+
+.zname{
+  font-size:14px;
+  font-weight:800;
+
+  margin-bottom:4px;
+}
+
+.zfeel{
+  font-size:12px;
+  color:var(--text2);
+}
+
+.zpace{
+  font-family:'JetBrains Mono',monospace;
+  font-size:14px;
+  font-weight:700;
+}
+
+.zhr{
+  font-size:11px;
+  color:var(--text3);
+
+  margin-top:2px;
+}
+
+.zdesc{
+  margin-top:14px;
+
+  border-top:1px solid var(--line);
+
+  padding-top:14px;
+
+  font-size:13px;
+  line-height:1.7;
+
+  color:var(--text2);
+}
+
+.e{
+  color:var(--green);
+}
+
+.t{
+  color:var(--orange);
+}
+
+.i{
+  color:var(--red);
+}
+
+/* WEEKS */
+
+.weeks-wrap{
+  padding:0 20px;
+}
+
+.week{
+  background:var(--card);
+
+  border:1px solid var(--line);
+
+  border-radius:28px;
+
+  margin-bottom:14px;
+
+  overflow:hidden;
+
+  box-shadow:
+    0 10px 35px rgba(0,0,0,.22);
+
+  transition:.25s;
+}
+
+.week.current-week{
+  border-color:var(--orange-line);
+}
+
+.week-hd{
+  padding:18px;
+
+  display:flex;
+  align-items:center;
+  gap:14px;
+
+  cursor:pointer;
+}
+
+.wnum{
+  width:38px;
+  height:38px;
+
+  border-radius:999px;
+
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
+  background:var(--card3);
+
+  font-weight:800;
+
+  color:var(--orange);
+
+  flex-shrink:0;
+}
+
+.wmeta{
+  flex:1;
+}
+
+.wname{
+  font-size:16px;
+  font-weight:700;
+
+  margin-bottom:3px;
+}
+
+.wsub{
+  font-size:13px;
+  color:var(--text2);
+}
+
+.wbadge{
+  font-size:10px;
+  text-transform:uppercase;
+  font-weight:700;
+  letter-spacing:.10em;
+
+  padding:7px 10px;
+
+  border-radius:999px;
+}
+
+.bb{
+  background:var(--blue-bg);
+  color:var(--blue);
+}
+
+.bs{
+  background:var(--purple-bg);
+  color:var(--purple);
+}
+
+.bp{
+  background:var(--orange-bg);
+  color:var(--orange);
+}
+
+.br{
+  background:var(--green-bg);
+  color:var(--green);
+}
+
+.wbody{
+  display:none;
+  padding:0 18px 18px;
+}
+
+.week.open .wbody{
+  display:block;
+}
+
+.wdesc{
+  background:var(--card2);
+
+  border-radius:18px;
+
+  padding:16px;
+
+  font-size:13px;
+  line-height:1.7;
+
+  color:var(--text2);
+
+  margin-bottom:14px;
+}
+
+/* DAYS */
+
+.days{
+  display:flex;
+  flex-direction:column;
+  gap:10px;
+}
+
+.day{
+  background:var(--card2);
+
+  border-radius:22px;
+
+  padding:16px;
+
+  border:1px solid transparent;
+
+  transition:.2s;
+
+  display:flex;
+  gap:14px;
+}
+
+.day.quality{
+  border-color:var(--orange-line);
+
+  background:
+    linear-gradient(
+      180deg,
+      rgba(255,157,87,.08),
+      rgba(255,157,87,.03)
+    );
+}
+
+.day.rest{
+  opacity:.5;
+}
+
+.day.today-day{
+  border-color:var(--orange);
+
+  background:
+    linear-gradient(
+      180deg,
+      rgba(255,157,87,.12),
+      rgba(255,157,87,.04)
+    );
+
+  transform:scale(1.01);
+}
+
+.day.race-day{
+  border-color:var(--green-line);
+
+  background:
+    linear-gradient(
+      180deg,
+      rgba(87,227,137,.12),
+      rgba(87,227,137,.04)
+    );
+}
+
+.dow{
+  min-width:44px;
+
+  font-size:11px;
+  line-height:1.5;
+
+  font-weight:800;
+
+  letter-spacing:.10em;
+
+  color:var(--text3);
+}
+
+.dcontent{
+  flex:1;
+}
+
+.dtype{
+  font-size:16px;
+  line-height:1.3;
+  font-weight:700;
+
+  margin-bottom:6px;
+}
+
+.ddetail{
+  font-size:14px;
+  line-height:1.7;
+
+  color:var(--text2);
+}
+
+.dtag-row{
+  display:flex;
+  flex-wrap:wrap;
+  gap:6px;
+
+  margin-top:12px;
+}
+
+.dtag{
+  padding:5px 9px;
+
+  border-radius:999px;
+
+  font-size:10px;
+  font-weight:700;
+  letter-spacing:.08em;
+  text-transform:uppercase;
+}
+
+.drill{
+  background:var(--orange-bg);
+  color:var(--orange);
+}
+
+.gym{
+  background:var(--card3);
+  color:var(--text2);
+}
+
+.t-zone{
+  background:var(--orange-bg);
+  color:var(--orange);
+}
+
+.i-zone{
+  background:var(--red-bg);
+  color:var(--red);
+}
+
+/* NOTE */
+
+.note{
+  margin-top:14px;
+
+  background:var(--card2);
+
+  border-left:3px solid var(--orange);
+
+  border-radius:0 18px 18px 0;
+
+  padding:16px;
+
+  font-size:13px;
+  line-height:1.75;
+
+  color:var(--text2);
+}
+
+.note.green{
+  border-left-color:var(--green);
+}
+
+/* MOBILE */
+
+@media(max-width:480px){
+
+  .today-workout-name{
+    font-size:30px;
+  }
+
+  .today-meta{
+    gap:8px;
+  }
+
+  .tmeta-cell{
+    padding:12px;
+  }
+
+  .dtype{
+    font-size:15px;
+  }
+
+  .ddetail{
+    font-size:13px;
+  }
+}
+
 </style>
 </head>
+
 <body>
 
 <div id="today-hero">
-  <div class="today-eyebrow"><span class="dot"></span> <span id="hero-date">Loading...</span></div>
-  <div id="today-box" class="today-workout-box">
-    <div class="today-workout-label">Today's workout</div>
-    <div class="today-workout-name" id="today-name">—</div>
-    <div class="today-workout-detail" id="today-detail">—</div>
+
+  <div class="today-eyebrow">
+    <span class="dot"></span>
+    <span id="hero-date">Loading...</span>
   </div>
+
+  <div id="today-box" class="today-workout-box">
+
+    <div class="today-workout-label">
+      Today's Workout
+    </div>
+
+    <div class="today-workout-name" id="today-name">
+      —
+    </div>
+
+    <div class="today-workout-detail" id="today-detail">
+      —
+    </div>
+
+  </div>
+
   <div class="today-meta">
+
     <div class="tmeta-cell">
-      <div class="tmeta-label">Days to race</div>
+      <div class="tmeta-label">Days To Race</div>
       <div class="tmeta-val orange" id="days-out">—</div>
     </div>
+
     <div class="tmeta-cell">
-      <div class="tmeta-label">Current week</div>
+      <div class="tmeta-label">Current Week</div>
       <div class="tmeta-val" id="cur-week">—</div>
     </div>
+
     <div class="tmeta-cell">
-      <div class="tmeta-label">Race date</div>
+      <div class="tmeta-label">Race Date</div>
       <div class="tmeta-val green">Jul 4</div>
     </div>
+
   </div>
-  <div class="countdown-bar" style="margin-top:12px;">
-    <div class="countdown-fill" id="progress-fill" style="width:0%"></div>
+
+  <div class="countdown-bar">
+    <div class="countdown-fill" id="progress-fill"></div>
   </div>
+
 </div>
 
-<!-- ZONES -->
-<div class="sec"><div class="sec-title">Training zones — know these cold</div></div>
-<div style="padding:0 18px 4px;">
+<div class="sec">
+  <div class="sec-title">Training Zones</div>
+</div>
 
-  <div class="zone e">
-    <div class="zpip e"></div>
-    <div class="zinner">
-      <div class="ztop">
-        <div class="zleft">
-          <div class="zname e">Easy (E)</div>
-          <div class="zfeel">Full conversation · nose breathing</div>
-        </div>
-        <div class="zright">
-          <div class="zpace">7:20–7:45/mi</div>
-          <div class="zhr">130–150 bpm</div>
-        </div>
+<div class="zone">
+  <div class="zinner">
+
+    <div class="ztop">
+
+      <div>
+        <div class="zname e">Easy</div>
+        <div class="zfeel">Full conversation pace</div>
       </div>
-      <div class="zdesc">The majority of all your running. Builds aerobic base, repairs tissue, flushes fatigue. Never push easy runs faster — the benefit is the volume, not the pace. If it feels embarrassingly slow, it's probably right. Trust it.</div>
-    </div>
-  </div>
 
-  <div class="zone t">
-    <div class="zpip t"></div>
-    <div class="zinner">
-      <div class="ztop">
-        <div class="zleft">
-          <div class="zname t">Threshold (T)</div>
-          <div class="zfeel">Short sentences · comfortably hard</div>
-        </div>
-        <div class="zright">
-          <div class="zpace">6:40–6:50/mi</div>
-          <div class="zhr">162–172 bpm</div>
-        </div>
+      <div>
+        <div class="zpace">7:20–7:45</div>
+        <div class="zhr">130–150 bpm</div>
       </div>
-      <div class="zdesc">Most important zone for this race. T-pace = lactate threshold — the pace you could hold for ~60 min max. Training here raises that ceiling. Notice it's nearly identical to your 6:45 race goal. This is the workout that wins the Peachtree.</div>
-    </div>
-  </div>
 
-  <div class="zone i">
-    <div class="zpip i"></div>
-    <div class="zinner">
-      <div class="ztop">
-        <div class="zleft">
-          <div class="zname i">Interval (I)</div>
-          <div class="zfeel">A few words · controlled hard</div>
-        </div>
-        <div class="zright">
-          <div class="zpace">6:15–6:25/mi</div>
-          <div class="zhr">174–185 bpm</div>
-        </div>
+    </div>
+
+    <div class="zdesc">
+      Easy aerobic running. Never force the pace.
+    </div>
+
+  </div>
+</div>
+
+<div class="zone">
+  <div class="zinner">
+
+    <div class="ztop">
+
+      <div>
+        <div class="zname t">Threshold</div>
+        <div class="zfeel">Comfortably hard</div>
       </div>
-      <div class="zdesc">VO2max pace. Done in short 1K reps with full rest between. Not a sprint — more like a focused 3-minute effort each rep. These raise your aerobic ceiling so 6:45 feels like a cruise on race day, not a fight.</div>
+
+      <div>
+        <div class="zpace">6:40–6:50</div>
+        <div class="zhr">162–172 bpm</div>
+      </div>
+
     </div>
+
+    <div class="zdesc">
+      Most important pace for your race goal.
+    </div>
+
   </div>
 </div>
 
-<div class="hr-note" style="margin-top:8px;">
-  <b>HR zones are a guide, not gospel.</b> Max HR formulas are wrong for trained athletes. Your actual max is likely higher. Trust feel first — if easy runs feel truly conversational around 145–150 bpm you're dialed. If 155 still feels easy, trust the feeling.
-</div>
+<div class="zone">
+  <div class="zinner">
 
-<!-- DRILLS -->
-<div class="sec"><div class="sec-title">Drills</div></div>
-<div class="drills-banner">
-  <div class="dbanner-head">⚡ Do these before EVERY run · EVERY week · all 5 weeks</div>
-  <div class="dbanner-body">Takes 8 minutes. Not optional — especially with low back soreness. Drills activate hip flexors and glutes before each run, which is the #1 fix for low back issues in returning runners. Skip them and your back will let you know.</div>
-</div>
-<div class="drills-grid">
-  <div class="drill">
-    <div class="drill-name">Leg Swings</div>
-    <div class="drill-reps">10 reps each direction, each leg</div>
-    <div class="drill-desc">Forward/back then side-to-side. Do this one first every time. Unlocks hip flexors — critical for your low back.</div>
-  </div>
-  <div class="drill">
-    <div class="drill-name">A-March</div>
-    <div class="drill-reps">2 × 20m</div>
-    <div class="drill-desc">Exaggerated high-knee march, pump arms. Activates hip flexors and sets proper knee lift mechanics.</div>
-  </div>
-  <div class="drill">
-    <div class="drill-name">A-Skip</div>
-    <div class="drill-reps">2 × 20m</div>
-    <div class="drill-desc">Same as A-march with a skip rhythm. Adds pop and ground contact timing on top of knee drive.</div>
-  </div>
-  <div class="drill">
-    <div class="drill-name">B-Skip</div>
-    <div class="drill-reps">2 × 20m</div>
-    <div class="drill-desc">High knee then extend and claw foot down. Teaches the pawing motion — the most important running mechanic.</div>
-  </div>
-  <div class="drill">
-    <div class="drill-name">Butt Kicks</div>
-    <div class="drill-reps">2 × 20m</div>
-    <div class="drill-desc">Heels to glutes, fast turnover. Trains hamstring recovery speed and high cadence muscle memory.</div>
-  </div>
-  <div class="drill">
-    <div class="drill-name">Strides</div>
-    <div class="drill-reps">6–8 × 100m (when listed)</div>
-    <div class="drill-desc">Smooth accelerations to mile effort. Full walk recovery between each. Maintain form — not a sprint.</div>
+    <div class="ztop">
+
+      <div>
+        <div class="zname i">Intervals</div>
+        <div class="zfeel">Controlled hard</div>
+      </div>
+
+      <div>
+        <div class="zpace">6:15–6:25</div>
+        <div class="zhr">174–185 bpm</div>
+      </div>
+
+    </div>
+
+    <div class="zdesc">
+      Short hard reps to raise your aerobic ceiling.
+    </div>
+
   </div>
 </div>
 
-<!-- WEEKS -->
-<div class="sec"><div class="sec-title">Week-by-week schedule</div></div>
-<div class="weeks-wrap" id="weeks-wrap">
+<div class="sec">
+  <div class="sec-title">Training Plan</div>
+</div>
+
+<div class="weeks-wrap">
 
   <!-- WEEK 1 -->
-  <div class="week" id="wk1" data-week="1">
+
+  <div class="week" id="wk1">
+
     <div class="week-hd" onclick="tog('wk1')">
+
       <div class="wnum">1</div>
+
       <div class="wmeta">
-        <div class="wname">Base reactivation</div>
-        <div class="wsub">~25 miles · easy only · no intensity</div>
+        <div class="wname">Base Reactivation</div>
+        <div class="wsub">~25 miles</div>
       </div>
+
       <span class="wbadge bb">Build</span>
-      <svg class="wchev" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+
     </div>
+
     <div class="wbody">
-      <div class="wdesc">Every run this week is easy — zero exceptions. Your aerobic engine is ready but tendons, ankles and connective tissue need this week to wake up without breaking. Drills before every run, all 5 weeks starting now.</div>
+
+      <div class="wdesc">
+        Easy week. Build rhythm and consistency first.
+      </div>
+
       <div class="days" id="days-wk1">
-        <div class="day" data-dow="1" data-type="Easy run" data-detail="4 mi @ E pace (7:20–7:45) · no gym today, let legs adapt">
-          <div class="dow">MON</div>
-          <div class="dcontent">
-            <div class="dtype">Easy run</div>
-            <div class="ddetail">4 mi @ E pace (7:20–7:45) · no gym today, let legs adapt</div>
-            <div class="dtag-row"><span class="dtag drill">Drills first</span></div>
-          </div>
-        </div>
-        <div class="day" data-dow="2" data-type="Easy run" data-detail="5 mi @ E pace">
-          <div class="dow">TUE</div>
-          <div class="dcontent">
-            <div class="dtype">Easy run</div>
-            <div class="ddetail">5 mi @ E pace</div>
-            <div class="dtag-row"><span class="dtag drill">Drills first</span><span class="dtag gym">Gym after OK</span></div>
-          </div>
-        </div>
-        <div class="day rest" data-dow="3" data-type="Gym only" data-detail="Normal gym day · no run">
-          <div class="dow">WED</div>
-          <div class="dcontent">
-            <div class="dtype">Gym only</div>
-            <div class="ddetail">Normal gym day · no run</div>
-          </div>
-        </div>
-        <div class="day" data-dow="4" data-type="Easy run" data-detail="5 mi @ E pace">
-          <div class="dow">THU</div>
-          <div class="dcontent">
-            <div class="dtype">Easy run</div>
-            <div class="ddetail">5 mi @ E pace</div>
-            <div class="dtag-row"><span class="dtag drill">Drills first</span><span class="dtag gym">Gym after OK</span></div>
-          </div>
-        </div>
-        <div class="day" data-dow="5" data-type="Easy run + strides" data-detail="4 mi easy · finish with 6×100m strides (full walk recovery between each)">
-          <div class="dow">FRI</div>
-          <div class="dcontent">
-            <div class="dtype">Easy run + strides</div>
-            <div class="ddetail">4 mi easy · finish with 6×100m strides (full walk recovery between each)</div>
-            <div class="dtag-row"><span class="dtag drill">Drills first</span></div>
-          </div>
-        </div>
-        <div class="day rest" data-dow="6" data-type="Gym only" data-detail="Normal gym day · no run">
-          <div class="dow">SAT</div>
-          <div class="dcontent">
-            <div class="dtype">Gym only</div>
-            <div class="ddetail">Normal gym day · no run</div>
-          </div>
-        </div>
-        <div class="day" data-dow="0" data-type="Long easy run" data-detail="7 mi @ E pace · truly easy — this is not a fast long run">
-          <div class="dow">SUN</div>
-          <div class="dcontent">
-            <div class="dtype">Long easy run</div>
-            <div class="ddetail">7 mi @ E pace · truly easy — this is not a fast long run</div>
-            <div class="dtag-row"><span class="dtag drill">Drills first</span></div>
-          </div>
-        </div>
-      </div>
-      <div class="note">Low back: leg swings are the most important drill for you. Hip flexors that don't fire = low back that compensates. Do them before every single run, not just when it hurts.</div>
-    </div>
-  </div>
 
-  <!-- WEEK 2 -->
-  <div class="week" id="wk2" data-week="2">
-    <div class="week-hd" onclick="tog('wk2')">
-      <div class="wnum">2</div>
-      <div class="wmeta">
-        <div class="wname">Threshold intro</div>
-        <div class="wsub">~28 miles · first quality day Tuesday</div>
-      </div>
-      <span class="wbadge bb">Build</span>
-      <svg class="wchev" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
-    </div>
-    <div class="wbody">
-      <div class="wdesc">First real workout. Threshold pace (6:40–6:50) is nearly your exact race goal pace — this is the most specific training you can do. Should feel comfortably hard, not brutal. Short sentences still possible.</div>
-      <div class="days" id="days-wk2">
-        <div class="day" data-dow="1" data-type="Easy run" data-detail="5 mi @ E pace">
-          <div class="dow">MON</div>
-          <div class="dcontent">
-            <div class="dtype">Easy run</div>
-            <div class="ddetail">5 mi @ E pace</div>
-            <div class="dtag-row"><span class="dtag drill">Drills first</span><span class="dtag gym">Gym after OK</span></div>
-          </div>
-        </div>
-        <div class="day quality" data-dow="2" data-type="Threshold workout" data-detail="2 mi E warm-up → 3×10 min @ T pace (6:40–6:50) with 1 min standing rest → 1 mi cool-down">
-          <div class="dow">TUE</div>
-          <div class="dcontent">
-            <div class="dtype">Threshold workout</div>
-            <div class="ddetail">2 mi E warm-up → 3×10 min @ T pace (6:40–6:50) with 1 min standing rest → 1 mi cool-down</div>
-            <div class="dtag-row"><span class="dtag drill">Drills first</span><span class="dtag t-zone">T Zone 6:40–6:50</span></div>
-          </div>
-        </div>
-        <div class="day rest" data-dow="3" data-type="Gym only" data-detail="No run · recover from Tuesday">
-          <div class="dow">WED</div>
-          <div class="dcontent">
-            <div class="dtype">Gym only</div>
-            <div class="ddetail">No run · recover from Tuesday</div>
-          </div>
-        </div>
-        <div class="day" data-dow="4" data-type="Easy run" data-detail="5 mi @ E pace">
-          <div class="dow">THU</div>
-          <div class="dcontent">
-            <div class="dtype">Easy run</div>
-            <div class="ddetail">5 mi @ E pace</div>
-            <div class="dtag-row"><span class="dtag drill">Drills first</span><span class="dtag gym">Gym after OK</span></div>
-          </div>
-        </div>
-        <div class="day" data-dow="5" data-type="Easy run + strides" data-detail="4 mi easy · 6×100m strides">
-          <div class="dow">FRI</div>
-          <div class="dcontent">
-            <div class="dtype">Easy run + strides</div>
-            <div class="ddetail">4 mi easy · 6×100m strides</div>
-            <div class="dtag-row"><span class="dtag drill">Drills first</span></div>
-          </div>
-        </div>
-        <div class="day rest" data-dow="6" data-type="Gym only" data-detail="No run">
-          <div class="dow">SAT</div>
-          <div class="dcontent">
-            <div class="dtype">Gym only</div>
-            <div class="ddetail">No run</div>
-          </div>
-        </div>
-        <div class="day" data-dow="0" data-type="Long easy run" data-detail="8 mi @ E pace">
-          <div class="dow">SUN</div>
-          <div class="dcontent">
-            <div class="dtype">Long easy run</div>
-            <div class="ddetail">8 mi @ E pace</div>
-            <div class="dtag-row"><span class="dtag drill">Drills first</span></div>
-          </div>
-        </div>
-      </div>
-      <div class="note">Daniels rule: 1 min standing rest between T reps keeps the lactate stimulus without overloading. If 6:40 feels rough, run 6:50 — the zone matters more than the exact number. Total T time ≤ 30 min/week this early.</div>
-    </div>
-  </div>
+        <div class="day"
+          data-dow="1"
+          data-type="Easy Run"
+          data-detail="4 mi @ easy pace · Push day">
 
-  <!-- WEEK 3 -->
-  <div class="week" id="wk3" data-week="3">
-    <div class="week-hd" onclick="tog('wk3')">
-      <div class="wnum">3</div>
-      <div class="wmeta">
-        <div class="wname">Sharpening</div>
-        <div class="wsub">~30 miles · two quality days</div>
-      </div>
-      <span class="wbadge bs">Sharpen</span>
-      <svg class="wchev" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
-    </div>
-    <div class="wbody">
-      <div class="wdesc">Two hard days. Tuesday intervals raise your VO2max ceiling so race pace feels like a cruise. Thursday continuous threshold builds the staying power to hold 6:45 for 6.2 miles without fading.</div>
-      <div class="days" id="days-wk3">
-        <div class="day" data-dow="1" data-type="Easy run" data-detail="5 mi @ E pace">
           <div class="dow">MON</div>
-          <div class="dcontent">
-            <div class="dtype">Easy run</div>
-            <div class="ddetail">5 mi @ E pace</div>
-            <div class="dtag-row"><span class="dtag drill">Drills first</span><span class="dtag gym">Gym after OK</span></div>
-          </div>
-        </div>
-        <div class="day quality" data-dow="2" data-type="Interval workout" data-detail="2 mi E warm-up → 6×1K @ I pace (6:15–6:25) with 3 min jog rest → 1 mi cool-down">
-          <div class="dow">TUE</div>
-          <div class="dcontent">
-            <div class="dtype">Interval workout</div>
-            <div class="ddetail">2 mi E warm-up → 6×1K @ I pace (6:15–6:25) with 3 min jog rest → 1 mi cool-down</div>
-            <div class="dtag-row"><span class="dtag drill">Drills first</span><span class="dtag i-zone">I Zone 6:15–6:25</span></div>
-          </div>
-        </div>
-        <div class="day" data-dow="3" data-type="Easy run or gym only" data-detail="3–4 mi very easy if legs feel OK, or gym only if legs are heavy">
-          <div class="dow">WED</div>
-          <div class="dcontent">
-            <div class="dtype">Easy run or gym only</div>
-            <div class="ddetail">3–4 mi very easy if legs feel OK · gym only if heavy</div>
-            <div class="dtag-row"><span class="dtag drill">Drills if running</span><span class="dtag gym">Gym OK</span></div>
-          </div>
-        </div>
-        <div class="day quality" data-dow="4" data-type="Continuous threshold" data-detail="2 mi E → 20 min non-stop @ T pace (6:40–6:50) → 1 mi cool-down">
-          <div class="dow">THU</div>
-          <div class="dcontent">
-            <div class="dtype">Continuous threshold</div>
-            <div class="ddetail">2 mi E → 20 min non-stop @ T pace (6:40–6:50) → 1 mi cool-down</div>
-            <div class="dtag-row"><span class="dtag drill">Drills first</span><span class="dtag t-zone">T Zone 6:40–6:50</span></div>
-          </div>
-        </div>
-        <div class="day" data-dow="5" data-type="Easy run + strides" data-detail="4 mi easy · 8×100m strides">
-          <div class="dow">FRI</div>
-          <div class="dcontent">
-            <div class="dtype">Easy run + strides</div>
-            <div class="ddetail">4 mi easy · 8×100m strides</div>
-            <div class="dtag-row"><span class="dtag drill">Drills first</span></div>
-          </div>
-        </div>
-        <div class="day rest" data-dow="6" data-type="Gym only" data-detail="No run">
-          <div class="dow">SAT</div>
-          <div class="dcontent">
-            <div class="dtype">Gym only</div>
-            <div class="ddetail">No run</div>
-          </div>
-        </div>
-        <div class="day" data-dow="0" data-type="Long easy run" data-detail="8 mi @ E pace">
-          <div class="dow">SUN</div>
-          <div class="dcontent">
-            <div class="dtype">Long easy run</div>
-            <div class="ddetail">8 mi @ E pace</div>
-            <div class="dtag-row"><span class="dtag drill">Drills first</span></div>
-          </div>
-        </div>
-      </div>
-      <div class="note">Interval rest ≈ interval time (Daniels). 1K at ~6:20 = ~3:50 effort, so 3–4 min rest is right. Each rep should finish in control — not gasping. Focused hard, not sprinting.</div>
-    </div>
-  </div>
 
-  <!-- WEEK 4 -->
-  <div class="week" id="wk4" data-week="4">
-    <div class="week-hd" onclick="tog('wk4')">
-      <div class="wnum">4</div>
-      <div class="wmeta">
-        <div class="wname">Peak + race simulation</div>
-        <div class="wsub">~28 miles · Thursday is the key workout</div>
-      </div>
-      <span class="wbadge bp">Peak</span>
-      <svg class="wchev" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
-    </div>
-    <div class="wbody">
-      <div class="wdesc">Thursday's race simulation is the most important workout of the plan. Four miles at exactly 6:45 tells you where you stand. Volume dips slightly so legs feel good going in.</div>
-      <div class="days" id="days-wk4">
-        <div class="day" data-dow="1" data-type="Easy run" data-detail="5 mi @ E pace">
-          <div class="dow">MON</div>
           <div class="dcontent">
-            <div class="dtype">Easy run</div>
-            <div class="ddetail">5 mi @ E pace</div>
-            <div class="dtag-row"><span class="dtag drill">Drills first</span><span class="dtag gym">Gym after OK</span></div>
-          </div>
-        </div>
-        <div class="day quality" data-dow="2" data-type="Interval workout" data-detail="2 mi E → 5×1K @ I pace (6:15–6:25) with 3 min rest → 1 mi cool-down">
-          <div class="dow">TUE</div>
-          <div class="dcontent">
-            <div class="dtype">Interval workout</div>
-            <div class="ddetail">2 mi E → 5×1K @ I pace (6:15–6:25) with 3 min rest → 1 mi cool-down</div>
-            <div class="dtag-row"><span class="dtag drill">Drills first</span><span class="dtag i-zone">I Zone 6:15–6:25</span></div>
-          </div>
-        </div>
-        <div class="day" data-dow="3" data-type="Very easy or gym only" data-detail="3 mi very easy or gym only · save legs for Thursday">
-          <div class="dow">WED</div>
-          <div class="dcontent">
-            <div class="dtype">Very easy or gym only</div>
-            <div class="ddetail">3 mi very easy · gym only · save legs for Thursday</div>
-            <div class="dtag-row"><span class="dtag gym">Gym OK</span></div>
-          </div>
-        </div>
-        <div class="day quality" data-dow="4" data-type="Race simulation" data-detail="1 mi E → 4 mi @ exactly 6:45 pace → 1 mi cool-down · note how it feels">
-          <div class="dow">THU</div>
-          <div class="dcontent">
-            <div class="dtype">Race simulation</div>
-            <div class="ddetail">1 mi E → 4 mi @ exactly 6:45 → 1 mi cool-down · note how it feels</div>
-            <div class="dtag-row"><span class="dtag drill">Drills first</span><span class="dtag t-zone">Goal pace 6:45</span></div>
-          </div>
-        </div>
-        <div class="day" data-dow="5" data-type="Easy run + strides" data-detail="3 mi easy · 6×100m strides">
-          <div class="dow">FRI</div>
-          <div class="dcontent">
-            <div class="dtype">Easy run + strides</div>
-            <div class="ddetail">3 mi easy · 6×100m strides</div>
-            <div class="dtag-row"><span class="dtag drill">Drills first</span></div>
-          </div>
-        </div>
-        <div class="day rest" data-dow="6" data-type="Gym only" data-detail="No run">
-          <div class="dow">SAT</div>
-          <div class="dcontent">
-            <div class="dtype">Gym only</div>
-            <div class="ddetail">No run</div>
-          </div>
-        </div>
-        <div class="day" data-dow="0" data-type="Long easy run" data-detail="7 mi @ E pace">
-          <div class="dow">SUN</div>
-          <div class="dcontent">
-            <div class="dtype">Long easy run</div>
-            <div class="ddetail">7 mi @ E pace</div>
-            <div class="dtag-row"><span class="dtag drill">Drills first</span></div>
-          </div>
-        </div>
-      </div>
-      <div class="note">If Thursday's 4 mi at 6:45 feels controlled → you're ready, race with confidence. If it's a grind → start the race at 7:00 and let the pace come to you after mile 3. Either way you finish strong.</div>
-    </div>
-  </div>
 
-  <!-- WEEK 5 -->
-  <div class="week" id="wk5" data-week="5">
-    <div class="week-hd" onclick="tog('wk5')">
-      <div class="wnum">5</div>
-      <div class="wmeta">
-        <div class="wname">Taper → race week</div>
-        <div class="wsub">~15 miles · July 4th Sunday</div>
-      </div>
-      <span class="wbadge br">Race week</span>
-      <svg class="wchev" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
-    </div>
-    <div class="wbody">
-      <div class="wdesc">Volume drops 50%. Intensity stays but short. Fitness is locked in — this week is just keeping the engine warm and arriving fresh. Do NOT add miles because you feel good. That feeling is the taper working.</div>
-      <div class="days" id="days-wk5">
-        <div class="day" data-dow="1" data-type="Easy run" data-detail="4 mi @ E pace">
-          <div class="dow">MON</div>
-          <div class="dcontent">
-            <div class="dtype">Easy run</div>
-            <div class="ddetail">4 mi @ E pace</div>
-            <div class="dtag-row"><span class="dtag drill">Drills first</span><span class="dtag gym">Light gym OK</span></div>
+            <div class="dtype">Easy Run</div>
+
+            <div class="ddetail">
+              4 mi @ easy pace · Push day
+            </div>
+
+            <div class="dtag-row">
+              <span class="dtag drill">Drills</span>
+            </div>
+
           </div>
         </div>
-        <div class="day quality" data-dow="2" data-type="Short threshold" data-detail="1 mi E → 2×10 min @ T pace (1 min rest) → 1 mi cool · crisp, not long">
+
+        <div class="day"
+          data-dow="2"
+          data-type="Easy Run"
+          data-detail="5 mi @ easy pace · Pull day">
+
           <div class="dow">TUE</div>
+
           <div class="dcontent">
-            <div class="dtype">Short threshold</div>
-            <div class="ddetail">1 mi E → 2×10 min @ T pace (1 min rest) → 1 mi cool · crisp, not long</div>
-            <div class="dtag-row"><span class="dtag drill">Drills first</span><span class="dtag t-zone">T Zone 6:40–6:50</span></div>
+
+            <div class="dtype">Easy Run</div>
+
+            <div class="ddetail">
+              5 mi @ easy pace · Pull day
+            </div>
+
+            <div class="dtag-row">
+              <span class="dtag drill">Drills</span>
+            </div>
+
           </div>
         </div>
-        <div class="day rest" data-dow="3" data-type="Gym only" data-detail="No run · normal gym">
+
+        <div class="day"
+          data-dow="3"
+          data-type="Recovery"
+          data-detail="Legs day · no run">
+
           <div class="dow">WED</div>
+
           <div class="dcontent">
-            <div class="dtype">Gym only</div>
-            <div class="ddetail">No run · normal gym</div>
+
+            <div class="dtype">Recovery</div>
+
+            <div class="ddetail">
+              Legs day · no run
+            </div>
+
           </div>
         </div>
-        <div class="day" data-dow="4" data-type="Shakeout + strides" data-detail="3 mi easy · 6×100m strides · legs should feel springy and fast">
-          <div class="dow">THU</div>
-          <div class="dcontent">
-            <div class="dtype">Shakeout + strides</div>
-            <div class="ddetail">3 mi easy · 6×100m strides · legs should feel springy and fast</div>
-            <div class="dtag-row"><span class="dtag drill">Drills first</span></div>
-          </div>
-        </div>
-        <div class="day rest" data-dow="5" data-type="Full rest" data-detail="Walk only · no gym · 8+ hrs sleep">
-          <div class="dow">FRI</div>
-          <div class="dcontent">
-            <div class="dtype">Full rest</div>
-            <div class="ddetail">Walk only · no gym · 8+ hrs sleep</div>
-          </div>
-        </div>
-        <div class="day rest" data-dow="6" data-type="Full rest" data-detail="Hydrate all day · carb-heavy dinner · sleep early">
-          <div class="dow">SAT</div>
-          <div class="dcontent">
-            <div class="dtype">Full rest</div>
-            <div class="ddetail">Hydrate all day · carb-heavy dinner · sleep early</div>
-          </div>
-        </div>
-        <div class="day race-day" data-dow="0" data-type="🏁 Peachtree 10K — Race Day" data-detail="Mile 1: 6:55 (hold back, it's downhill) · Miles 2–4: settle at 6:45 · Miles 5–6.2: race it home">
-          <div class="dow">SUN</div>
-          <div class="dcontent">
-            <div class="dtype">🏁 Peachtree 10K — Race Day</div>
-            <div class="ddetail">Mile 1: 6:55 (hold back, it's downhill) · Miles 2–4: settle at 6:45 · Miles 5–6.2: race it home</div>
-          </div>
-        </div>
+
       </div>
-      <div class="note green">Race strategy: Peachtree starts downhill off Peachtree Road. Everyone goes out at 6:20 and dies. Run 6:55 for mile 1 — it will feel embarrassingly slow. That patience buys you a strong mile 5 and 6. The back half is where this race is won.</div>
+
     </div>
+
   </div>
 
 </div>
 
 <script>
-// ── RACE DATE & PLAN START ──
-const RACE = new Date(2026, 6, 4); // July 4 2026
-const PLAN_START = new Date(2026, 5, 1); // June 1 2026 (Monday, Week 1)
-const TOTAL_DAYS = Math.round((RACE - PLAN_START) / 86400000);
 
-// Day-of-week to date offset within a week (Mon=1 ... Sun=0)
-// Week 1 starts June 1 (Monday)
-function weekStart(weekNum) {
+const RACE = new Date(2026,6,4);
+const PLAN_START = new Date(2026,5,1);
+
+const TOTAL_DAYS =
+  Math.round((RACE - PLAN_START)/86400000);
+
+function weekStart(weekNum){
   const d = new Date(PLAN_START);
   d.setDate(d.getDate() + (weekNum - 1) * 7);
   return d;
 }
 
-function getDateForDow(weekNum, dow) {
-  // dow: 0=Sun,1=Mon,2=Tue,3=Wed,4=Thu,5=Fri,6=Sat
+function getDateForDow(weekNum,dow){
+
   const ws = weekStart(weekNum);
-  // ws is Monday
+
   const offset = dow === 0 ? 6 : dow - 1;
+
   const d = new Date(ws);
+
   d.setDate(d.getDate() + offset);
+
   return d;
 }
 
-function sameDay(a, b) {
+function sameDay(a,b){
+
   return a.getFullYear() === b.getFullYear() &&
          a.getMonth() === b.getMonth() &&
          a.getDate() === b.getDate();
 }
 
-function fmt(d) {
-  return d.toLocaleDateString('en-US', { weekday:'long', month:'long', day:'numeric' });
+function fmt(d){
+
+  return d.toLocaleDateString(
+    'en-US',
+    {
+      weekday:'long',
+      month:'long',
+      day:'numeric'
+    }
+  );
 }
 
-function init() {
+function init(){
+
   const today = new Date();
+
   today.setHours(0,0,0,0);
 
-  // Days to race
-  const raceClean = new Date(RACE); raceClean.setHours(0,0,0,0);
-  const daysOut = Math.round((raceClean - today) / 86400000);
+  const raceClean = new Date(RACE);
 
-  document.getElementById('hero-date').textContent = fmt(today);
-  document.getElementById('days-out').textContent = daysOut > 0 ? daysOut : (daysOut === 0 ? 'Today!' : 'Done!');
+  raceClean.setHours(0,0,0,0);
 
-  // Progress bar: 0% at plan start, 100% at race
-  const planClean = new Date(PLAN_START); planClean.setHours(0,0,0,0);
-  const elapsed = Math.max(0, Math.round((today - planClean) / 86400000));
-  const pct = Math.min(100, Math.round((elapsed / TOTAL_DAYS) * 100));
-  document.getElementById('progress-fill').style.width = pct + '%';
+  const daysOut =
+    Math.round((raceClean - today)/86400000);
 
-  // Determine current week
+  document.getElementById('hero-date').textContent =
+    fmt(today);
+
+  document.getElementById('days-out').textContent =
+    daysOut > 0
+      ? daysOut
+      : daysOut === 0
+      ? 'Today'
+      : 'Done';
+
+  const elapsed =
+    Math.max(
+      0,
+      Math.round(
+        (today - PLAN_START)/86400000
+      )
+    );
+
+  const pct =
+    Math.min(
+      100,
+      Math.round((elapsed/TOTAL_DAYS)*100)
+    );
+
+  document.getElementById('progress-fill')
+    .style.width = pct + '%';
+
   let currentWeek = null;
-  for (let w = 1; w <= 5; w++) {
-    const ws = weekStart(w); ws.setHours(0,0,0,0);
-    const we = new Date(ws); we.setDate(we.getDate() + 6);
-    if (today >= ws && today <= we) { currentWeek = w; break; }
+
+  for(let w=1; w<=5; w++){
+
+    const ws = weekStart(w);
+
+    ws.setHours(0,0,0,0);
+
+    const we = new Date(ws);
+
+    we.setDate(we.getDate()+6);
+
+    if(today >= ws && today <= we){
+
+      currentWeek = w;
+
+      break;
+    }
   }
-  document.getElementById('cur-week').textContent = currentWeek ? 'Week ' + currentWeek : (daysOut < 0 ? 'Done' : 'Pre-plan');
 
-  // Today's workout
+  document.getElementById('cur-week').textContent =
+    currentWeek
+      ? 'Week ' + currentWeek
+      : 'Pre';
+
   let foundToday = false;
-  for (let w = 1; w <= 5; w++) {
-    const dayEls = document.querySelectorAll('#days-wk' + w + ' .day');
-    dayEls.forEach(el => {
-      const dow = parseInt(el.getAttribute('data-dow'));
-      const elDate = getDateForDow(w, dow);
-      elDate.setHours(0,0,0,0);
-      const isPast = elDate < today && !sameDay(elDate, today);
-      const isToday = sameDay(elDate, today);
 
-      if (isPast) el.classList.add('past-day');
-      if (isToday) {
+  for(let w=1; w<=5; w++){
+
+    const dayEls =
+      document.querySelectorAll(
+        '#days-wk'+w+' .day'
+      );
+
+    dayEls.forEach(el => {
+
+      const dow =
+        parseInt(el.getAttribute('data-dow'));
+
+      const elDate =
+        getDateForDow(w,dow);
+
+      elDate.setHours(0,0,0,0);
+
+      const isToday =
+        sameDay(elDate,today);
+
+      if(isToday){
+
         el.classList.add('today-day');
-        // add arrow
-        const arr = document.createElement('div');
-        arr.className = 'today-arrow'; arr.textContent = '← today';
-        el.appendChild(arr);
-        // hero
-        const name = el.getAttribute('data-type');
-        const detail = el.getAttribute('data-detail');
-        document.getElementById('today-name').textContent = name;
-        document.getElementById('today-detail').textContent = detail;
+
+        document.getElementById('today-name')
+          .textContent =
+            el.getAttribute('data-type');
+
+        document.getElementById('today-detail')
+          .textContent =
+            el.getAttribute('data-detail');
+
         foundToday = true;
       }
     });
-    // Past week styling
-    const allDays = document.querySelectorAll('#days-wk' + w + ' .day');
-    let allPast = true;
-    allDays.forEach(el => { if (!el.classList.contains('past-day')) allPast = false; });
-    if (allPast && w < 5) document.getElementById('wk' + w).classList.add('past-week');
-    // Current week open + highlight
-    if (w === currentWeek) {
-      const wk = document.getElementById('wk' + w);
-      wk.classList.add('current-week', 'open');
-      const pip = document.createElement('div');
-      pip.className = 'current-pip';
-      wk.querySelector('.week-hd').appendChild(pip);
+
+    if(w === currentWeek){
+
+      document.getElementById('wk'+w)
+        .classList.add('open','current-week');
     }
   }
 
-  if (!foundToday) {
-    if (daysOut === 0) {
-      document.getElementById('today-name').textContent = '🏁 Race Day — Peachtree 10K';
-      document.getElementById('today-detail').textContent = 'Mile 1: 6:55 · Miles 2–4: 6:45 · Miles 5–6.2: race it home. Go get it.';
-    } else if (daysOut < 0) {
-      document.getElementById('today-name').textContent = 'Race complete!';
-      document.getElementById('today-detail').textContent = 'Hope you crushed it.';
-      document.getElementById('today-box').style.borderColor = 'var(--green-line)';
-      document.getElementById('today-box').style.background = 'var(--green-bg)';
-    } else {
-      document.getElementById('today-name').textContent = 'Plan starts June 1';
-      document.getElementById('today-detail').textContent = 'Check back on Monday June 1st for your first workout.';
-    }
+  if(!foundToday){
+
+    document.getElementById('today-name')
+      .textContent =
+        'Plan Starts June 1';
+
+    document.getElementById('today-detail')
+      .textContent =
+        'Get ready for Peachtree.';
   }
 }
 
-function tog(id) {
-  document.getElementById(id).classList.toggle('open');
+function tog(id){
+
+  document.getElementById(id)
+    .classList.toggle('open');
 }
 
 init();
+
 </script>
+
 </body>
 </html>
