@@ -1,0 +1,513 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Peachtree Plan">
+<title>Peachtree 10K — Training Plan</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;800&family=Barlow:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0a0a0a;
+    --surface: #141414;
+    --surface2: #1c1c1c;
+    --border: rgba(255,255,255,0.08);
+    --accent: #E8FF47;
+    --accent2: #FF6B35;
+    --text: #f0f0f0;
+    --muted: #888;
+    --green: #4ADE80;
+    --purple: #A78BFA;
+    --blue: #60A5FA;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+  html { background: var(--bg); }
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Barlow', sans-serif;
+    font-weight: 400;
+    min-height: 100vh;
+    padding-bottom: env(safe-area-inset-bottom, 20px);
+  }
+
+  .hero {
+    background: var(--surface);
+    padding: 52px 20px 28px;
+    border-bottom: 1px solid var(--border);
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: -60px; right: -60px;
+    width: 220px; height: 220px;
+    background: radial-gradient(circle, rgba(232,255,71,0.12) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .hero-eyebrow {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 8px;
+  }
+  .hero-title {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 48px;
+    font-weight: 800;
+    line-height: 0.95;
+    text-transform: uppercase;
+    letter-spacing: -0.01em;
+    margin-bottom: 16px;
+  }
+  .hero-title span { color: var(--accent); }
+  .hero-meta {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+  }
+  .meta-item { display: flex; flex-direction: column; gap: 2px; }
+  .meta-label { font-size: 10px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); }
+  .meta-val { font-family: 'Barlow Condensed', sans-serif; font-size: 20px; font-weight: 700; color: var(--text); }
+  .meta-val.accent { color: var(--accent); }
+
+  .paces-section { padding: 20px 16px 8px; }
+  .section-title {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 12px;
+    padding-left: 4px;
+  }
+  .paces-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+  }
+  .pace-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 12px 14px;
+  }
+  .pace-card.goal {
+    grid-column: span 2;
+    border-color: rgba(232,255,71,0.3);
+    background: rgba(232,255,71,0.05);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .pace-type { font-size: 11px; font-weight: 500; color: var(--muted); margin-bottom: 4px; }
+  .pace-val {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--text);
+    line-height: 1;
+  }
+  .pace-val.accent { color: var(--accent); font-size: 26px; }
+  .goal-label { font-family: 'Barlow Condensed', sans-serif; font-size: 16px; font-weight: 700; color: var(--accent); }
+
+  .weeks-section { padding: 8px 16px 20px; }
+
+  .week-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    margin-bottom: 10px;
+    overflow: hidden;
+    transition: border-color 0.2s;
+  }
+  .week-card.active { border-color: rgba(255,255,255,0.2); }
+
+  .week-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 14px 16px;
+    cursor: pointer;
+    user-select: none;
+  }
+  .week-left { display: flex; align-items: center; gap: 12px; }
+  .week-num {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 28px;
+    font-weight: 800;
+    color: var(--border);
+    line-height: 1;
+    width: 36px;
+    text-align: center;
+    transition: color 0.2s;
+  }
+  .week-card.active .week-num { color: var(--accent); }
+  .week-info { flex: 1; }
+  .week-name {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 17px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.02em;
+    color: var(--text);
+    line-height: 1.1;
+  }
+  .week-sub { font-size: 12px; color: var(--muted); margin-top: 2px; }
+  .week-right { display: flex; align-items: center; gap: 8px; }
+  .week-badge {
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    padding: 3px 8px;
+    border-radius: 20px;
+  }
+  .badge-build { background: rgba(96,165,250,0.15); color: var(--blue); }
+  .badge-sharpen { background: rgba(167,139,250,0.15); color: var(--purple); }
+  .badge-peak { background: rgba(255,107,53,0.15); color: var(--accent2); }
+  .badge-race { background: rgba(74,222,128,0.15); color: var(--green); }
+
+  .chevron {
+    width: 18px; height: 18px;
+    display: flex; align-items: center; justify-content: center;
+    color: var(--muted);
+    transition: transform 0.25s;
+    flex-shrink: 0;
+  }
+  .chevron svg { width: 14px; height: 14px; }
+  .week-card.active .chevron { transform: rotate(180deg); }
+
+  .week-body { display: none; padding: 0 16px 16px; }
+  .week-card.active .week-body { display: block; }
+
+  .week-desc {
+    font-size: 13px;
+    color: var(--muted);
+    line-height: 1.6;
+    margin-bottom: 14px;
+    padding-top: 2px;
+  }
+
+  .days-list { display: flex; flex-direction: column; gap: 6px; margin-bottom: 12px; }
+  .day-row {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    background: var(--surface2);
+    border-radius: 10px;
+    padding: 10px 12px;
+  }
+  .day-row.rest { opacity: 0.45; }
+  .day-tag {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 13px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--muted);
+    min-width: 32px;
+    padding-top: 1px;
+  }
+  .day-content { flex: 1; }
+  .day-type {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 15px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+    color: var(--text);
+    line-height: 1.1;
+    margin-bottom: 2px;
+  }
+  .day-detail { font-size: 12px; color: var(--muted); line-height: 1.4; }
+  .day-row.race-day { background: rgba(74,222,128,0.08); border: 1px solid rgba(74,222,128,0.2); opacity: 1; }
+  .day-row.race-day .day-type { color: var(--green); }
+
+  .note-box {
+    background: rgba(232,255,71,0.05);
+    border-left: 2px solid var(--accent);
+    border-radius: 0 8px 8px 0;
+    padding: 10px 12px;
+    font-size: 12px;
+    color: #bbb;
+    line-height: 1.6;
+  }
+
+  .strategy-section { padding: 0 16px 32px; }
+  .strategy-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 16px;
+  }
+  .strategy-title {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 18px;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+    color: var(--accent2);
+    margin-bottom: 12px;
+  }
+  .mile-list { display: flex; flex-direction: column; gap: 6px; }
+  .mile-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px 12px;
+    background: var(--surface2);
+    border-radius: 8px;
+    font-size: 13px;
+  }
+  .mile-label { color: var(--muted); font-weight: 500; }
+  .mile-pace {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--text);
+  }
+  .mile-note { font-size: 11px; color: var(--muted); text-align: right; }
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <div class="hero-eyebrow">Atlanta • July 4, 2026</div>
+  <div class="hero-title">Peach<span>tree</span><br>10K Plan</div>
+  <div class="hero-meta">
+    <div class="meta-item">
+      <div class="meta-label">Goal pace</div>
+      <div class="meta-val accent">6:45/mi</div>
+    </div>
+    <div class="meta-item">
+      <div class="meta-label">Finish time</div>
+      <div class="meta-val">~41:50</div>
+    </div>
+    <div class="meta-item">
+      <div class="meta-label">Weeks out</div>
+      <div class="meta-val">5</div>
+    </div>
+    <div class="meta-item">
+      <div class="meta-label">Framework</div>
+      <div class="meta-val">Daniels</div>
+    </div>
+  </div>
+</div>
+
+<div class="paces-section">
+  <div class="section-title">Training paces (VDOT ~53)</div>
+  <div class="paces-grid">
+    <div class="pace-card">
+      <div class="pace-type">Easy (E)</div>
+      <div class="pace-val">7:20–7:45</div>
+    </div>
+    <div class="pace-card">
+      <div class="pace-type">Marathon (M)</div>
+      <div class="pace-val">7:00–7:10</div>
+    </div>
+    <div class="pace-card">
+      <div class="pace-type">Threshold (T)</div>
+      <div class="pace-val">6:40–6:50</div>
+    </div>
+    <div class="pace-card">
+      <div class="pace-type">Interval (I)</div>
+      <div class="pace-val">6:15–6:25</div>
+    </div>
+    <div class="pace-card goal">
+      <div>
+        <div class="pace-type">Race goal</div>
+        <div class="pace-val accent">6:45/mi</div>
+      </div>
+      <div class="goal-label">→ 41:50 finish</div>
+    </div>
+  </div>
+</div>
+
+<div class="weeks-section">
+  <div class="section-title">5-week schedule</div>
+
+  <!-- Week 1 -->
+  <div class="week-card active" id="wk1">
+    <div class="week-header" onclick="toggle('wk1')">
+      <div class="week-left">
+        <div class="week-num">1</div>
+        <div class="week-info">
+          <div class="week-name">Base reactivation</div>
+          <div class="week-sub">~25 miles • easy only</div>
+        </div>
+      </div>
+      <div class="week-right">
+        <span class="week-badge badge-build">Build</span>
+        <div class="chevron"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg></div>
+      </div>
+    </div>
+    <div class="week-body">
+      <div class="week-desc">Reawaken the legs. All runs easy. Zero intensity. Time on feet and rebuilding connective tissue tolerance.</div>
+      <div class="days-list">
+        <div class="day-row"><div class="day-tag">Mon</div><div class="day-content"><div class="day-type">Easy run</div><div class="day-detail">4 mi @ E pace + drills</div></div></div>
+        <div class="day-row"><div class="day-tag">Tue</div><div class="day-content"><div class="day-type">Easy run</div><div class="day-detail">5 mi @ E pace</div></div></div>
+        <div class="day-row rest"><div class="day-tag">Wed</div><div class="day-content"><div class="day-type">Rest / gym</div><div class="day-detail">Normal gym day</div></div></div>
+        <div class="day-row"><div class="day-tag">Thu</div><div class="day-content"><div class="day-type">Easy run</div><div class="day-detail">5 mi @ E pace</div></div></div>
+        <div class="day-row"><div class="day-tag">Fri</div><div class="day-content"><div class="day-type">Easy + strides</div><div class="day-detail">4 mi easy + 6×100m strides</div></div></div>
+        <div class="day-row rest"><div class="day-tag">Sat</div><div class="day-content"><div class="day-type">Rest / gym</div><div class="day-detail">Normal gym day</div></div></div>
+        <div class="day-row"><div class="day-tag">Sun</div><div class="day-content"><div class="day-type">Long easy</div><div class="day-detail">7 mi @ E pace</div></div></div>
+      </div>
+      <div class="note-box">Strides = 100m accelerations at ~mile effort with full recovery. They prime neuromuscular speed without adding stress load.</div>
+    </div>
+  </div>
+
+  <!-- Week 2 -->
+  <div class="week-card" id="wk2">
+    <div class="week-header" onclick="toggle('wk2')">
+      <div class="week-left">
+        <div class="week-num">2</div>
+        <div class="week-info">
+          <div class="week-name">Threshold intro</div>
+          <div class="week-sub">~28 miles • first quality day</div>
+        </div>
+      </div>
+      <div class="week-right">
+        <span class="week-badge badge-build">Build</span>
+        <div class="chevron"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg></div>
+      </div>
+    </div>
+    <div class="week-body">
+      <div class="week-desc">First quality day. T-pace is your race-goal neighborhood — the most specific training for a 10K.</div>
+      <div class="days-list">
+        <div class="day-row"><div class="day-tag">Mon</div><div class="day-content"><div class="day-type">Easy run</div><div class="day-detail">5 mi @ E pace</div></div></div>
+        <div class="day-row"><div class="day-tag">Tue</div><div class="day-content"><div class="day-type">Threshold</div><div class="day-detail">2 mi warm-up → 3×10 min @ T (1 min rest) → 1 mi cool</div></div></div>
+        <div class="day-row rest"><div class="day-tag">Wed</div><div class="day-content"><div class="day-type">Rest / gym</div><div class="day-detail">Normal gym day</div></div></div>
+        <div class="day-row"><div class="day-tag">Thu</div><div class="day-content"><div class="day-type">Easy run</div><div class="day-detail">5 mi @ E pace</div></div></div>
+        <div class="day-row"><div class="day-tag">Fri</div><div class="day-content"><div class="day-type">Easy + strides</div><div class="day-detail">4 mi easy + 6×100m strides</div></div></div>
+        <div class="day-row rest"><div class="day-tag">Sat</div><div class="day-content"><div class="day-type">Rest / gym</div><div class="day-detail">Normal gym day</div></div></div>
+        <div class="day-row"><div class="day-tag">Sun</div><div class="day-content"><div class="day-type">Long easy</div><div class="day-detail">8 mi @ E pace</div></div></div>
+      </div>
+      <div class="note-box">Daniels' T-pace = lactate threshold. 1 min rest between reps maintains the stimulus without excess lactate. 30 min total at T per week is the early ceiling.</div>
+    </div>
+  </div>
+
+  <!-- Week 3 -->
+  <div class="week-card" id="wk3">
+    <div class="week-header" onclick="toggle('wk3')">
+      <div class="week-left">
+        <div class="week-num">3</div>
+        <div class="week-info">
+          <div class="week-name">Sharpening</div>
+          <div class="week-sub">~30 miles • two quality days</div>
+        </div>
+      </div>
+      <div class="week-right">
+        <span class="week-badge badge-sharpen">Sharpen</span>
+        <div class="chevron"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg></div>
+      </div>
+    </div>
+    <div class="week-body">
+      <div class="week-desc">Add VO2max intervals. These raise your aerobic ceiling and make race pace feel easier. Hip flexor work pre-run for the low back.</div>
+      <div class="days-list">
+        <div class="day-row"><div class="day-tag">Mon</div><div class="day-content"><div class="day-type">Easy run</div><div class="day-detail">5 mi @ E pace</div></div></div>
+        <div class="day-row"><div class="day-tag">Tue</div><div class="day-content"><div class="day-type">Intervals</div><div class="day-detail">2 mi E → 6×1K @ I pace (3 min jog rest) → 1 mi cool</div></div></div>
+        <div class="day-row rest"><div class="day-tag">Wed</div><div class="day-content"><div class="day-type">Easy / gym</div><div class="day-detail">3–4 mi easy or gym only</div></div></div>
+        <div class="day-row"><div class="day-tag">Thu</div><div class="day-content"><div class="day-type">Threshold</div><div class="day-detail">2 mi E → 20 min continuous @ T → 1 mi cool</div></div></div>
+        <div class="day-row"><div class="day-tag">Fri</div><div class="day-content"><div class="day-type">Easy + strides</div><div class="day-detail">4 mi easy + 8×100m strides</div></div></div>
+        <div class="day-row rest"><div class="day-tag">Sat</div><div class="day-content"><div class="day-type">Rest / gym</div><div class="day-detail">Normal gym day</div></div></div>
+        <div class="day-row"><div class="day-tag">Sun</div><div class="day-content"><div class="day-type">Long easy</div><div class="day-detail">8 mi @ E pace</div></div></div>
+      </div>
+      <div class="note-box">1K at I pace (6:15–6:25) with 3 min rest. Interval rest ≈ interval duration. Hard but controlled — not a sprint.</div>
+    </div>
+  </div>
+
+  <!-- Week 4 -->
+  <div class="week-card" id="wk4">
+    <div class="week-header" onclick="toggle('wk4')">
+      <div class="week-left">
+        <div class="week-num">4</div>
+        <div class="week-info">
+          <div class="week-name">Peak + race sim</div>
+          <div class="week-sub">~28 miles • confidence builder</div>
+        </div>
+      </div>
+      <div class="week-right">
+        <span class="week-badge badge-peak">Peak</span>
+        <div class="chevron"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg></div>
+      </div>
+    </div>
+    <div class="week-body">
+      <div class="week-desc">Race simulation Thursday — 4 miles at goal pace. Volume dips to keep legs fresh. This is your confidence builder.</div>
+      <div class="days-list">
+        <div class="day-row"><div class="day-tag">Mon</div><div class="day-content"><div class="day-type">Easy run</div><div class="day-detail">5 mi @ E pace</div></div></div>
+        <div class="day-row"><div class="day-tag">Tue</div><div class="day-content"><div class="day-type">Intervals</div><div class="day-detail">2 mi E → 5×1K @ I pace (3 min rest) → 1 mi cool</div></div></div>
+        <div class="day-row rest"><div class="day-tag">Wed</div><div class="day-content"><div class="day-type">Easy / gym</div><div class="day-detail">3–4 mi very easy or gym</div></div></div>
+        <div class="day-row"><div class="day-tag">Thu</div><div class="day-content"><div class="day-type">Race sim</div><div class="day-detail">1 mi E → 4 mi @ 6:45 goal pace → 1 mi cool</div></div></div>
+        <div class="day-row"><div class="day-tag">Fri</div><div class="day-content"><div class="day-type">Easy + strides</div><div class="day-detail">3 mi easy + 6×100m strides</div></div></div>
+        <div class="day-row rest"><div class="day-tag">Sat</div><div class="day-content"><div class="day-type">Rest / gym</div><div class="day-detail">Normal gym day</div></div></div>
+        <div class="day-row"><div class="day-tag">Sun</div><div class="day-content"><div class="day-type">Long easy</div><div class="day-detail">7 mi @ E pace</div></div></div>
+      </div>
+      <div class="note-box">If Thursday's 4 mi at 6:45 feels controlled, you're ready. If it's a grind, start the race at 7:00 and let it come to you after mile 3.</div>
+    </div>
+  </div>
+
+  <!-- Week 5 -->
+  <div class="week-card" id="wk5">
+    <div class="week-header" onclick="toggle('wk5')">
+      <div class="week-left">
+        <div class="week-num">5</div>
+        <div class="week-info">
+          <div class="week-name">Taper & race</div>
+          <div class="week-sub">~15 miles • July 4th</div>
+        </div>
+      </div>
+      <div class="week-right">
+        <span class="week-badge badge-race">Race week</span>
+        <div class="chevron"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg></div>
+      </div>
+    </div>
+    <div class="week-body">
+      <div class="week-desc">Volume drops 50%. Intensity stays, volume goes. Fitness consolidates this week. Resist adding miles.</div>
+      <div class="days-list">
+        <div class="day-row"><div class="day-tag">Mon</div><div class="day-content"><div class="day-type">Easy run</div><div class="day-detail">4 mi @ E pace</div></div></div>
+        <div class="day-row"><div class="day-tag">Tue</div><div class="day-content"><div class="day-type">Short threshold</div><div class="day-detail">1 mi E → 2×10 min @ T (1 min rest) → 1 mi cool</div></div></div>
+        <div class="day-row rest"><div class="day-tag">Wed</div><div class="day-content"><div class="day-type">Gym only</div><div class="day-detail">No run</div></div></div>
+        <div class="day-row"><div class="day-tag">Thu</div><div class="day-content"><div class="day-type">Shakeout</div><div class="day-detail">3 mi easy + 6×100m strides</div></div></div>
+        <div class="day-row rest"><div class="day-tag">Fri</div><div class="day-content"><div class="day-type">Full rest</div><div class="day-detail">20 min walk max</div></div></div>
+        <div class="day-row rest"><div class="day-tag">Sat</div><div class="day-content"><div class="day-type">Full rest</div><div class="day-detail">Sleep + hydrate hard</div></div></div>
+        <div class="day-row race-day"><div class="day-tag">Sun</div><div class="day-content"><div class="day-type">🏁 Peachtree 10K</div><div class="day-detail">Mile 1 at 6:55 → settle to 6:45 → attack mile 5+</div></div></div>
+      </div>
+      <div class="note-box">Peachtree starts downhill off Peachtree Road. DON'T go out at 6:30. That downhill burns quads. Patient start = strong finish.</div>
+    </div>
+  </div>
+
+</div>
+
+<div class="strategy-section">
+  <div class="section-title">Race strategy</div>
+  <div class="strategy-card">
+    <div class="strategy-title">Mile-by-mile plan</div>
+    <div class="mile-list">
+      <div class="mile-row"><span class="mile-label">Mile 1</span><div style="text-align:right"><div class="mile-pace">6:55</div><div class="mile-note">Downhill — hold back</div></div></div>
+      <div class="mile-row"><span class="mile-label">Mile 2</span><div style="text-align:right"><div class="mile-pace">6:50</div><div class="mile-note">Settle in</div></div></div>
+      <div class="mile-row"><span class="mile-label">Mile 3</span><div style="text-align:right"><div class="mile-pace">6:45</div><div class="mile-note">Lock in race pace</div></div></div>
+      <div class="mile-row"><span class="mile-label">Mile 4</span><div style="text-align:right"><div class="mile-pace">6:45</div><div class="mile-note">Grind — stay smooth</div></div></div>
+      <div class="mile-row"><span class="mile-label">Mile 5</span><div style="text-align:right"><div class="mile-pace">6:40</div><div class="mile-note">Start moving</div></div></div>
+      <div class="mile-row"><span class="mile-label">Mile 6.2</span><div style="text-align:right"><div class="mile-pace">6:30</div><div class="mile-note">Empty the tank</div></div></div>
+    </div>
+  </div>
+</div>
+
+<script>
+function toggle(id) {
+  const card = document.getElementById(id);
+  card.classList.toggle('active');
+}
+</script>
+</body>
+</html>
