@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -732,27 +733,74 @@ function adaptPlan(log,curWeek,today){
   const adjBox=document.getElementById('adj-box');
   const adjBody=document.getElementById('adj-body');
 
+  // --- Adaptive plan overhaul ---
+  // Compute difference between actual and expected miles in completed weeks.
+  // Positive diff means the user logged more miles than planned; negative means less.
+  const diffMiles = totalLogged - expectedMi;
+
+  // Collect all adjustable future runs (current week and beyond) that are easy/non-quality
+  let adjustableRows = [];
+  for(let w=curWeek; w<=5; w++){
+    const rows=document.querySelectorAll('#days-wk'+w+' .day-row');
+    rows.forEach(row=>{
+      // skip rest, quality, race days
+      if(row.classList.contains('rest') || row.classList.contains('quality') || row.classList.contains('race')) return;
+      // skip days already logged (done/skip)
+      const dow=parseInt(row.getAttribute('data-dow'));
+      const key=getKey(w,dow);
+      if(log[key]) return;
+      // ensure there is a mileage to adjust
+      const orig=parseFloat(row.getAttribute('data-mi'))||0;
+      if(orig<=0) return;
+      adjustableRows.push(row);
+    });
+  }
+
   let msgs=[];
 
-  // Daniels 10% rule — if significantly behind, reduce current week volume
-  if(pctLogged<0.65&&skipped>=3){
-    msgs.push('You\'ve logged less than 65% of planned volume. Current week easy runs reduced by 1 mi each to avoid injury from jumping back up too fast (Daniels 10% rule).');
-    document.querySelectorAll('#days-wk'+curWeek+' .day-row:not(.quality):not(.rest)').forEach(row=>{
+  // Only adjust if there is a meaningful difference and adjustable runs available
+  if(Math.abs(diffMiles) > 0.1 && adjustableRows.length>0){
+    // Determine per-run adjustment based on Jack Daniels' guideline:
+    // never change more than 1 mile per run. Distribute total difference evenly.
+    const perRun = Math.min(1, Math.abs(diffMiles) / adjustableRows.length);
+    // Determine direction: decrease future miles if user ran more than planned (diffMiles>0),
+    // increase if user ran less (diffMiles<0).
+    const sign = diffMiles>0 ? -1 : 1;
+    adjustableRows.forEach(row=>{
       const orig=parseFloat(row.getAttribute('data-mi'))||0;
-      if(orig>3){
-        const adj=Math.max(2,orig-1);
-        const det=row.querySelector('.ddet');
-        if(det&&!det.textContent.includes('↓')){
-          det.textContent=det.textContent.replace(/\d+ mi @/,adj+' mi @ ')+' ↓ adjusted';
+      let newMi = orig + sign * perRun;
+      // round to nearest 0.5 for nicer numbers
+      newMi = Math.max(0.5, Math.round(newMi * 2) / 2);
+      // Do not allow changes beyond 1 mile per run from original
+      if(sign>0){
+        newMi = Math.min(orig + 1, newMi);
+      } else {
+        newMi = Math.max(orig - 1, newMi);
+      }
+      // Update data-mi attribute
+      row.setAttribute('data-mi', newMi.toFixed(1));
+      // Update run detail text
+      const det=row.querySelector('.ddet');
+      if(det){
+        // Replace the first mileage number in the detail string
+        det.textContent = det.textContent.replace(/^(\d+(?:\.\d+)?)( mi)/, newMi + ' mi');
+        // append arrow indicator
+        if(!det.textContent.includes('↑') && !det.textContent.includes('↓')){
+          det.textContent += sign>0 ? ' ↑ adjusted' : ' ↓ adjusted';
         }
       }
     });
-  } else if(pctLogged<0.8&&skipped>=2){
-    msgs.push('A few missed runs — holding current plan volume but avoid adding extra miles this week to stay within safe ramp rate.');
+    // message describing the adjustment
+    const dir = diffMiles>0 ? 'down' : 'up';
+    msgs.push(`You have logged ${(diffMiles>0?'+':'')}${diffMiles.toFixed(1)} mi relative to plan. Future easy runs have been adjusted ${dir} by ${perRun.toFixed(1)} mi each (max 1 mi per run) in accordance with Jack Daniels’ mileage rules.`);
   }
 
+  // If there were multiple skips or behind schedule but no diffMiles adjustments applied
+  if(pctLogged<0.8 && skipped>=2 && msgs.length===0){
+    msgs.push('A few missed runs detected — hold current plan volume and avoid adding extra miles to stay within safe ramp rate.');
+  }
   if(skipped>=4){
-    msgs.push('Multiple skipped workouts detected. Quality workout (intervals/threshold) complexity held constant — the plan\'s scientific structure still gets you to race day.');
+    msgs.push('Multiple skipped workouts detected. Quality sessions will remain unchanged to preserve the scientific structure of the plan.');
   }
 
   if(msgs.length>0){
@@ -763,6 +811,28 @@ function adaptPlan(log,curWeek,today){
   } else {
     alert.classList.remove('show');
     adjBox.style.display='none';
+  }
+
+  // Update weekly mileage summaries (wsub elements) to reflect adjusted mileage
+  for(let w=1; w<=5; w++){
+    const rows=document.querySelectorAll('#days-wk'+w+' .day-row');
+    let sum=0;
+    rows.forEach(row=>{
+      const mi=parseFloat(row.getAttribute('data-mi'))||0;
+      sum+=mi;
+    });
+    // Round to nearest integer for display
+    const approx=Math.round(sum);
+    const sub=document.getElementById('wsub'+w);
+    if(sub){
+      // Preserve the descriptive text after the mileage if present
+      const parts=sub.textContent.split('·');
+      if(parts.length>1){
+        sub.textContent=`~${approx} miles ·${parts[1]}`;
+      } else {
+        sub.textContent=`~${approx} miles`;
+      }
+    }
   }
 }
 
