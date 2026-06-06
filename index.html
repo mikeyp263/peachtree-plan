@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -7,36 +6,19 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="apple-mobile-web-app-title" content="Peachtree">
-<title>Peachtree 10K</title>
+<title>Peachtree 10K — Adaptive</title>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
-:root {
-  --bg:#0f0f10;
-  --s1:#161618;
-  --s2:#1e1e21;
-  --s3:#252528;
-  --s4:#2e2e32;
-  --b1:rgba(255,255,255,0.07);
-  --b2:rgba(255,255,255,0.13);
-  --b3:rgba(255,255,255,0.2);
-  --t1:#f0f0f2;
-  --t2:#9898a0;
-  --t3:#555560;
-  --or:#f97316;
-  --or-bg:rgba(249,115,22,0.1);
-  --or-b:rgba(249,115,22,0.28);
-  --gr:#34d399;
-  --gr-bg:rgba(52,211,153,0.08);
-  --gr-b:rgba(52,211,153,0.22);
-  --rd:#f87171;
-  --rd-bg:rgba(248,113,113,0.08);
-  --rd-b:rgba(248,113,113,0.22);
-  --bl:#60a5fa;
-  --bl-bg:rgba(96,165,250,0.08);
-  --pu:#a78bfa;
-  --pu-bg:rgba(167,139,250,0.08);
-  --yw:#fbbf24;
-  --yw-bg:rgba(251,191,36,0.08);
+:root{
+  --bg:#0f0f10;--s1:#161618;--s2:#1e1e21;--s3:#252528;--s4:#2e2e32;
+  --b1:rgba(255,255,255,0.07);--b2:rgba(255,255,255,0.13);--b3:rgba(255,255,255,0.2);
+  --t1:#f0f0f2;--t2:#9898a0;--t3:#555560;
+  --or:#f97316;--or-bg:rgba(249,115,22,0.1);--or-b:rgba(249,115,22,0.28);
+  --gr:#34d399;--gr-bg:rgba(52,211,153,0.08);--gr-b:rgba(52,211,153,0.22);
+  --rd:#f87171;--rd-bg:rgba(248,113,113,0.08);--rd-b:rgba(248,113,113,0.22);
+  --bl:#60a5fa;--bl-bg:rgba(96,165,250,0.08);
+  --pu:#a78bfa;--pu-bg:rgba(167,139,250,0.08);
+  --yw:#fbbf24;--yw-bg:rgba(251,191,36,0.08);--yw-b:rgba(251,191,36,0.28);
 }
 *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
 html,body{background:var(--bg)}
@@ -52,8 +34,6 @@ input{font-family:'JetBrains Mono',monospace}
 @keyframes pulse{0%,100%{opacity:1}50%{opacity:0.4}}
 .hdr-days{font-size:11px;color:var(--t3);font-weight:500}
 .hdr-days span{color:var(--t1);font-weight:600}
-
-/* today card */
 .today-card{background:var(--or-bg);border:1px solid var(--or-b);border-radius:14px;padding:14px;margin-bottom:14px}
 .today-label{font-size:9px;font-weight:700;letter-spacing:0.16em;text-transform:uppercase;color:var(--or);margin-bottom:6px}
 .today-name{font-size:18px;font-weight:600;color:var(--t1);line-height:1.2;margin-bottom:4px}
@@ -61,16 +41,11 @@ input{font-family:'JetBrains Mono',monospace}
 .today-card.rest-card{background:var(--s2);border-color:var(--b1)}
 .today-card.rest-card .today-label{color:var(--t3)}
 .today-card.rest-card .today-name{color:var(--t2)}
-
-/* stats row */
 .stats{display:grid;grid-template-columns:1fr 1fr 1fr;gap:7px;margin-bottom:14px}
 .stat{background:var(--s2);border:1px solid var(--b1);border-radius:10px;padding:10px 11px}
 .stat-l{font-size:9px;font-weight:600;letter-spacing:0.12em;text-transform:uppercase;color:var(--t3);margin-bottom:4px}
 .stat-v{font-family:'JetBrains Mono',monospace;font-size:17px;font-weight:500;color:var(--t1);line-height:1}
-.stat-v.or{color:var(--or)}
-.stat-v.gr{color:var(--gr)}
-
-/* progress bar */
+.stat-v.or{color:var(--or)}.stat-v.gr{color:var(--gr)}
 .prog-wrap{height:3px;background:var(--s3);border-radius:3px;overflow:hidden}
 .prog-fill{height:100%;background:var(--or);border-radius:3px;transition:width 0.6s ease}
 
@@ -80,8 +55,13 @@ input{font-family:'JetBrains Mono',monospace}
 .tab.active{color:var(--or);border-bottom-color:var(--or)}
 
 /* ── PANELS ── */
-.panel{display:none;padding:14px 14px 0}
-.panel.active{display:block}
+.panel{display:none;padding:14px 14px 0}.panel.active{display:block}
+
+/* ── ADAPT ALERT ── */
+.adapt-alert{background:var(--yw-bg);border:1px solid var(--yw-b);border-radius:11px;padding:12px 13px;margin-bottom:10px}
+.adapt-title{font-size:12px;font-weight:600;color:var(--yw);margin-bottom:6px}
+.adapt-item{font-size:12px;color:var(--t2);line-height:1.55;margin-bottom:4px;padding-left:10px;position:relative}
+.adapt-item::before{content:"→";position:absolute;left:0;color:var(--yw)}
 
 /* ── WEEK CARDS ── */
 .week-card{background:var(--s1);border:1px solid var(--b1);border-radius:13px;margin-bottom:8px;overflow:hidden;transition:border-color 0.2s}
@@ -89,16 +69,13 @@ input{font-family:'JetBrains Mono',monospace}
 .week-card.past{opacity:0.5}
 .week-hd{display:flex;align-items:center;gap:10px;padding:12px 13px;cursor:pointer;user-select:none;position:relative}
 .wnum{font-family:'JetBrains Mono',monospace;font-size:18px;font-weight:500;color:var(--t3);width:22px;text-align:center;flex-shrink:0;transition:color 0.2s}
-.week-card.current .wnum{color:var(--or)}
-.week-card.open .wnum{color:var(--or)}
+.week-card.current .wnum{color:var(--or)}.week-card.open .wnum{color:var(--or)}
 .wmeta{flex:1}
 .wname{font-size:13px;font-weight:600;color:var(--t1);line-height:1.2}
 .wsub{font-size:11px;color:var(--t2);margin-top:1px}
 .wbadge{font-size:9px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;padding:3px 8px;border-radius:20px;flex-shrink:0}
-.bb{background:var(--bl-bg);color:var(--bl)}
-.bs{background:var(--pu-bg);color:var(--pu)}
-.bp{background:var(--or-bg);color:var(--or)}
-.br{background:var(--gr-bg);color:var(--gr)}
+.bb{background:var(--bl-bg);color:var(--bl)}.bs{background:var(--pu-bg);color:var(--pu)}
+.bp{background:var(--or-bg);color:var(--or)}.br{background:var(--gr-bg);color:var(--gr)}
 .wchev{color:var(--t3);transition:transform 0.2s;flex-shrink:0}
 .week-card.open .wchev{transform:rotate(180deg)}
 .week-body{display:none;padding:0 13px 13px}
@@ -115,7 +92,10 @@ input{font-family:'JetBrains Mono',monospace}
 .day-row.past{opacity:0.28}
 .day-row.done{border-color:var(--gr-b);background:var(--gr-bg)}
 .day-row.skipped{border-color:var(--rd-b);background:var(--rd-bg);opacity:0.55}
+.day-row.short{border-color:var(--or-b);background:var(--or-bg)}
+.day-row.tired{border-color:var(--yw-b);background:var(--yw-bg)}
 .day-row.race{background:var(--gr-bg);border-color:var(--gr-b)}
+.day-row.adjusted{border-left:2px solid var(--yw)}
 .dow{font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:500;color:var(--t3);min-width:29px;padding-top:2px;flex-shrink:0}
 .day-row.today .dow{color:var(--or);font-weight:700}
 .dcont{flex:1;min-width:0}
@@ -129,43 +109,60 @@ input{font-family:'JetBrains Mono',monospace}
 .dtag.g{background:var(--s4);color:var(--t3);border:1px solid var(--b2)}
 .dtag.t{background:var(--or-bg);color:var(--or);border:1px solid var(--or-b)}
 .dtag.i{background:var(--rd-bg);color:var(--rd);border:1px solid var(--rd-b)}
+.dtag.adj{background:var(--yw-bg);color:var(--yw);border:1px solid var(--yw-b)}
+.adj-reason{font-size:11px;color:var(--yw);margin-top:5px;line-height:1.5;padding:5px 8px;background:rgba(251,191,36,0.06);border-radius:5px}
+.adj-reason-fatigue{color:var(--rd)}
 .today-arrow{font-size:10px;color:var(--or);font-weight:600;align-self:center;margin-left:auto;flex-shrink:0}
-.done-check{font-size:14px;align-self:center;margin-left:auto;flex-shrink:0;color:var(--gr)}
+.status-icon{font-size:14px;align-self:center;margin-left:auto;flex-shrink:0}
 
-/* log buttons */
-.log-btns{display:flex;gap:5px;margin-top:7px}
+/* ── LOG BUTTONS ── */
+.log-btns{display:flex;gap:5px;flex-wrap:wrap;margin-top:7px}
 .lbtn{font-size:10px;font-weight:600;letter-spacing:0.06em;padding:4px 10px;border-radius:7px;transition:opacity 0.15s}
 .lbtn:active{opacity:0.7}
-.lbtn.mark-done{background:var(--gr-bg);color:var(--gr);border:1px solid var(--gr-b)}
-.lbtn.mark-skip{background:var(--rd-bg);color:var(--rd);border:1px solid var(--rd-b)}
-.lbtn.edit-mi{background:var(--s4);color:var(--t2);border:1px solid var(--b2)}
+.lbtn.done{background:var(--gr-bg);color:var(--gr);border:1px solid var(--gr-b)}
+.lbtn.short{background:var(--or-bg);color:var(--or);border:1px solid var(--or-b)}
+.lbtn.skip{background:var(--rd-bg);color:var(--rd);border:1px solid var(--rd-b)}
+.lbtn.tired{background:var(--yw-bg);color:var(--yw);border:1px solid var(--yw-b)}
 .lbtn.undo{background:var(--s4);color:var(--t3);border:1px solid var(--b2)}
-
-/* inline mi editor */
-.mi-edit{display:none;align-items:center;gap:7px;margin-top:7px;background:var(--s3);border-radius:8px;padding:8px 10px}
-.mi-edit input{width:64px;padding:4px 8px;background:var(--s2);border:1px solid var(--b2);border-radius:6px;color:var(--t1);font-size:13px;text-align:center}
-.mi-edit label{font-size:11px;color:var(--t2)}
+.mi-input-row{display:none;align-items:center;gap:7px;margin-top:7px;background:var(--s3);border-radius:8px;padding:8px 10px}
+.mi-input-row input{width:64px;padding:4px 8px;background:var(--s2);border:1px solid var(--b2);border-radius:6px;color:var(--t1);font-size:13px;text-align:center}
+.mi-input-row label{font-size:11px;color:var(--t2)}
 .mi-save{background:var(--or);color:#000;font-size:11px;font-weight:700;padding:5px 11px;border-radius:7px}
 
-/* note */
+/* ── NOTES ── */
 .note{font-size:12px;color:var(--t2);line-height:1.65;border-left:2px solid var(--or);background:var(--or-bg);border-radius:0 8px 8px 0;padding:9px 11px}
 .note.gr{border-left-color:var(--gr);background:var(--gr-bg)}
+.sec-t{font-size:10px;font-weight:700;letter-spacing:0.16em;text-transform:uppercase;color:var(--t3);margin-bottom:10px;padding-top:6px}
 
-/* ── ZONES PANEL ── */
+/* ── LOG PANEL ── */
+.log-summary{background:var(--s1);border:1px solid var(--b1);border-radius:13px;padding:14px;margin-bottom:10px}
+.log-sum-title{font-size:10px;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;color:var(--t3);margin-bottom:10px}
+.log-stats{display:grid;grid-template-columns:1fr 1fr;gap:7px;margin-bottom:12px}
+.log-stat{background:var(--s2);border-radius:9px;padding:10px 11px}
+.log-stat .lsl{font-size:9px;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:var(--t3);margin-bottom:4px}
+.log-stat .lsv{font-family:'JetBrains Mono',monospace;font-size:20px;font-weight:500;color:var(--t1)}
+.log-stat .lsv.or{color:var(--or)}.log-stat .lsv.gr{color:var(--gr)}.log-stat .lsv.rd{color:var(--rd)}.log-stat .lsv.yw{color:var(--yw)}
+.log-entries{display:flex;flex-direction:column;gap:5px}
+.log-entry{background:var(--s2);border-radius:9px;padding:9px 12px}
+.le-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:2px}
+.le-day{font-size:12px;font-weight:500;color:var(--t1)}
+.le-status{font-size:11px;font-weight:600;padding:2px 8px;border-radius:6px}
+.le-status.done{background:var(--gr-bg);color:var(--gr)}
+.le-status.short{background:var(--or-bg);color:var(--or)}
+.le-status.skip{background:var(--rd-bg);color:var(--rd)}
+.le-status.tired{background:var(--yw-bg);color:var(--yw)}
+.le-type{font-size:11px;color:var(--t2);margin-top:1px}
+.le-detail{font-size:11px;color:var(--t3);margin-top:3px;line-height:1.4}
+
+/* ── ZONES ── */
 .zone-card{display:flex;border:1px solid var(--b1);border-radius:12px;margin-bottom:8px;overflow:hidden}
 .zpip{width:3px;flex-shrink:0}
-.zpip.e{background:var(--gr)}
-.zpip.t{background:var(--or)}
-.zpip.i{background:var(--rd)}
+.zpip.e{background:var(--gr)}.zpip.t{background:var(--or)}.zpip.i{background:var(--rd)}
 .zin{padding:12px 13px;flex:1}
-.zone-card.e{background:var(--gr-bg)}
-.zone-card.t{background:var(--or-bg)}
-.zone-card.i{background:var(--rd-bg)}
+.zone-card.e{background:var(--gr-bg)}.zone-card.t{background:var(--or-bg)}.zone-card.i{background:var(--rd-bg)}
 .ztop{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:5px;gap:8px}
 .zname{font-size:11px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase}
-.zname.e{color:var(--gr)}
-.zname.t{color:var(--or)}
-.zname.i{color:var(--rd)}
+.zname.e{color:var(--gr)}.zname.t{color:var(--or)}.zname.i{color:var(--rd)}
 .zfeel{font-size:11px;color:var(--t2);margin-top:2px}
 .zpace{font-family:'JetBrains Mono',monospace;font-size:14px;font-weight:500;color:var(--t1);line-height:1.3;text-align:right}
 .zhr{font-size:10px;color:var(--t3);text-align:right;margin-top:2px}
@@ -180,39 +177,6 @@ input{font-family:'JetBrains Mono',monospace}
 .drill-name{font-size:12px;font-weight:600;color:var(--t1);margin-bottom:2px}
 .drill-reps{font-size:10px;font-weight:700;color:var(--or);margin-bottom:4px}
 .drill-desc{font-size:11px;color:var(--t2);line-height:1.45}
-
-/* ── LOG / PROGRESS PANEL ── */
-.log-summary{background:var(--s1);border:1px solid var(--b1);border-radius:13px;padding:14px;margin-bottom:10px}
-.log-sum-title{font-size:10px;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;color:var(--t3);margin-bottom:10px}
-.log-stats{display:grid;grid-template-columns:1fr 1fr;gap:7px;margin-bottom:12px}
-.log-stat{background:var(--s2);border-radius:9px;padding:10px 11px}
-.log-stat .lsl{font-size:9px;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:var(--t3);margin-bottom:4px}
-.log-stat .lsv{font-family:'JetBrains Mono',monospace;font-size:20px;font-weight:500;color:var(--t1)}
-.log-stat .lsv.or{color:var(--or)}
-.log-stat .lsv.gr{color:var(--gr)}
-.log-stat .lsv.rd{color:var(--rd)}
-.adj-box{background:var(--yw-bg);border:1px solid rgba(251,191,36,0.25);border-radius:11px;padding:12px 13px;margin-bottom:10px}
-.adj-title{font-size:12px;font-weight:600;color:var(--yw);margin-bottom:4px}
-.adj-body{font-size:12px;color:var(--t2);line-height:1.55}
-.log-entries{display:flex;flex-direction:column;gap:5px}
-.log-entry{background:var(--s2);border-radius:9px;padding:9px 12px;display:flex;justify-content:space-between;align-items:center}
-.le-left .le-day{font-size:12px;font-weight:500;color:var(--t1)}
-.le-left .le-type{font-size:11px;color:var(--t2);margin-top:1px}
-.le-right{text-align:right}
-.le-status{font-size:11px;font-weight:600;padding:2px 8px;border-radius:6px}
-.le-status.done{background:var(--gr-bg);color:var(--gr)}
-.le-status.skip{background:var(--rd-bg);color:var(--rd)}
-.le-status.adj{background:var(--yw-bg);color:var(--yw)}
-.le-mi{font-size:10px;color:var(--t3);margin-top:2px}
-
-/* ── ADAPT ALERT ── */
-.adapt-alert{background:var(--yw-bg);border:1px solid rgba(251,191,36,0.3);border-radius:11px;padding:12px 13px;margin-bottom:8px;display:none}
-.adapt-alert.show{display:block}
-.adapt-title{font-size:12px;font-weight:600;color:var(--yw);margin-bottom:4px}
-.adapt-body{font-size:12px;color:var(--t2);line-height:1.55}
-
-/* sec title */
-.sec-t{font-size:10px;font-weight:700;letter-spacing:0.16em;text-transform:uppercase;color:var(--t3);margin-bottom:10px;padding-top:6px}
 </style>
 </head>
 <body>
@@ -244,219 +208,27 @@ input{font-family:'JetBrains Mono',monospace}
   <button class="tab" onclick="switchTab('drills')">Drills</button>
 </div>
 
-<!-- PLAN TAB -->
-<div class="panel active" id="panel-plan">
-  <div class="adapt-alert" id="adapt-alert">
-    <div class="adapt-title">Plan adjusted</div>
-    <div class="adapt-body" id="adapt-body"></div>
-  </div>
+<!-- PLAN PANEL (dynamically rendered) -->
+<div class="panel active" id="panel-plan"></div>
 
-  <!-- WEEK 1 -->
-  <div class="week-card" id="wk1">
-    <div class="week-hd" onclick="togW('wk1')">
-      <div class="wnum">1</div>
-      <div class="wmeta"><div class="wname">Base reactivation</div><div class="wsub" id="wsub1">~25 miles · easy only</div></div>
-      <span class="wbadge bb">Build</span>
-      <svg class="wchev" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
-    </div>
-    <div class="week-body">
-      <div class="week-desc">Every run this week is easy — zero exceptions. Your aerobic engine is ready but tendons and connective tissue need time to wake up. Drills before every run, all 5 weeks.</div>
-      <div class="days" id="days-wk1">
-        <div class="day-row" data-wk="1" data-dow="1" data-type="Easy run" data-mi="4" data-detail="4 mi @ E pace (7:20–7:45) · no gym today">
-          <div class="dow">MON</div><div class="dcont"><div class="dtype">Easy run</div><div class="ddet">4 mi @ E pace (7:20–7:45) · no gym today</div><div class="dtags"><span class="dtag d">Drills first</span></div></div>
-        </div>
-        <div class="day-row" data-wk="1" data-dow="2" data-type="Easy run" data-mi="5" data-detail="5 mi @ E pace">
-          <div class="dow">TUE</div><div class="dcont"><div class="dtype">Easy run</div><div class="ddet">5 mi @ E pace</div><div class="dtags"><span class="dtag d">Drills first</span><span class="dtag g">Gym after OK</span></div></div>
-        </div>
-        <div class="day-row rest" data-wk="1" data-dow="3" data-type="Gym only" data-mi="0" data-detail="Normal gym day · no run">
-          <div class="dow">WED</div><div class="dcont"><div class="dtype">Gym only</div><div class="ddet">Normal gym day · no run</div></div>
-        </div>
-        <div class="day-row" data-wk="1" data-dow="4" data-type="Easy run" data-mi="5" data-detail="5 mi @ E pace">
-          <div class="dow">THU</div><div class="dcont"><div class="dtype">Easy run</div><div class="ddet">5 mi @ E pace</div><div class="dtags"><span class="dtag d">Drills first</span><span class="dtag g">Gym after OK</span></div></div>
-        </div>
-        <div class="day-row" data-wk="1" data-dow="5" data-type="Easy run + strides" data-mi="4" data-detail="4 mi easy · 6×100m strides (full walk rest between)">
-          <div class="dow">FRI</div><div class="dcont"><div class="dtype">Easy run + strides</div><div class="ddet">4 mi easy · 6×100m strides (full walk rest between)</div><div class="dtags"><span class="dtag d">Drills first</span></div></div>
-        </div>
-        <div class="day-row rest" data-wk="1" data-dow="6" data-type="Gym only" data-mi="0" data-detail="Normal gym day · no run">
-          <div class="dow">SAT</div><div class="dcont"><div class="dtype">Gym only</div><div class="ddet">Normal gym day · no run</div></div>
-        </div>
-        <div class="day-row" data-wk="1" data-dow="0" data-type="Long easy run" data-mi="7" data-detail="7 mi @ E pace · truly easy, not a fast long run">
-          <div class="dow">SUN</div><div class="dcont"><div class="dtype">Long easy run</div><div class="ddet">7 mi @ E pace · truly easy, not a fast long run</div><div class="dtags"><span class="dtag d">Drills first</span></div></div>
-        </div>
-      </div>
-      <div class="note">Low back: leg swings before every run. Hip flexors that don't fire = low back that compensates. Non-negotiable.</div>
-    </div>
-  </div>
-
-  <!-- WEEK 2 -->
-  <div class="week-card" id="wk2">
-    <div class="week-hd" onclick="togW('wk2')">
-      <div class="wnum">2</div>
-      <div class="wmeta"><div class="wname">Threshold intro</div><div class="wsub" id="wsub2">~28 miles · first quality day</div></div>
-      <span class="wbadge bb">Build</span>
-      <svg class="wchev" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
-    </div>
-    <div class="week-body">
-      <div class="week-desc">First real workout Tuesday. Threshold pace (6:40–6:50) is nearly your exact race goal — the most specific training you can do. Should feel comfortably hard, short sentences still possible.</div>
-      <div class="days" id="days-wk2">
-        <div class="day-row" data-wk="2" data-dow="1" data-type="Easy run" data-mi="5" data-detail="5 mi @ E pace">
-          <div class="dow">MON</div><div class="dcont"><div class="dtype">Easy run</div><div class="ddet">5 mi @ E pace</div><div class="dtags"><span class="dtag d">Drills first</span><span class="dtag g">Gym after OK</span></div></div>
-        </div>
-        <div class="day-row quality" data-wk="2" data-dow="2" data-type="Threshold workout" data-mi="6" data-detail="2 mi E warm-up → 3×10 min @ T pace (6:40–6:50) with 1 min rest → 1 mi cool-down">
-          <div class="dow">TUE</div><div class="dcont"><div class="dtype">Threshold workout</div><div class="ddet">2 mi E warm-up → 3×10 min @ T pace (6:40–6:50) with 1 min rest → 1 mi cool-down</div><div class="dtags"><span class="dtag d">Drills first</span><span class="dtag t">T Zone 6:40–6:50</span></div></div>
-        </div>
-        <div class="day-row rest" data-wk="2" data-dow="3" data-type="Gym only" data-mi="0" data-detail="No run · recover from Tuesday">
-          <div class="dow">WED</div><div class="dcont"><div class="dtype">Gym only</div><div class="ddet">No run · recover from Tuesday</div></div>
-        </div>
-        <div class="day-row" data-wk="2" data-dow="4" data-type="Easy run" data-mi="5" data-detail="5 mi @ E pace">
-          <div class="dow">THU</div><div class="dcont"><div class="dtype">Easy run</div><div class="ddet">5 mi @ E pace</div><div class="dtags"><span class="dtag d">Drills first</span><span class="dtag g">Gym after OK</span></div></div>
-        </div>
-        <div class="day-row" data-wk="2" data-dow="5" data-type="Easy run + strides" data-mi="4" data-detail="4 mi easy · 6×100m strides">
-          <div class="dow">FRI</div><div class="dcont"><div class="dtype">Easy run + strides</div><div class="ddet">4 mi easy · 6×100m strides</div><div class="dtags"><span class="dtag d">Drills first</span></div></div>
-        </div>
-        <div class="day-row rest" data-wk="2" data-dow="6" data-type="Gym only" data-mi="0" data-detail="No run">
-          <div class="dow">SAT</div><div class="dcont"><div class="dtype">Gym only</div><div class="ddet">No run</div></div>
-        </div>
-        <div class="day-row" data-wk="2" data-dow="0" data-type="Long easy run" data-mi="8" data-detail="8 mi @ E pace">
-          <div class="dow">SUN</div><div class="dcont"><div class="dtype">Long easy run</div><div class="ddet">8 mi @ E pace</div><div class="dtags"><span class="dtag d">Drills first</span></div></div>
-        </div>
-      </div>
-      <div class="note">Daniels: 1 min standing rest between T reps maintains the stimulus without overloading. Zone matters more than exact number — 6:50 is fine if 6:40 feels rough.</div>
-    </div>
-  </div>
-
-  <!-- WEEK 3 -->
-  <div class="week-card" id="wk3">
-    <div class="week-hd" onclick="togW('wk3')">
-      <div class="wnum">3</div>
-      <div class="wmeta"><div class="wname">Sharpening</div><div class="wsub" id="wsub3">~30 miles · two quality days</div></div>
-      <span class="wbadge bs">Sharpen</span>
-      <svg class="wchev" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
-    </div>
-    <div class="week-body">
-      <div class="week-desc">Two hard days. Intervals raise your VO2max ceiling so race pace feels easy. Continuous threshold builds staying power for 6.2 miles. Two hard days per week is the Daniels ceiling — don't add more.</div>
-      <div class="days" id="days-wk3">
-        <div class="day-row" data-wk="3" data-dow="1" data-type="Easy run" data-mi="5" data-detail="5 mi @ E pace">
-          <div class="dow">MON</div><div class="dcont"><div class="dtype">Easy run</div><div class="ddet">5 mi @ E pace</div><div class="dtags"><span class="dtag d">Drills first</span><span class="dtag g">Gym after OK</span></div></div>
-        </div>
-        <div class="day-row quality" data-wk="3" data-dow="2" data-type="Interval workout" data-mi="7" data-detail="2 mi E → 6×1K @ I pace (6:15–6:25) with 3 min jog rest → 1 mi cool">
-          <div class="dow">TUE</div><div class="dcont"><div class="dtype">Interval workout</div><div class="ddet">2 mi E → 6×1K @ I pace (6:15–6:25) with 3 min jog rest → 1 mi cool</div><div class="dtags"><span class="dtag d">Drills first</span><span class="dtag i">I Zone 6:15–6:25</span></div></div>
-        </div>
-        <div class="day-row" data-wk="3" data-dow="3" data-type="Easy run or gym" data-mi="3" data-detail="3–4 mi very easy if legs OK · gym only if heavy">
-          <div class="dow">WED</div><div class="dcont"><div class="dtype">Easy run or gym only</div><div class="ddet">3–4 mi very easy if legs OK · gym only if heavy</div><div class="dtags"><span class="dtag d">Drills if running</span><span class="dtag g">Gym OK</span></div></div>
-        </div>
-        <div class="day-row quality" data-wk="3" data-dow="4" data-type="Continuous threshold" data-mi="6" data-detail="2 mi E → 20 min non-stop @ T pace (6:40–6:50) → 1 mi cool">
-          <div class="dow">THU</div><div class="dcont"><div class="dtype">Continuous threshold</div><div class="ddet">2 mi E → 20 min non-stop @ T pace (6:40–6:50) → 1 mi cool</div><div class="dtags"><span class="dtag d">Drills first</span><span class="dtag t">T Zone 6:40–6:50</span></div></div>
-        </div>
-        <div class="day-row" data-wk="3" data-dow="5" data-type="Easy run + strides" data-mi="4" data-detail="4 mi easy · 8×100m strides">
-          <div class="dow">FRI</div><div class="dcont"><div class="dtype">Easy run + strides</div><div class="ddet">4 mi easy · 8×100m strides</div><div class="dtags"><span class="dtag d">Drills first</span></div></div>
-        </div>
-        <div class="day-row rest" data-wk="3" data-dow="6" data-type="Gym only" data-mi="0" data-detail="No run">
-          <div class="dow">SAT</div><div class="dcont"><div class="dtype">Gym only</div><div class="ddet">No run</div></div>
-        </div>
-        <div class="day-row" data-wk="3" data-dow="0" data-type="Long easy run" data-mi="8" data-detail="8 mi @ E pace">
-          <div class="dow">SUN</div><div class="dcont"><div class="dtype">Long easy run</div><div class="ddet">8 mi @ E pace</div><div class="dtags"><span class="dtag d">Drills first</span></div></div>
-        </div>
-      </div>
-      <div class="note">Interval rest ≈ interval time. 1K at ~6:20 = ~3:50 effort → 3–4 min rest. Each rep finishes in control, not gasping.</div>
-    </div>
-  </div>
-
-  <!-- WEEK 4 -->
-  <div class="week-card" id="wk4">
-    <div class="week-hd" onclick="togW('wk4')">
-      <div class="wnum">4</div>
-      <div class="wmeta"><div class="wname">Peak + race simulation</div><div class="wsub" id="wsub4">~28 miles · key workout Thursday</div></div>
-      <span class="wbadge bp">Peak</span>
-      <svg class="wchev" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
-    </div>
-    <div class="week-body">
-      <div class="week-desc">Thursday's race simulation is the most important workout of the plan. Four miles at exactly 6:45 tells you where you stand. Volume dips so legs feel good for it.</div>
-      <div class="days" id="days-wk4">
-        <div class="day-row" data-wk="4" data-dow="1" data-type="Easy run" data-mi="5" data-detail="5 mi @ E pace">
-          <div class="dow">MON</div><div class="dcont"><div class="dtype">Easy run</div><div class="ddet">5 mi @ E pace</div><div class="dtags"><span class="dtag d">Drills first</span><span class="dtag g">Gym after OK</span></div></div>
-        </div>
-        <div class="day-row quality" data-wk="4" data-dow="2" data-type="Interval workout" data-mi="7" data-detail="2 mi E → 5×1K @ I pace (6:15–6:25) with 3 min rest → 1 mi cool">
-          <div class="dow">TUE</div><div class="dcont"><div class="dtype">Interval workout</div><div class="ddet">2 mi E → 5×1K @ I pace (6:15–6:25) with 3 min rest → 1 mi cool</div><div class="dtags"><span class="dtag d">Drills first</span><span class="dtag i">I Zone 6:15–6:25</span></div></div>
-        </div>
-        <div class="day-row" data-wk="4" data-dow="3" data-type="Very easy or gym" data-mi="3" data-detail="3 mi very easy or gym only · save legs for Thursday">
-          <div class="dow">WED</div><div class="dcont"><div class="dtype">Very easy or gym</div><div class="ddet">3 mi very easy or gym only · save legs for Thursday</div><div class="dtags"><span class="dtag g">Gym OK</span></div></div>
-        </div>
-        <div class="day-row quality" data-wk="4" data-dow="4" data-type="Race simulation" data-mi="6" data-detail="1 mi E → 4 mi @ exactly 6:45 → 1 mi cool · note how it feels">
-          <div class="dow">THU</div><div class="dcont"><div class="dtype">Race simulation</div><div class="ddet">1 mi E → 4 mi @ exactly 6:45 → 1 mi cool · note how it feels</div><div class="dtags"><span class="dtag d">Drills first</span><span class="dtag t">Goal pace 6:45</span></div></div>
-        </div>
-        <div class="day-row" data-wk="4" data-dow="5" data-type="Easy run + strides" data-mi="3" data-detail="3 mi easy · 6×100m strides">
-          <div class="dow">FRI</div><div class="dcont"><div class="dtype">Easy run + strides</div><div class="ddet">3 mi easy · 6×100m strides</div><div class="dtags"><span class="dtag d">Drills first</span></div></div>
-        </div>
-        <div class="day-row rest" data-wk="4" data-dow="6" data-type="Gym only" data-mi="0" data-detail="No run">
-          <div class="dow">SAT</div><div class="dcont"><div class="dtype">Gym only</div><div class="ddet">No run</div></div>
-        </div>
-        <div class="day-row" data-wk="4" data-dow="0" data-type="Long easy run" data-mi="7" data-detail="7 mi @ E pace">
-          <div class="dow">SUN</div><div class="dcont"><div class="dtype">Long easy run</div><div class="ddet">7 mi @ E pace</div><div class="dtags"><span class="dtag d">Drills first</span></div></div>
-        </div>
-      </div>
-      <div class="note">If Thursday's 4 mi at 6:45 feels controlled → you're ready. If it's a grind → start the race at 7:00 and let it come to you after mile 3.</div>
-    </div>
-  </div>
-
-  <!-- WEEK 5 -->
-  <div class="week-card" id="wk5">
-    <div class="week-hd" onclick="togW('wk5')">
-      <div class="wnum">5</div>
-      <div class="wmeta"><div class="wname">Taper → race week</div><div class="wsub" id="wsub5">~15 miles · July 4th Sunday</div></div>
-      <span class="wbadge br">Race week</span>
-      <svg class="wchev" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
-    </div>
-    <div class="week-body">
-      <div class="week-desc">Volume drops 50%. Intensity stays but short. Fitness is locked — this week is keeping the engine warm and arriving fresh. Do NOT add miles because you feel good. That feeling is the taper working.</div>
-      <div class="days" id="days-wk5">
-        <div class="day-row" data-wk="5" data-dow="1" data-type="Easy run" data-mi="4" data-detail="4 mi @ E pace">
-          <div class="dow">MON</div><div class="dcont"><div class="dtype">Easy run</div><div class="ddet">4 mi @ E pace</div><div class="dtags"><span class="dtag d">Drills first</span><span class="dtag g">Light gym OK</span></div></div>
-        </div>
-        <div class="day-row quality" data-wk="5" data-dow="2" data-type="Short threshold" data-mi="4" data-detail="1 mi E → 2×10 min @ T pace (1 min rest) → 1 mi cool · crisp, not long">
-          <div class="dow">TUE</div><div class="dcont"><div class="dtype">Short threshold</div><div class="ddet">1 mi E → 2×10 min @ T pace (1 min rest) → 1 mi cool · crisp, not long</div><div class="dtags"><span class="dtag d">Drills first</span><span class="dtag t">T Zone 6:40–6:50</span></div></div>
-        </div>
-        <div class="day-row rest" data-wk="5" data-dow="3" data-type="Gym only" data-mi="0" data-detail="No run · normal gym">
-          <div class="dow">WED</div><div class="dcont"><div class="dtype">Gym only</div><div class="ddet">No run · normal gym</div></div>
-        </div>
-        <div class="day-row" data-wk="5" data-dow="4" data-type="Shakeout + strides" data-mi="3" data-detail="3 mi easy · 6×100m strides · legs should feel springy and fast">
-          <div class="dow">THU</div><div class="dcont"><div class="dtype">Shakeout + strides</div><div class="ddet">3 mi easy · 6×100m strides · legs should feel springy</div><div class="dtags"><span class="dtag d">Drills first</span></div></div>
-        </div>
-        <div class="day-row rest" data-wk="5" data-dow="5" data-type="Full rest" data-mi="0" data-detail="Walk only · no gym · 8+ hrs sleep">
-          <div class="dow">FRI</div><div class="dcont"><div class="dtype">Full rest</div><div class="ddet">Walk only · no gym · 8+ hrs sleep</div></div>
-        </div>
-        <div class="day-row rest" data-wk="5" data-dow="6" data-type="Full rest" data-mi="0" data-detail="Hydrate all day · carb-heavy dinner · sleep early">
-          <div class="dow">SAT</div><div class="dcont"><div class="dtype">Full rest</div><div class="ddet">Hydrate all day · carb-heavy dinner · sleep early</div></div>
-        </div>
-        <div class="day-row race" data-wk="5" data-dow="0" data-type="Peachtree 10K — Race Day" data-mi="6.2" data-detail="Mile 1: 6:55 (hold back, it's downhill) · Miles 2–4: settle at 6:45 · Miles 5–6.2: race it home">
-          <div class="dow">SUN</div><div class="dcont"><div class="dtype">Peachtree 10K — Race Day</div><div class="ddet">Mile 1: 6:55 (hold back, it's downhill) · Miles 2–4: 6:45 · Miles 5–6.2: race it home</div></div>
-        </div>
-      </div>
-      <div class="note gr">Peachtree starts downhill. Everyone goes out at 6:20 and dies. Run 6:55 for mile 1 — patience buys you a strong mile 5 and 6.</div>
-    </div>
-  </div>
-</div>
-
-<!-- LOG TAB -->
+<!-- LOG PANEL -->
 <div class="panel" id="panel-log">
   <div class="log-summary">
     <div class="log-sum-title">Your progress</div>
     <div class="log-stats">
       <div class="log-stat"><div class="lsl">Total miles</div><div class="lsv or" id="log-mi">0</div></div>
-      <div class="log-stat"><div class="lsl">Runs done</div><div class="lsv gr" id="log-done">0 / 0</div></div>
+      <div class="log-stat"><div class="lsl">Completed</div><div class="lsv gr" id="log-done">0 / 0</div></div>
       <div class="log-stat"><div class="lsl">Skipped</div><div class="lsv rd" id="log-skip">0</div></div>
-      <div class="log-stat"><div class="lsl">Adjusted</div><div class="lsv" id="log-adj">0</div></div>
-    </div>
-    <div class="adj-box" id="adj-box" style="display:none">
-      <div class="adj-title">Adaptive adjustment active</div>
-      <div class="adj-body" id="adj-body">—</div>
+      <div class="log-stat"><div class="lsl">Ran Short</div><div class="lsv yw" id="log-short">0</div></div>
     </div>
   </div>
   <div class="sec-t">Activity log</div>
-  <div class="log-entries" id="log-entries"><div style="font-size:12px;color:var(--t3);padding:8px 0">No activity logged yet — mark runs done on the Plan tab.</div></div>
+  <div class="log-entries" id="log-entries">
+    <div style="font-size:12px;color:var(--t3);padding:8px 0">No activity yet — mark runs on the Plan tab.</div>
+  </div>
 </div>
 
-<!-- ZONES TAB -->
+<!-- ZONES PANEL -->
 <div class="panel" id="panel-zones">
   <div class="sec-t">Training zones — know these cold</div>
   <div class="zone-card e">
@@ -476,7 +248,7 @@ input{font-family:'JetBrains Mono',monospace}
         <div><div class="zname t">Threshold (T)</div><div class="zfeel">Short sentences · comfortably hard</div></div>
         <div><div class="zpace">6:40–6:50/mi</div><div class="zhr">162–172 bpm</div></div>
       </div>
-      <div class="zdesc">Most important zone for this race. T-pace = lactate threshold — the pace you could hold ~60 min max. Training here raises that ceiling. Notice it's nearly identical to your 6:45 race goal. This is the workout that wins the Peachtree.</div>
+      <div class="zdesc">Most important zone for this race. T-pace = lactate threshold — the pace you could hold ~60 min max. Nearly identical to your 6:45 race goal. This is the workout that wins the Peachtree.</div>
     </div>
   </div>
   <div class="zone-card i">
@@ -486,19 +258,19 @@ input{font-family:'JetBrains Mono',monospace}
         <div><div class="zname i">Interval (I)</div><div class="zfeel">A few words · controlled hard</div></div>
         <div><div class="zpace">6:15–6:25/mi</div><div class="zhr">174–185 bpm</div></div>
       </div>
-      <div class="zdesc">VO2max pace. Short 1K reps with full rest between. Not a sprint — focused 3-minute effort. These raise your aerobic ceiling so 6:45 feels like a cruise on race day.</div>
+      <div class="zdesc">VO2max pace. Short 1K reps with full rest. Not a sprint — focused 3-minute effort. Raises your aerobic ceiling so 6:45 feels like a cruise on race day.</div>
     </div>
   </div>
   <div style="background:var(--s2);border:1px solid var(--b1);border-radius:10px;padding:11px 13px;font-size:12px;color:var(--t2);line-height:1.6;margin-top:4px">
-    <strong style="color:var(--t1);font-weight:500">HR zones are a guide, not gospel.</strong> Max HR formulas are wrong for trained athletes. Trust feel first — if easy runs feel conversational around 145–150 bpm you're dialed. If 155 still feels easy, trust the feeling.
+    <strong style="color:var(--t1);font-weight:500">HR zones are a guide, not gospel.</strong> Trained athletes run misleadingly at 150+ on easy days. Trust feel first — full sentences = easy, regardless of HR.
   </div>
 </div>
 
-<!-- DRILLS TAB -->
+<!-- DRILLS PANEL -->
 <div class="panel" id="panel-drills">
   <div class="drill-banner">
-    <div class="db-head">Before EVERY run · EVERY week · all 5 weeks</div>
-    <div class="db-body">Takes 8 minutes. Non-negotiable — especially with low back soreness. Activates hip flexors and glutes before each run. Skip them and your back will remind you why you shouldn't have.</div>
+    <div class="db-head">Before EVERY run · EVERY week · all 4 weeks</div>
+    <div class="db-body">Takes 8 minutes. Non-negotiable especially with low back soreness. Activates hip flexors and glutes. Skip them and your back will remind you why you shouldn't have.</div>
   </div>
   <div class="drills-grid">
     <div class="drill"><div class="drill-name">Leg Swings</div><div class="drill-reps">10 each direction, each leg</div><div class="drill-desc">Forward/back then side-to-side. Do this one first. Unlocks hip flexors — critical for your low back.</div></div>
@@ -506,385 +278,806 @@ input{font-family:'JetBrains Mono',monospace}
     <div class="drill"><div class="drill-name">A-Skip</div><div class="drill-reps">2 × 20m</div><div class="drill-desc">Same as A-march with a skip rhythm. Adds pop and ground contact timing on top of knee drive.</div></div>
     <div class="drill"><div class="drill-name">B-Skip</div><div class="drill-reps">2 × 20m</div><div class="drill-desc">High knee then extend and claw foot down. Teaches the pawing motion — most important running mechanic.</div></div>
     <div class="drill"><div class="drill-name">Butt Kicks</div><div class="drill-reps">2 × 20m</div><div class="drill-desc">Heels to glutes, fast turnover. Trains hamstring recovery speed and high-cadence muscle memory.</div></div>
-    <div class="drill"><div class="drill-name">Strides</div><div class="drill-reps">6–8 × 100m when listed</div><div class="drill-desc">Smooth accelerations to mile effort. Full walk recovery between. Maintain form — not a sprint.</div></div>
+    <div class="drill"><div class="drill-name">Strides</div><div class="drill-reps">6–8 × 100m when listed</div><div class="drill-desc">Smooth accelerations to mile effort. Full walk recovery. Maintain form — not a sprint.</div></div>
   </div>
 </div>
 
 <script>
-const RACE = new Date(2026,6,4);
-const PLAN_START = new Date(2026,5,1);
-const TOTAL_DAYS = Math.round((RACE-PLAN_START)/86400000);
+/* ============================================================
+ * MODULE 1 — CONFIG
+ * Single place to change dates or Daniels constants.
+ * ============================================================ */
+const CFG = {
+  planStart   : new Date(2026, 5, 8),  // June 8 2026 (Monday)
+  raceDate    : new Date(2026, 6, 4),  // July 4 2026 (Saturday)
+  maxRunDelta : 1.0,   // Jack Daniels: max ±1 mile change per individual run
+  deficitPct  : 0.20,  // Weekly deficit threshold that triggers ramp-rate adjustment (20%)
+  minRunMi    : 2.0,   // Floor for any easy run after adjustment
+};
 
-const WDAYS = ['SUN','MON','TUE','WED','THU','FRI','SAT'];
+/* ============================================================
+ * MODULE 2 — BASE PLAN
+ * Pure data. Never mutated. UI reads this and Adapt overlays adjustments.
+ *
+ * dow: 1=Mon 2=Tue 3=Wed 4=Thu 5=Fri 6=Sat 0=Sun
+ * type: 'easy' | 'long' | 'tempo' | 'intervals' | 'strides' | 'rest' | 'race'
+ * quality types = tempo + intervals (hard sessions — extra handling rules)
+ * adjustable types = easy + long + strides (mileage can be changed by Adapt)
+ * ============================================================ */
+const BASE_PLAN = [
+  {
+    week: 1,
+    name: "Base reactivation",
+    badge: "Build", badgeClass: "bb",
+    desc: "Every run this week is easy — zero exceptions. Aerobic engine is ready but tendons and connective tissue wake up slower. Drills before every run, all 4 weeks.",
+    note: "Low back: leg swings before every run. Hip flexors that don't fire = low back that compensates.",
+    noteClass: "",
+    days: [
+      { dow:1, type:"easy",    label:"Easy run",           mi:4,   detail:"4 mi @ easy pace (7:20–7:45) · no gym today",             tags:["drills"] },
+      { dow:2, type:"easy",    label:"Easy run",           mi:5,   detail:"5 mi @ easy pace",                                        tags:["drills","gym-ok"] },
+      { dow:3, type:"rest",    label:"Gym only",           mi:0,   detail:"No run · gym only",                                       tags:[] },
+      { dow:4, type:"easy",    label:"Easy run",           mi:5,   detail:"5 mi @ easy pace",                                        tags:["drills","gym-ok"] },
+      { dow:5, type:"strides", label:"Easy + strides",     mi:4,   detail:"4 mi easy · 6×100m strides (full walk rest between each)", tags:["drills"] },
+      { dow:6, type:"rest",    label:"Gym only",           mi:0,   detail:"No run · gym only",                                       tags:[] },
+      { dow:0, type:"long",    label:"Long easy run",      mi:7,   detail:"7 mi @ easy pace · truly easy, not a fast long run",      tags:["drills"] },
+    ]
+  },
+  {
+    week: 2,
+    name: "Threshold intro",
+    badge: "Build", badgeClass: "bb",
+    desc: "First real quality day Tuesday. Threshold pace (6:40–6:50) is nearly your exact race goal — the most specific training you can do. Comfortably hard, short sentences still possible.",
+    note: "Daniels: 1 min standing rest between T reps maintains stimulus without overloading. Zone matters more than exact pace — 6:50 is fine if 6:40 feels rough.",
+    noteClass: "",
+    days: [
+      { dow:1, type:"easy",    label:"Easy run",           mi:5,   detail:"5 mi @ easy pace",                                                                            tags:["drills","gym-ok"] },
+      { dow:2, type:"tempo",   label:"Threshold workout",  mi:6,   detail:"2 mi E warm-up → 3×10 min @ T pace (6:40–6:50) with 1 min rest → 1 mi cool-down",            tags:["drills","quality"] },
+      { dow:3, type:"rest",    label:"Gym only",           mi:0,   detail:"No run · recover from Tuesday",                                                               tags:[] },
+      { dow:4, type:"easy",    label:"Easy run",           mi:5,   detail:"5 mi @ easy pace",                                                                            tags:["drills","gym-ok"] },
+      { dow:5, type:"strides", label:"Easy + strides",     mi:4,   detail:"4 mi easy · 6×100m strides",                                                                  tags:["drills"] },
+      { dow:6, type:"rest",    label:"Gym only",           mi:0,   detail:"No run",                                                                                      tags:[] },
+      { dow:0, type:"long",    label:"Long easy run",      mi:8,   detail:"8 mi @ easy pace",                                                                            tags:["drills"] },
+    ]
+  },
+  {
+    week: 3,
+    name: "Sharpening",
+    badge: "Sharpen", badgeClass: "bs",
+    desc: "Two quality days. Intervals raise your VO2max ceiling. Race simulation Thursday confirms readiness. Two quality days is the Daniels ceiling — don't add a third.",
+    note: "If Thursday's 4 mi at 6:45 feels controlled → you're ready. If it's a grind → start race at 7:00 and let it come to you after mile 3.",
+    noteClass: "",
+    days: [
+      { dow:1, type:"easy",      label:"Easy run",            mi:4,   detail:"4 mi @ easy pace",                                                                              tags:["drills","gym-ok"] },
+      { dow:2, type:"intervals", label:"Interval workout",    mi:7,   detail:"2 mi E → 6×1K @ I pace (6:15–6:25) with 3 min jog rest → 1 mi cool",                          tags:["drills","quality"] },
+      { dow:3, type:"easy",      label:"Easy or gym only",    mi:3,   detail:"3 mi very easy if legs feel OK · gym only if heavy",                                           tags:["drills","gym-ok"] },
+      { dow:4, type:"tempo",     label:"Race simulation",     mi:6,   detail:"1 mi E → 4 mi @ exactly 6:45 → 1 mi cool · note exactly how it feels",                       tags:["drills","quality"] },
+      { dow:5, type:"strides",   label:"Easy + strides",      mi:4,   detail:"4 mi easy · 8×100m strides",                                                                   tags:["drills"] },
+      { dow:6, type:"rest",      label:"Gym only",            mi:0,   detail:"No run",                                                                                       tags:[] },
+      { dow:0, type:"long",      label:"Long easy run",       mi:6,   detail:"6 mi @ easy pace (shorter — two hard days this week)",                                         tags:["drills"] },
+    ]
+  },
+  {
+    week: 4,
+    name: "Taper → Race",
+    badge: "Race week", badgeClass: "br",
+    desc: "Volume drops ~50%. Fitness is locked — this week is keeping the engine warm and arriving fresh. Do NOT add miles because you feel good. That feeling is the taper working.",
+    note: "Peachtree starts downhill. Everyone goes out at 6:20 and dies. Run 6:55 for mile 1 — patience buys you a strong mile 5 and 6.",
+    noteClass: "gr",
+    days: [
+      { dow:1, type:"easy",    label:"Easy run",            mi:4,   detail:"4 mi @ easy pace · light gym OK",                                                              tags:["drills","gym-ok"] },
+      { dow:2, type:"tempo",   label:"Short threshold",     mi:4,   detail:"1 mi E → 2×10 min @ T pace (1 min rest) → 1 mi cool · crisp, not long",                       tags:["drills","quality"] },
+      { dow:3, type:"rest",    label:"Gym only",            mi:0,   detail:"No run · normal gym",                                                                           tags:[] },
+      { dow:4, type:"strides", label:"Shakeout + strides",  mi:3,   detail:"3 mi easy · 6×100m strides · legs should feel springy",                                         tags:["drills"] },
+      { dow:5, type:"rest",    label:"Full rest",           mi:0,   detail:"Walk only · no gym · 8+ hrs sleep · hydrate all day",                                           tags:[] },
+      { dow:6, type:"race",    label:"Peachtree 10K — Race Day", mi:6.2, detail:"Mile 1: 6:55 (hold back, downhill) · Miles 2–4: 6:45 · Miles 5–6.2: race it home",        tags:[] },
+      { dow:0, type:"rest",    label:"Recovery",            mi:0,   detail:"Easy walk · celebrate · eat everything",                                                        tags:[] },
+    ]
+  }
+];
 
-function weekStart(w){const d=new Date(PLAN_START);d.setDate(d.getDate()+(w-1)*7);return d}
-function getDate(w,dow){const ws=weekStart(w);const off=dow===0?6:dow-1;const d=new Date(ws);d.setDate(d.getDate()+off);return d}
-function sameDay(a,b){return a.getFullYear()===b.getFullYear()&&a.getMonth()===b.getMonth()&&a.getDate()===b.getDate()}
-function fmtDate(d){return d.toLocaleDateString('en-US',{month:'short',day:'numeric'})}
-function fmtFull(d){return d.toLocaleDateString('en-US',{weekday:'long',month:'long',day:'numeric'})}
+/* ============================================================
+ * MODULE 3 — TRAINING RULES (pure functions, no DOM access)
+ * ============================================================ */
+const Rules = {
+  isQuality    : type => ['tempo','intervals'].includes(type),
+  isAdjustable : type => ['easy','long','strides'].includes(type),
+  isRest       : type => ['rest'].includes(type),
+  isRunnable   : type => !['rest','race'].includes(type),
 
-// storage
-function getLog(){try{return JSON.parse(localStorage.getItem('pt_log')||'{}')}catch(e){return{}}}
-function saveLog(l){try{localStorage.setItem('pt_log',JSON.stringify(l))}catch(e){}}
-function getKey(w,dow){return w+'-'+dow}
+  /* Safely adjust a run's mileage: cap at maxRunDelta, floor at minRunMi */
+  safeAdjust(origMi, delta) {
+    const capped = Math.sign(delta) * Math.min(Math.abs(delta), CFG.maxRunDelta);
+    return Math.max(CFG.minRunMi, Math.round((origMi + capped) * 2) / 2);
+  },
 
-function switchTab(t){
-  document.querySelectorAll('.tab').forEach((b,i)=>{
-    const tabs=['plan','log','zones','drills'];
-    b.classList.toggle('active',tabs[i]===t);
+  /* How many miles can next week safely target given last week's actual? */
+  safeWeeklyMax(lastActualMi) {
+    return lastActualMi * 1.10; // 10% ramp cap (conservative, Daniels)
+  },
+
+  /* Does this day's workout count as a run (vs gym/rest)? */
+  isRunDay(type) { return !['rest'].includes(type); }
+};
+
+/* ============================================================
+ * MODULE 4 — ACTIVITY STORE (localStorage abstraction)
+ * Planned runs live in BASE_PLAN. Actuals live here.
+ * Keys: "${week}-${dow}"  e.g. "2-4" = Week 2 Thursday
+ * status: 'done' | 'short' | 'skip' | 'tired'
+ * ============================================================ */
+const Store = {
+  KEY: 'pt_v3',
+
+  get() {
+    try { return JSON.parse(localStorage.getItem(this.KEY) || '{}'); } catch { return {}; }
+  },
+
+  save(log) {
+    try { localStorage.setItem(this.KEY, JSON.stringify(log)); } catch {}
+  },
+
+  set(week, dow, status, mi, reason) {
+    const log = this.get();
+    log[`${week}-${dow}`] = { status, mi: mi !== null ? mi : undefined, reason: reason || '', ts: Date.now() };
+    this.save(log);
+  },
+
+  remove(week, dow) {
+    const log = this.get();
+    delete log[`${week}-${dow}`];
+    this.save(log);
+  },
+
+  entry(week, dow) {
+    return this.get()[`${week}-${dow}`] || null;
+  }
+};
+
+/* ============================================================
+ * MODULE 5 — ADAPT ENGINE
+ * Takes BASE_PLAN + activity log → produces adjustments with reasons.
+ * No DOM access. Returns plain data structures.
+ *
+ * Output:
+ *   adjustments: { "w-dow": { mi?, label?, detail?, fatigueWarning? }, ... }
+ *   alerts: string[]   — shown in the banner at top of plan tab
+ * ============================================================ */
+const Adapt = {
+
+  /* Main entry point */
+  compute(log, today) {
+    const adjustments = {};
+    const alerts = [];
+    const curW = this._currentWeek(today);
+    const weekStats = this._weekStats(log);
+
+    // Rule A: Missed quality runs — informational, no auto-reschedule
+    this._ruleA_missedQuality(log, curW, today, alerts);
+
+    // Rule B: Weekly mileage deficit — reduce future easy runs to safe ramp
+    this._ruleB_rampAdjust(log, weekStats, curW, adjustments, alerts);
+
+    // Rule C: Fatigue flag — next quality run gets a warning
+    this._ruleC_fatigue(log, curW, today, adjustments, alerts);
+
+    // Rule D: Multiple skips this week — note and hold volume
+    this._ruleD_multiSkip(log, curW, today, adjustments, alerts);
+
+    return { adjustments, alerts };
+  },
+
+  /* ── RULE A: Missed quality workouts ── */
+  _ruleA_missedQuality(log, curW, today, alerts) {
+    // Check completed weeks
+    for (let w = 1; w < curW; w++) {
+      const week = BASE_PLAN[w - 1];
+      week.days.forEach(day => {
+        if (!Rules.isQuality(day.type)) return;
+        const entry = log[`${w}-${day.dow}`];
+        if (!entry || entry.status === 'skip' || entry.status === 'tired') {
+          alerts.push(`Week ${w} ${day.label} was not completed. Quality sessions are not auto-rescheduled — rescheduling risks stacking hard days back-to-back. Continue with plan as written.`);
+        }
+      });
+    }
+    // Check current week quality that is past
+    if (curW > 0 && curW <= BASE_PLAN.length) {
+      const week = BASE_PLAN[curW - 1];
+      week.days.forEach(day => {
+        if (!Rules.isQuality(day.type)) return;
+        const runD = this._runDate(curW, day.dow);
+        if (runD >= today) return;
+        const entry = log[`${curW}-${day.dow}`];
+        if (!entry || entry.status === 'skip') {
+          alerts.push(`This week's ${day.label} was missed. Do not try to squeeze it in if it would land back-to-back with another hard day. Mark it skipped and continue.`);
+        }
+      });
+    }
+  },
+
+  /* ── RULE B: Ramp-rate adjustment ── */
+  _ruleB_rampAdjust(log, weekStats, curW, adjustments, alerts) {
+    if (curW <= 1) return; // nothing to analyze yet
+
+    // Find last week with actual data
+    let lastActual = null;
+    let lastW = 0;
+    for (let w = curW - 1; w >= 1; w--) {
+      if (weekStats[w] && weekStats[w].hasData) {
+        lastActual = weekStats[w].actual;
+        lastW = w;
+        break;
+      }
+    }
+    if (lastActual === null) return;
+
+    const lastPlanned = weekStats[lastW] ? weekStats[lastW].planned : 0;
+    const deficit = lastPlanned - lastActual;
+    const defPct = lastPlanned > 0 ? deficit / lastPlanned : 0;
+
+    if (defPct <= CFG.deficitPct) {
+      if (deficit > 0.5) {
+        alerts.push(`Last completed week: ${lastActual.toFixed(1)} mi vs ${lastPlanned} mi planned. Minor shortfall — no adjustment needed. Continue on plan.`);
+      }
+      return;
+    }
+
+    // Significant deficit — apply ramp rule to current/next unstarted weeks
+    const safeMax = Rules.safeWeeklyMax(lastActual);
+
+    for (let w = curW; w <= BASE_PLAN.length; w++) {
+      if (weekStats[w] && weekStats[w].hasData) continue; // week already started, skip
+
+      const week = BASE_PLAN[w - 1];
+      let plannedTotal = 0;
+      week.days.forEach(d => { plannedTotal += d.mi || 0; });
+
+      if (plannedTotal <= safeMax) break; // within safe range, stop cascading
+
+      // How much to cut?
+      const excess = plannedTotal - safeMax;
+      const adjustable = week.days.filter(d =>
+        Rules.isAdjustable(d.type) && !log[`${w}-${d.dow}`]
+      );
+      if (adjustable.length === 0) break;
+
+      const perRun = excess / adjustable.length;
+
+      adjustable.forEach(day => {
+        const key = `${w}-${day.dow}`;
+        const curMi = (adjustments[key] && adjustments[key].mi != null) ? adjustments[key].mi : day.mi;
+        const newMi = Rules.safeAdjust(curMi, -perRun);
+        if (newMi < curMi) {
+          adjustments[key] = adjustments[key] || {};
+          adjustments[key].mi = newMi;
+          adjustments[key].reason = `↓ ${(curMi - newMi).toFixed(1)} mi — last week was ${lastActual.toFixed(1)} mi actual vs ${lastPlanned} mi planned (${(defPct * 100).toFixed(0)}% short). Rebuilding gradually rather than jumping back. Max +10%/week (Daniels).`;
+        }
+      });
+
+      alerts.push(`Week ${w}: easy runs reduced to rebuild safely. Last completed week: ${lastActual.toFixed(1)} mi actual (${(defPct * 100).toFixed(0)}% below plan). Mileage will rebuild gradually — do not add back-fill miles.`);
+
+      // Cascade: update safeMax for next week
+      let newWeekTotal = 0;
+      week.days.forEach(d => {
+        const key = `${w}-${d.dow}`;
+        newWeekTotal += (adjustments[key] && adjustments[key].mi != null) ? adjustments[key].mi : (d.mi || 0);
+      });
+      lastActual = newWeekTotal;
+    }
+  },
+
+  /* ── RULE C: Fatigue flag ── */
+  _ruleC_fatigue(log, curW, today, adjustments, alerts) {
+    if (!curW || curW > BASE_PLAN.length) return;
+    const week = BASE_PLAN[curW - 1];
+    const hasFatigue = week.days.some(d => {
+      const e = log[`${curW}-${d.dow}`];
+      return e && e.status === 'tired';
+    });
+    if (!hasFatigue) return;
+
+    // Find next quality run after today
+    for (let w = curW; w <= BASE_PLAN.length; w++) {
+      const wd = BASE_PLAN[w - 1];
+      for (const day of wd.days) {
+        if (!Rules.isQuality(day.type)) continue;
+        const runD = this._runDate(w, day.dow);
+        if (runD <= today) continue;
+        const key = `${w}-${day.dow}`;
+        if (!log[key]) {
+          adjustments[key] = adjustments[key] || {};
+          adjustments[key].fatigueWarning = true;
+          adjustments[key].reason = `⚠ Fatigue flagged this week. Consider converting this to an easy run if still tired. Reduce intensity before reducing volume (Daniels principle). If you feel recovered, run as planned.`;
+          alerts.push(`Fatigue detected this week. Next quality run flagged — convert to easy if still feeling heavy. Intensity first, then volume.`);
+          return;
+        }
+      }
+    }
+  },
+
+  /* ── RULE D: Multiple skips this week ── */
+  _ruleD_multiSkip(log, curW, today, adjustments, alerts) {
+    if (!curW || curW > BASE_PLAN.length) return;
+    const week = BASE_PLAN[curW - 1];
+    let skipCount = 0;
+    week.days.forEach(d => {
+      const e = log[`${curW}-${d.dow}`];
+      if (e && e.status === 'skip') skipCount++;
+    });
+    if (skipCount >= 3) {
+      alerts.push(`${skipCount} runs skipped this week. Do not try to make them up — that creates an unsafe mileage spike. Continue with what's remaining, keeping easy runs easy.`);
+    }
+  },
+
+  /* ── HELPERS ── */
+
+  _weekStats(log) {
+    const stats = {};
+    BASE_PLAN.forEach((week, idx) => {
+      const w = idx + 1;
+      let planned = 0, actual = 0, hasData = false;
+      week.days.forEach(day => {
+        planned += day.mi || 0;
+        const e = log[`${w}-${day.dow}`];
+        if (e) {
+          hasData = true;
+          if (e.status === 'done' || e.status === 'short' || e.status === 'tired') {
+            actual += (e.mi != null ? e.mi : (day.mi || 0));
+          }
+        }
+      });
+      stats[w] = { planned, actual, hasData };
+    });
+    return stats;
+  },
+
+  _currentWeek(today) {
+    for (let w = 1; w <= BASE_PLAN.length; w++) {
+      const ws = this._weekStart(w);
+      const we = new Date(ws); we.setDate(we.getDate() + 6);
+      if (today >= ws && today <= we) return w;
+    }
+    return BASE_PLAN.length;
+  },
+
+  _weekStart(w) {
+    const d = new Date(CFG.planStart);
+    d.setDate(d.getDate() + (w - 1) * 7);
+    d.setHours(0, 0, 0, 0);
+    return d;
+  },
+
+  _runDate(week, dow) {
+    const ws = this._weekStart(week);
+    const off = dow === 0 ? 6 : dow - 1;
+    const d = new Date(ws); d.setDate(d.getDate() + off); d.setHours(0, 0, 0, 0);
+    return d;
+  }
+};
+
+/* ============================================================
+ * DATE UTILITIES (used by both Adapt and UI)
+ * ============================================================ */
+function weekStart(w) {
+  const d = new Date(CFG.planStart);
+  d.setDate(d.getDate() + (w - 1) * 7);
+  d.setHours(0, 0, 0, 0);
+  return d;
+}
+
+function runDate(week, dow) {
+  const ws = weekStart(week);
+  const off = dow === 0 ? 6 : dow - 1;
+  const d = new Date(ws); d.setDate(d.getDate() + off); d.setHours(0, 0, 0, 0);
+  return d;
+}
+
+function sameDay(a, b) {
+  return a.getFullYear() === b.getFullYear()
+    && a.getMonth() === b.getMonth()
+    && a.getDate() === b.getDate();
+}
+
+function fmtDate(d) {
+  return d.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+}
+
+function fmtFull(d) {
+  return d.toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric' });
+}
+
+const DOWNAMES = ['SUN','MON','TUE','WED','THU','FRI','SAT'];
+
+/* ============================================================
+ * MODULE 6 — RENDERING
+ * Builds HTML from BASE_PLAN + adaptations.
+ * ============================================================ */
+
+function renderPlan() {
+  const today = new Date(); today.setHours(0, 0, 0, 0);
+  const log = Store.get();
+  const { adjustments, alerts } = Adapt.compute(log, today);
+
+  const container = document.getElementById('panel-plan');
+  let html = '';
+
+  // ── Adaptive alerts banner ──
+  if (alerts.length > 0) {
+    html += `<div class="adapt-alert">
+      <div class="adapt-title">⚡ Plan adapted</div>
+      ${alerts.map(a => `<div class="adapt-item">${_esc(a)}</div>`).join('')}
+    </div>`;
+  }
+
+  // ── Determine current week ──
+  let curWeek = null;
+  for (let w = 1; w <= BASE_PLAN.length; w++) {
+    const ws = weekStart(w); const we = new Date(ws); we.setDate(we.getDate() + 6);
+    if (today >= ws && today <= we) { curWeek = w; break; }
+  }
+  const isPlanOver = today > (() => { const d = new Date(CFG.raceDate); d.setHours(23,59,59,0); return d; })();
+
+  // ── Week cards ──
+  BASE_PLAN.forEach(weekData => {
+    const w = weekData.week;
+    const ws = weekStart(w);
+    const we = new Date(ws); we.setDate(we.getDate() + 6);
+    const isCurrent = w === curWeek;
+    const isPast = we < today;
+    const isOpen = isCurrent;
+
+    // Compute adjusted week total for subtitle
+    let weekTotal = 0;
+    weekData.days.forEach(day => {
+      const key = `${w}-${day.dow}`;
+      const adj = adjustments[key];
+      weekTotal += (adj && adj.mi != null) ? adj.mi : (day.mi || 0);
+    });
+
+    let cardClass = 'week-card';
+    if (isCurrent) cardClass += ' current open';
+    else if (isPast) cardClass += ' past';
+    if (!isCurrent && !isPast) cardClass += ' open'; // default open upcoming
+
+    const chevron = `<svg class="wchev" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>`;
+
+    html += `<div class="${cardClass}" id="wk${w}">
+      <div class="week-hd" onclick="togW('wk${w}')">
+        ${isCurrent ? '<div class="cur-pip"></div>' : ''}
+        <div class="wnum">${w}</div>
+        <div class="wmeta">
+          <div class="wname">${_esc(weekData.name)}</div>
+          <div class="wsub">~${Math.round(weekTotal)} miles · ${_esc(weekData.badge.toLowerCase())}</div>
+        </div>
+        <span class="wbadge ${weekData.badgeClass}">${_esc(weekData.badge)}</span>
+        ${chevron}
+      </div>
+      <div class="week-body">
+        <div class="week-desc">${_esc(weekData.desc)}</div>
+        <div class="days">${weekData.days.map(day => _renderDay(w, day, log, adjustments, today, isCurrent)).join('')}</div>
+        <div class="note ${weekData.noteClass}">${_esc(weekData.note)}</div>
+      </div>
+    </div>`;
   });
-  document.querySelectorAll('.panel').forEach(p=>p.classList.remove('active'));
-  document.getElementById('panel-'+t).classList.add('active');
-  if(t==='log')renderLog();
+
+  container.innerHTML = html;
 }
 
-function togW(id){document.getElementById(id).classList.toggle('open')}
+function _renderDay(w, day, log, adjustments, today, isCurrentWeek) {
+  const key = `${w}-${day.dow}`;
+  const entry = log[key];
+  const adj = adjustments[key] || {};
+  const d = runDate(w, day.dow);
+  const isPast = d < today && !sameDay(d, today);
+  const isToday = sameDay(d, today);
+  const isFutureFar = d > today && Math.round((d - today) / 86400000) > 2;
 
-// ── CORE INIT ──
-function init(){
-  const today=new Date(); today.setHours(0,0,0,0);
-  const raceClean=new Date(RACE); raceClean.setHours(0,0,0,0);
-  const daysOut=Math.round((raceClean-today)/86400000);
-  const planClean=new Date(PLAN_START); planClean.setHours(0,0,0,0);
-  const elapsed=Math.max(0,Math.round((today-planClean)/86400000));
-  const pct=Math.min(100,Math.round((elapsed/TOTAL_DAYS)*100));
+  // Effective mileage (adjusted or base)
+  const effectiveMi = adj.mi != null ? adj.mi : day.mi;
+  // Effective label/detail
+  const effectiveLabel = adj.label || day.label;
+  const effectiveDetail = adj.detail || day.detail.replace(/^(\d+(?:\.\d+)?) mi/, effectiveMi + ' mi');
 
-  document.getElementById('hdr-date').textContent=fmtFull(today);
-  document.getElementById('hdr-days').textContent=daysOut>0?daysOut:(daysOut===0?'Race today!':'Done');
-  document.getElementById('prog').style.width=pct+'%';
+  // Row classes
+  let rowClass = 'day-row';
+  if (day.type === 'rest')    rowClass += ' rest';
+  if (day.type === 'race')    rowClass += ' race';
+  if (Rules.isQuality(day.type) && !entry) rowClass += ' quality';
 
-  let curWeek=null;
-  for(let w=1;w<=5;w++){
-    const ws=weekStart(w); ws.setHours(0,0,0,0);
-    const we=new Date(ws); we.setDate(we.getDate()+6);
-    if(today>=ws&&today<=we){curWeek=w;break}
-  }
-
-  const log=getLog();
-  let totalMi=0,totalDone=0,totalSkip=0;
-  let foundToday=false;
-
-  for(let w=1;w<=5;w++){
-    const rows=document.querySelectorAll('#days-wk'+w+' .day-row');
-    let wkPast=true;
-    rows.forEach(row=>{
-      const dow=parseInt(row.getAttribute('data-dow'));
-      const key=getKey(w,dow);
-      const rowDate=getDate(w,dow); rowDate.setHours(0,0,0,0);
-      const isPast=rowDate<today&&!sameDay(rowDate,today);
-      const isToday=sameDay(rowDate,today);
-      const entry=log[key];
-
-      // Apply log state
-      row.classList.remove('past','today','done','skipped');
-      // remove old log buttons
-      row.querySelectorAll('.log-btns,.mi-edit').forEach(el=>el.remove());
-      row.querySelector('.today-arrow')?.remove();
-      row.querySelector('.done-check')?.remove();
-
-      if(entry){
-        if(entry.status==='done'){
-          row.classList.add('done');
-          const chk=document.createElement('div');
-          chk.className='done-check'; chk.textContent='✓';
-          row.appendChild(chk);
-          const logMi=entry.mi||parseFloat(row.getAttribute('data-mi'))||0;
-          totalMi+=logMi; totalDone++;
-        } else if(entry.status==='skip'){
-          row.classList.add('skipped');
-          totalSkip++;
-        }
-      } else {
-        if(isPast) {row.classList.add('past'); wkPast=true;}
-        else wkPast=false;
-      }
-
-      if(isToday&&!entry){
-        row.classList.add('today');
-        foundToday=true;
-        const arr=document.createElement('div');
-        arr.className='today-arrow'; arr.textContent='← now';
-        row.appendChild(arr);
-        const type=row.getAttribute('data-type');
-        const detail=row.getAttribute('data-detail');
-        document.getElementById('today-name').textContent=type;
-        document.getElementById('today-detail').textContent=detail;
-        const tc=document.getElementById('today-card');
-        const isRest=row.classList.contains('rest');
-        tc.className='today-card'+(isRest?' rest-card':'');
-        document.getElementById('today-label').textContent=isRest?'Today — rest day':'Today\'s workout';
-      }
-
-      // Add log buttons to past+today+recent rows (not race day)
-      const canLog=!row.classList.contains('race');
-      const isFutureFar=rowDate>today&&Math.round((rowDate-today)/86400000)>2;
-      if(canLog&&!isFutureFar){
-        const btns=document.createElement('div');
-        btns.className='log-btns';
-        if(!entry){
-          btns.innerHTML=`<button class="lbtn mark-done" onclick="markDay(${w},${dow},'done',event)">Mark done</button><button class="lbtn mark-skip" onclick="markDay(${w},${dow},'skip',event)">Skip</button><button class="lbtn edit-mi" onclick="showMiEdit(${w},${dow},event)">Log miles</button>`;
-        } else {
-          btns.innerHTML=`<button class="lbtn undo" onclick="undoDay(${w},${dow},event)">Undo</button>`;
-        }
-        row.querySelector('.dcont').appendChild(btns);
-
-        // mi editor
-        const med=document.createElement('div');
-        med.className='mi-edit'; med.id='mied-'+w+'-'+dow;
-        const defMi=parseFloat(row.getAttribute('data-mi'))||0;
-        med.innerHTML=`<label>Miles:</label><input type="number" id="mi-inp-${w}-${dow}" value="${entry?.mi||defMi}" min="0" max="30" step="0.5"><button class="mi-save" onclick="saveMiEdit(${w},${dow},event)">Save</button>`;
-        row.querySelector('.dcont').appendChild(med);
-      }
-    });
-
-    // Week state
-    const wk=document.getElementById('wk'+w);
-    wk.classList.remove('current','past','open');
-    if(w===curWeek){
-      wk.classList.add('current','open');
-      // add pip if not present
-      if(!wk.querySelector('.cur-pip')){
-        const pip=document.createElement('div');
-        pip.className='cur-pip';
-        wk.querySelector('.week-hd').appendChild(pip);
-      }
-    }
-  }
-
-  // stats
-  document.getElementById('stat-miles').textContent=totalMi.toFixed(1);
-  document.getElementById('stat-done').textContent=totalDone;
-  document.getElementById('stat-skip').textContent=totalSkip;
-
-  if(!foundToday){
-    const tc=document.getElementById('today-card');
-    if(daysOut===0){
-      document.getElementById('today-name').textContent='Race Day — Peachtree 10K';
-      document.getElementById('today-detail').textContent='Mile 1: 6:55 · Miles 2–4: 6:45 · Miles 5–6.2: race it home. Go.';
-    } else if(daysOut<0){
-      document.getElementById('today-name').textContent='Race complete!';
-      document.getElementById('today-detail').textContent='Hope you crushed it.';
-      tc.className='today-card'; tc.style.borderColor='var(--gr-b)'; tc.style.background='var(--gr-bg)';
-      document.getElementById('today-label').style.color='var(--gr)';
-    } else {
-      document.getElementById('today-name').textContent='Rest day';
-      document.getElementById('today-detail').textContent='No run today. Gym, recover, prepare.';
-      tc.className='today-card rest-card';
-      document.getElementById('today-label').textContent='Today';
-    }
-  }
-
-  adaptPlan(log,curWeek,today);
-}
-
-function markDay(w,dow,status,e){
-  e.stopPropagation();
-  const log=getLog();
-  const key=getKey(w,dow);
-  const row=document.querySelector(`[data-wk="${w}"][data-dow="${dow}"]`);
-  const defMi=parseFloat(row?.getAttribute('data-mi'))||0;
-  log[key]={status,mi:defMi,ts:Date.now()};
-  saveLog(log); init();
-}
-
-function showMiEdit(w,dow,e){
-  e.stopPropagation();
-  const med=document.getElementById('mied-'+w+'-'+dow);
-  if(med) med.style.display=med.style.display==='flex'?'none':'flex';
-}
-
-function saveMiEdit(w,dow,e){
-  e.stopPropagation();
-  const inp=document.getElementById('mi-inp-'+w+'-'+dow);
-  const mi=parseFloat(inp?.value)||0;
-  const log=getLog();
-  const key=getKey(w,dow);
-  log[key]={status:'done',mi,ts:Date.now()};
-  saveLog(log); init();
-}
-
-function undoDay(w,dow,e){
-  e.stopPropagation();
-  const log=getLog();
-  delete log[getKey(w,dow)];
-  saveLog(log); init();
-}
-
-// ── ADAPTIVE PLAN ──
-function adaptPlan(log,curWeek,today){
-  if(!curWeek) return;
-  let skipped=0, totalLogged=0, expectedMi=0;
-  for(let w=1;w<curWeek;w++){
-    const rows=document.querySelectorAll('#days-wk'+w+' .day-row');
-    rows.forEach(row=>{
-      const dow=parseInt(row.getAttribute('data-dow'));
-      const key=getKey(w,dow);
-      const defMi=parseFloat(row.getAttribute('data-mi'))||0;
-      const entry=log[key];
-      expectedMi+=defMi;
-      if(entry?.status==='skip') skipped++;
-      if(entry?.status==='done') totalLogged+=(entry.mi||defMi);
-    });
-  }
-
-  const pctLogged=expectedMi>0?(totalLogged/expectedMi):1;
-  const alert=document.getElementById('adapt-alert');
-  const body=document.getElementById('adapt-body');
-  const adjBox=document.getElementById('adj-box');
-  const adjBody=document.getElementById('adj-body');
-
-  // --- Adaptive plan overhaul ---
-  // Compute difference between actual and expected miles in completed weeks.
-  // Positive diff means the user logged more miles than planned; negative means less.
-  const diffMiles = totalLogged - expectedMi;
-
-  // Collect all adjustable future runs (current week and beyond) that are easy/non-quality
-  let adjustableRows = [];
-  for(let w=curWeek; w<=5; w++){
-    const rows=document.querySelectorAll('#days-wk'+w+' .day-row');
-    rows.forEach(row=>{
-      // skip rest, quality, race days
-      if(row.classList.contains('rest') || row.classList.contains('quality') || row.classList.contains('race')) return;
-      // skip days already logged (done/skip)
-      const dow=parseInt(row.getAttribute('data-dow'));
-      const key=getKey(w,dow);
-      if(log[key]) return;
-      // ensure there is a mileage to adjust
-      const orig=parseFloat(row.getAttribute('data-mi'))||0;
-      if(orig<=0) return;
-      adjustableRows.push(row);
-    });
-  }
-
-  let msgs=[];
-
-  // Only adjust if there is a meaningful difference and adjustable runs available
-  if(Math.abs(diffMiles) > 0.1 && adjustableRows.length>0){
-    // Determine per-run adjustment based on Jack Daniels' guideline:
-    // never change more than 1 mile per run. Distribute total difference evenly.
-    const perRun = Math.min(1, Math.abs(diffMiles) / adjustableRows.length);
-    // Determine direction: decrease future miles if user ran more than planned (diffMiles>0),
-    // increase if user ran less (diffMiles<0).
-    const sign = diffMiles>0 ? -1 : 1;
-    adjustableRows.forEach(row=>{
-      const orig=parseFloat(row.getAttribute('data-mi'))||0;
-      let newMi = orig + sign * perRun;
-      // round to nearest 0.5 for nicer numbers
-      newMi = Math.max(0.5, Math.round(newMi * 2) / 2);
-      // Do not allow changes beyond 1 mile per run from original
-      if(sign>0){
-        newMi = Math.min(orig + 1, newMi);
-      } else {
-        newMi = Math.max(orig - 1, newMi);
-      }
-      // Update data-mi attribute
-      row.setAttribute('data-mi', newMi.toFixed(1));
-      // Update run detail text
-      const det=row.querySelector('.ddet');
-      if(det){
-        // Replace the first mileage number in the detail string
-        det.textContent = det.textContent.replace(/^(\d+(?:\.\d+)?)( mi)/, newMi + ' mi');
-        // append arrow indicator
-        if(!det.textContent.includes('↑') && !det.textContent.includes('↓')){
-          det.textContent += sign>0 ? ' ↑ adjusted' : ' ↓ adjusted';
-        }
-      }
-    });
-    // message describing the adjustment
-    const dir = diffMiles>0 ? 'down' : 'up';
-    msgs.push(`You have logged ${(diffMiles>0?'+':'')}${diffMiles.toFixed(1)} mi relative to plan. Future easy runs have been adjusted ${dir} by ${perRun.toFixed(1)} mi each (max 1 mi per run) in accordance with Jack Daniels’ mileage rules.`);
-  }
-
-  // If there were multiple skips or behind schedule but no diffMiles adjustments applied
-  if(pctLogged<0.8 && skipped>=2 && msgs.length===0){
-    msgs.push('A few missed runs detected — hold current plan volume and avoid adding extra miles to stay within safe ramp rate.');
-  }
-  if(skipped>=4){
-    msgs.push('Multiple skipped workouts detected. Quality sessions will remain unchanged to preserve the scientific structure of the plan.');
-  }
-
-  if(msgs.length>0){
-    alert.classList.add('show');
-    body.textContent=msgs.join(' ');
-    adjBox.style.display='block';
-    adjBody.textContent=msgs[0];
+  if (entry) {
+    if (entry.status === 'done')  rowClass += ' done';
+    if (entry.status === 'short') rowClass += ' short';
+    if (entry.status === 'skip')  rowClass += ' skipped';
+    if (entry.status === 'tired') rowClass += ' tired';
   } else {
-    alert.classList.remove('show');
-    adjBox.style.display='none';
+    if (isPast) rowClass += ' past';
+    if (isToday) rowClass += ' today';
+  }
+  if (adj.reason && !entry) rowClass += ' adjusted';
+
+  // Status icon
+  let statusIcon = '';
+  if (entry) {
+    const icons = { done: '✓', short: '↙', skip: '✕', tired: '~' };
+    const colors = { done: 'var(--gr)', short: 'var(--or)', skip: 'var(--rd)', tired: 'var(--yw)' };
+    statusIcon = `<div class="status-icon" style="color:${colors[entry.status] || 'var(--t3)'}">${icons[entry.status] || ''}</div>`;
+  } else if (isToday) {
+    statusIcon = `<div class="today-arrow">← now</div>`;
   }
 
-  // Update weekly mileage summaries (wsub elements) to reflect adjusted mileage
-  for(let w=1; w<=5; w++){
-    const rows=document.querySelectorAll('#days-wk'+w+' .day-row');
-    let sum=0;
-    rows.forEach(row=>{
-      const mi=parseFloat(row.getAttribute('data-mi'))||0;
-      sum+=mi;
-    });
-    // Round to nearest integer for display
-    const approx=Math.round(sum);
-    const sub=document.getElementById('wsub'+w);
-    if(sub){
-      // Preserve the descriptive text after the mileage if present
-      const parts=sub.textContent.split('·');
-      if(parts.length>1){
-        sub.textContent=`~${approx} miles ·${parts[1]}`;
-      } else {
-        sub.textContent=`~${approx} miles`;
-      }
+  // Tags
+  const tagMap = { drills: ['d', 'Drills first'], 'gym-ok': ['g', 'Gym after OK'], quality: ['t', 'Quality'] };
+  let tagHtml = '';
+  if (day.tags && day.tags.length) {
+    const filteredTags = day.tags.filter(t => t !== 'quality'); // quality shown via row style
+    if (filteredTags.length) {
+      tagHtml = `<div class="dtags">${filteredTags.map(t => {
+        const [cls, lbl] = tagMap[t] || ['g', t];
+        return `<span class="dtag ${cls}">${lbl}</span>`;
+      }).join('')}${adj.reason ? '<span class="dtag adj">⚡ adjusted</span>' : ''}</div>`;
+    } else if (adj.reason) {
+      tagHtml = `<div class="dtags"><span class="dtag adj">⚡ adjusted</span></div>`;
+    }
+  } else if (adj.reason) {
+    tagHtml = `<div class="dtags"><span class="dtag adj">⚡ adjusted</span></div>`;
+  }
+
+  // Adjustment reason
+  let adjReasonHtml = '';
+  if (adj.reason && !entry) {
+    const cls = adj.fatigueWarning ? 'adj-reason adj-reason-fatigue' : 'adj-reason';
+    adjReasonHtml = `<div class="${cls}">${_esc(adj.reason)}</div>`;
+  }
+
+  // Log buttons (show on: non-rest, non-race, within logging window, not already logged)
+  let logHtml = '';
+  const canLog = !Rules.isRest(day.type) && day.type !== 'race';
+  if (canLog && !isFutureFar) {
+    if (!entry) {
+      logHtml = `
+        <div class="log-btns">
+          <button class="lbtn done" onclick="App.markDone(${w},${day.dow})">Done</button>
+          <button class="lbtn short" onclick="App.showMiInput(${w},${day.dow},'short')">Ran short</button>
+          <button class="lbtn skip" onclick="App.markSkip(${w},${day.dow})">Skipped</button>
+          <button class="lbtn tired" onclick="App.showMiInput(${w},${day.dow},'tired')">Tired/Sore</button>
+        </div>
+        <div class="mi-input-row" id="mi-row-${w}-${day.dow}">
+          <label>Actual miles:</label>
+          <input type="number" id="mi-inp-${w}-${day.dow}" value="${effectiveMi}" min="0" max="30" step="0.25">
+          <button class="mi-save" onclick="App.saveMi(${w},${day.dow})">Save</button>
+        </div>`;
+    } else {
+      logHtml = `<div class="log-btns"><button class="lbtn undo" onclick="App.undo(${w},${day.dow})">Undo</button></div>`;
     }
   }
-}
 
-function renderLog(){
-  const log=getLog();
-  const container=document.getElementById('log-entries');
-  const keys=Object.keys(log).sort((a,b)=>{
-    const [aw,ad]=a.split('-').map(Number);
-    const [bw,bd]=b.split('-').map(Number);
-    return (aw*10+ad)-(bw*10+bd);
-  });
-
-  let totalMi=0,done=0,skip=0,adj=0,total=0;
-  // count total run days
-  document.querySelectorAll('.day-row:not(.rest):not(.race)').forEach(()=>total++);
-
-  if(keys.length===0){
-    container.innerHTML='<div style="font-size:12px;color:var(--t3);padding:8px 0">No activity logged yet — go to Plan tab and mark runs done.</div>';
-    document.getElementById('log-mi').textContent='0';
-    document.getElementById('log-done').textContent='0 / '+total;
-    document.getElementById('log-skip').textContent='0';
-    document.getElementById('log-adj').textContent='0';
-    return;
+  // Logged mileage note
+  let loggedMiNote = '';
+  if (entry && (entry.status === 'done' || entry.status === 'short' || entry.status === 'tired') && entry.mi != null) {
+    const diff = entry.mi - day.mi;
+    const diffStr = diff !== 0 ? ` (planned: ${day.mi} mi${diff > 0 ? ', +' : ', '}${diff.toFixed(1)})` : '';
+    loggedMiNote = `<div style="font-size:11px;color:var(--t3);margin-top:3px">${entry.mi} mi logged${diffStr}</div>`;
   }
 
-  container.innerHTML='';
-  keys.forEach(key=>{
-    const entry=log[key];
-    const [w,dow]=key.split('-').map(Number);
-    const row=document.querySelector(`[data-wk="${w}"][data-dow="${dow}"]`);
-    if(!row) return;
-    const d=getDate(w,dow);
-    const type=row.getAttribute('data-type');
-    const defMi=parseFloat(row.getAttribute('data-mi'))||0;
-    const logMi=entry.mi||defMi;
-    const isAdj=entry.mi&&Math.abs(entry.mi-defMi)>0.1;
-    if(entry.status==='done'){done++;totalMi+=logMi}
-    if(entry.status==='skip') skip++;
-    if(isAdj) adj++;
+  return `<div class="${rowClass}">
+    <div class="dow">${DOWNAMES[d.getDay()]}</div>
+    <div class="dcont">
+      <div class="dtype">${_esc(effectiveLabel)}</div>
+      <div class="ddet">${_esc(effectiveDetail)}</div>
+      ${loggedMiNote}
+      ${tagHtml}
+      ${adjReasonHtml}
+      ${logHtml}
+    </div>
+    ${statusIcon}
+  </div>`;
+}
 
-    const el=document.createElement('div');
-    el.className='log-entry';
-    const st=entry.status==='done'?'done':entry.status==='skip'?'skip':'adj';
-    const stl=entry.status==='done'?'Done':entry.status==='skip'?'Skipped':'Adjusted';
-    el.innerHTML=`<div class="le-left"><div class="le-day">${fmtDate(d)} — ${WDAYS[d.getDay()]}</div><div class="le-type">${type}</div></div><div class="le-right"><span class="le-status ${st}">${stl}</span>${entry.status==='done'?`<div class="le-mi">${logMi} mi${isAdj?' (adjusted)':''}</div>`:''}</div>`;
-    container.appendChild(el);
+function renderLog() {
+  const log = Store.get();
+  const entries = document.getElementById('log-entries');
+
+  let totalMi = 0, done = 0, skip = 0, short = 0;
+  let totalRunDays = 0;
+  BASE_PLAN.forEach(week => {
+    week.days.forEach(d => { if (Rules.isRunnable(d.type)) totalRunDays++; });
   });
 
-  document.getElementById('log-mi').textContent=totalMi.toFixed(1);
-  document.getElementById('log-done').textContent=done+' / '+total;
-  document.getElementById('log-skip').textContent=skip;
-  document.getElementById('log-adj').textContent=adj;
+  const keys = Object.keys(log).sort((a, b) => {
+    const [aw, ad] = a.split('-').map(Number);
+    const [bw, bd] = b.split('-').map(Number);
+    return (aw * 10 + ad) - (bw * 10 + bd);
+  });
+
+  if (!keys.length) {
+    entries.innerHTML = '<div style="font-size:12px;color:var(--t3);padding:8px 0">No activity yet — go to Plan tab and log a run.</div>';
+  } else {
+    entries.innerHTML = keys.map(key => {
+      const e = log[key];
+      const [w, dow] = key.split('-').map(Number);
+      const weekData = BASE_PLAN[w - 1]; if (!weekData) return '';
+      const dayData = weekData.days.find(d => d.dow === dow); if (!dayData) return '';
+      const d = runDate(w, dow);
+      const actualMi = e.mi != null ? e.mi : dayData.mi;
+
+      if (e.status === 'done' || e.status === 'short' || e.status === 'tired') {
+        totalMi += actualMi;
+        if (e.status === 'done') done++;
+        if (e.status === 'short' || e.status === 'tired') short++;
+      }
+      if (e.status === 'skip') skip++;
+
+      const statusLabels = { done: 'Done', short: 'Ran short', skip: 'Skipped', tired: 'Tired/Sore' };
+      const miDetail = (e.status !== 'skip')
+        ? `${actualMi} mi${e.mi != null && Math.abs(e.mi - dayData.mi) > 0.1 ? ` (planned: ${dayData.mi} mi)` : ''}`
+        : '';
+      const reasonHtml = e.reason ? `<div class="le-detail">${_esc(e.reason)}</div>` : '';
+
+      return `<div class="log-entry">
+        <div class="le-top">
+          <div class="le-day">${fmtDate(d)} — ${DOWNAMES[d.getDay()]}</div>
+          <span class="le-status ${e.status}">${statusLabels[e.status] || e.status}</span>
+        </div>
+        <div class="le-type">${dayData.label}${miDetail ? ' · ' + miDetail : ''}</div>
+        ${reasonHtml}
+      </div>`;
+    }).join('');
+  }
+
+  document.getElementById('log-mi').textContent = totalMi.toFixed(1);
+  document.getElementById('log-done').textContent = `${done + short} / ${totalRunDays}`;
+  document.getElementById('log-skip').textContent = skip;
+  document.getElementById('log-short').textContent = short;
+}
+
+/* ============================================================
+ * MODULE 7 — APP CONTROLLER (interaction handlers + init)
+ * ============================================================ */
+const App = {
+
+  markDone(w, dow) {
+    const day = _findDay(w, dow);
+    Store.set(w, dow, 'done', day ? day.mi : null, '');
+    _refresh();
+  },
+
+  markSkip(w, dow) {
+    const reason = prompt('Optional: why did you skip? (press OK to leave blank)') || '';
+    Store.set(w, dow, 'skip', null, reason);
+    _refresh();
+  },
+
+  showMiInput(w, dow, mode) {
+    // Store mode so saveMi knows which status to use
+    const row = document.getElementById(`mi-row-${w}-${dow}`);
+    if (!row) return;
+    row.style.display = row.style.display === 'flex' ? 'none' : 'flex';
+    row.dataset.mode = mode;
+  },
+
+  saveMi(w, dow) {
+    const inp = document.getElementById(`mi-inp-${w}-${dow}`);
+    const row = document.getElementById(`mi-row-${w}-${dow}`);
+    const mi = parseFloat(inp ? inp.value : 0) || 0;
+    const mode = row ? row.dataset.mode : 'short';
+    const status = mode === 'tired' ? 'tired' : 'short';
+    const day = _findDay(w, dow);
+    const reason = mode === 'tired'
+      ? `Flagged tired/sore. Ran ${mi} mi (planned: ${day ? day.mi : '?'} mi). Adaptive engine will monitor next quality session.`
+      : `Ran short: ${mi} mi vs ${day ? day.mi : '?'} mi planned.`;
+    Store.set(w, dow, status, mi, reason);
+    _refresh();
+  },
+
+  undo(w, dow) {
+    Store.remove(w, dow);
+    _refresh();
+  }
+};
+
+/* ============================================================
+ * INIT + GLOBAL HELPERS
+ * ============================================================ */
+function init() {
+  const today = new Date(); today.setHours(0, 0, 0, 0);
+  const raceClean = new Date(CFG.raceDate); raceClean.setHours(0, 0, 0, 0);
+  const planClean = new Date(CFG.planStart); planClean.setHours(0, 0, 0, 0);
+
+  // Header date + countdown
+  document.getElementById('hdr-date').textContent = fmtFull(today);
+  const daysOut = Math.round((raceClean - today) / 86400000);
+  document.getElementById('hdr-days').textContent =
+    daysOut > 0 ? daysOut : daysOut === 0 ? 'Race today!' : 'Done';
+
+  // Progress bar
+  const totalDays = Math.round((raceClean - planClean) / 86400000);
+  const elapsed = Math.max(0, Math.round((today - planClean) / 86400000));
+  document.getElementById('prog').style.width = Math.min(100, Math.round((elapsed / totalDays) * 100)) + '%';
+
+  // Header stats
+  const log = Store.get();
+  let totalMi = 0, totalDone = 0, totalSkip = 0;
+  Object.values(log).forEach(e => {
+    if (e.status === 'done' || e.status === 'short' || e.status === 'tired') {
+      totalMi += e.mi || 0; totalDone++;
+    }
+    if (e.status === 'skip') totalSkip++;
+  });
+  document.getElementById('stat-miles').textContent = totalMi.toFixed(1);
+  document.getElementById('stat-done').textContent = totalDone;
+  document.getElementById('stat-skip').textContent = totalSkip;
+
+  // Today card
+  let foundToday = false;
+  for (const weekData of BASE_PLAN) {
+    for (const day of weekData.days) {
+      const d = runDate(weekData.week, day.dow);
+      if (sameDay(d, today)) {
+        foundToday = true;
+        const isRest = Rules.isRest(day.type);
+        const tc = document.getElementById('today-card');
+        tc.className = 'today-card' + (isRest ? ' rest-card' : '');
+        document.getElementById('today-label').textContent = isRest ? 'Today — rest day' : 'Today\'s workout';
+        document.getElementById('today-name').textContent = day.label;
+        document.getElementById('today-detail').textContent = day.detail;
+        break;
+      }
+    }
+    if (foundToday) break;
+  }
+  if (!foundToday) {
+    const tc = document.getElementById('today-card');
+    if (daysOut === 0) {
+      document.getElementById('today-name').textContent = 'Race Day — Peachtree 10K';
+      document.getElementById('today-detail').textContent = 'Mile 1: 6:55 · Miles 2–4: 6:45 · Miles 5–6.2: race it home. Go.';
+    } else if (daysOut < 0) {
+      document.getElementById('today-name').textContent = 'Race complete!';
+      document.getElementById('today-detail').textContent = 'Hope you crushed it.';
+      tc.className = 'today-card'; tc.style.borderColor = 'var(--gr-b)'; tc.style.background = 'var(--gr-bg)';
+    } else if (today < planClean) {
+      tc.className = 'today-card rest-card';
+      document.getElementById('today-label').textContent = 'Plan starts';
+      document.getElementById('today-name').textContent = 'Monday June 8';
+      document.getElementById('today-detail').textContent = `${Math.round((planClean - today) / 86400000)} days until plan starts. Get your drills dialed in.`;
+    } else {
+      tc.className = 'today-card rest-card';
+      document.getElementById('today-label').textContent = 'Today';
+      document.getElementById('today-name').textContent = 'Rest day';
+      document.getElementById('today-detail').textContent = 'No run today. Gym, recover, prepare.';
+    }
+  }
+
+  renderPlan();
+}
+
+function _refresh() {
+  renderPlan();
+  const logPanel = document.getElementById('panel-log');
+  if (logPanel.classList.contains('active')) renderLog();
+}
+
+function switchTab(t) {
+  document.querySelectorAll('.tab').forEach((b, i) => {
+    b.classList.toggle('active', ['plan','log','zones','drills'][i] === t);
+  });
+  document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+  document.getElementById('panel-' + t).classList.add('active');
+  if (t === 'log') renderLog();
+}
+
+function togW(id) {
+  document.getElementById(id).classList.toggle('open');
+}
+
+function _findDay(w, dow) {
+  const week = BASE_PLAN[w - 1]; if (!week) return null;
+  return week.days.find(d => d.dow === dow) || null;
+}
+
+function _esc(str) {
+  if (!str) return '';
+  return String(str)
+    .replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')
+    .replace(/"/g,'&quot;');
 }
 
 init();
