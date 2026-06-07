@@ -262,7 +262,10 @@ input{font-family:'JetBrains Mono',monospace}
     </div>
   </div>
   <div style="background:var(--s2);border:1px solid var(--b1);border-radius:10px;padding:11px 13px;font-size:12px;color:var(--t2);line-height:1.6;margin-top:4px">
-    <strong style="color:var(--t1);font-weight:500">HR zones are a guide, not gospel.</strong> Trained athletes run misleadingly at 150+ on easy days. Trust feel first — full sentences = easy, regardless of HR.
+    <strong style="color:var(--t1);font-weight:500">Returning runner note:</strong> After 2 years off, your HR will run high even at easy effort — ignore the numbers, trust the feel. Week 1 pace may be 8:00–8:30/mi. That's correct. The muscle memory is there; the aerobic machinery needs a few weeks to reopen. Pace comes back faster than you expect.
+  </div>
+  <div style="background:var(--s2);border:1px solid var(--b1);border-radius:10px;padding:11px 13px;font-size:12px;color:var(--t2);line-height:1.6;margin-top:6px">
+    <strong style="color:var(--t1);font-weight:500">HR zones are a guide, not gospel.</strong> Trained athletes often run at 150+ bpm on easy days due to deconditioning. Trust feel first — full conversation = easy, regardless of HR reading.
   </div>
 </div>
 
@@ -270,7 +273,16 @@ input{font-family:'JetBrains Mono',monospace}
 <div class="panel" id="panel-drills">
   <div class="drill-banner">
     <div class="db-head">Before EVERY run · EVERY week · all 4 weeks</div>
-    <div class="db-body">Takes 8 minutes. Non-negotiable especially with low back soreness. Activates hip flexors and glutes. Skip them and your back will remind you why you shouldn't have.</div>
+    <div class="db-body">Takes 8 minutes. Non-negotiable with low back pain — your back is compensating for hip flexors and glutes that have been dormant 2 years. Get them firing first or every run loads the wrong thing.</div>
+  </div>
+  <div style="background:var(--rd-bg);border:1px solid var(--rd-b);border-radius:11px;padding:12px 14px;margin-bottom:10px">
+    <div style="font-size:12px;font-weight:600;color:var(--rd);margin-bottom:5px">Low back protocol — do this after every run</div>
+    <div style="font-size:12px;color:var(--t2);line-height:1.65">
+      <strong style="color:var(--t1);font-weight:500">Hip flexor stretch:</strong> Kneeling lunge, back knee down, push hips forward 30 sec each side. The hip flexor pulls on L4/L5 when tight — this is the primary cause of runner's low back pain.<br><br>
+      <strong style="color:var(--t1);font-weight:500">Glute bridge:</strong> On your back, feet flat, push hips up and hold 2 sec × 15 reps. Wakes up glutes so they do their job instead of your back doing it.<br><br>
+      <strong style="color:var(--t1);font-weight:500">Cat-cow:</strong> On all fours, 10 slow reps. Decompress the spine after running.<br><br>
+      <strong style="color:var(--t1);font-weight:500">Rules:</strong> Stop running if you feel sharp or radiating pain. Dull soreness during warmup that fades = OK to continue. Pain that worsens as you run = stop, walk home, mark it short.
+    </div>
   </div>
   <div class="drills-grid">
     <div class="drill"><div class="drill-name">Leg Swings</div><div class="drill-reps">10 each direction, each leg</div><div class="drill-desc">Forward/back then side-to-side. Do this one first. Unlocks hip flexors — critical for your low back.</div></div>
@@ -283,60 +295,47 @@ input{font-family:'JetBrains Mono',monospace}
 </div>
 
 <script>
-/* ============================================================
- * MODULE 1 — CONFIG
- * Single place to change dates or Daniels constants.
- * ============================================================ */
 const CFG = {
-  planStart   : new Date(2026, 5, 8),  // June 8 2026 (Monday)
-  raceDate    : new Date(2026, 6, 4),  // July 4 2026 (Saturday)
-  maxRunDelta : 1.0,   // Jack Daniels: max ±1 mile change per individual run
-  deficitPct  : 0.20,  // Weekly deficit threshold that triggers ramp-rate adjustment (20%)
-  minRunMi    : 2.0,   // Floor for any easy run after adjustment
+  planStart   : new Date(2026, 5, 8),
+  raceDate    : new Date(2026, 6, 4),
+  maxRunDelta : 1.0,
+  deficitPct  : 0.20,
+  minRunMi    : 2.0,
 };
 
-/* ============================================================
- * MODULE 2 — BASE PLAN
- * Pure data. Never mutated. UI reads this and Adapt overlays adjustments.
- *
- * dow: 1=Mon 2=Tue 3=Wed 4=Thu 5=Fri 6=Sat 0=Sun
- * type: 'easy' | 'long' | 'tempo' | 'intervals' | 'strides' | 'rest' | 'race'
- * quality types = tempo + intervals (hard sessions — extra handling rules)
- * adjustable types = easy + long + strides (mileage can be changed by Adapt)
- * ============================================================ */
 const BASE_PLAN = [
   {
     week: 1,
     name: "Base reactivation",
     badge: "Build", badgeClass: "bb",
-    desc: "Every run this week is easy — zero exceptions. Aerobic engine is ready but tendons and connective tissue wake up slower. Drills before every run, all 4 weeks.",
-    note: "Low back: leg swings before every run. Hip flexors that don't fire = low back that compensates.",
+    desc: "Every run this week is easy — zero exceptions. Your aerobic instincts are still there but tendons, connective tissue, and your back need time to wake back up. Volume is intentionally low — resist the urge to do more. The plan adapts forward automatically if you skip or run short.",
+    note: "Back protocol: leg swings before every run (non-negotiable). If your back aches mid-run, slow to a walk, finish the distance at a walk, and mark it 'ran short' — do not push through sharp pain. Go by feel in week 1, not pace. 8:00–8:30/mi is completely appropriate.",
     noteClass: "",
     days: [
-      { dow:1, type:"easy",    label:"Easy run",           mi:4,   detail:"4 mi @ easy pace (7:20–7:45) · no gym today",             tags:["drills"] },
-      { dow:2, type:"easy",    label:"Easy run",           mi:5,   detail:"5 mi @ easy pace",                                        tags:["drills","gym-ok"] },
-      { dow:3, type:"rest",    label:"Gym only",           mi:0,   detail:"No run · gym only",                                       tags:[] },
-      { dow:4, type:"easy",    label:"Easy run",           mi:5,   detail:"5 mi @ easy pace",                                        tags:["drills","gym-ok"] },
-      { dow:5, type:"strides", label:"Easy + strides",     mi:4,   detail:"4 mi easy · 6×100m strides (full walk rest between each)", tags:["drills"] },
-      { dow:6, type:"rest",    label:"Gym only",           mi:0,   detail:"No run · gym only",                                       tags:[] },
-      { dow:0, type:"long",    label:"Long easy run",      mi:7,   detail:"7 mi @ easy pace · truly easy, not a fast long run",      tags:["drills"] },
+      { dow:1, type:"easy",    label:"Easy run",           mi:3,   detail:"3 mi @ easy pace — go by feel, not pace. 8:00–8:30 is completely fine week 1. No gym today.",  tags:["drills"] },
+      { dow:2, type:"easy",    label:"Easy run",           mi:4,   detail:"4 mi @ easy pace · full conversation the whole time",                                          tags:["drills","gym-ok"] },
+      { dow:3, type:"rest",    label:"Gym only",           mi:0,   detail:"No run · gym only · prioritize hip and glute work",                                            tags:[] },
+      { dow:4, type:"easy",    label:"Easy run",           mi:4,   detail:"4 mi @ easy pace · stop immediately if back flares",                                           tags:["drills","gym-ok"] },
+      { dow:5, type:"strides", label:"Easy + strides",     mi:3,   detail:"3 mi easy · 4×100m strides (walk fully back between each) · form over speed",                 tags:["drills"] },
+      { dow:6, type:"rest",    label:"Gym only",           mi:0,   detail:"No run · gym only",                                                                            tags:[] },
+      { dow:0, type:"long",    label:"Long easy run",      mi:5,   detail:"5 mi @ easy pace · truly easy — you should be able to hold a phone call the whole time",       tags:["drills"] },
     ]
   },
   {
     week: 2,
     name: "Threshold intro",
     badge: "Build", badgeClass: "bb",
-    desc: "First real quality day Tuesday. Threshold pace (6:40–6:50) is nearly your exact race goal — the most specific training you can do. Comfortably hard, short sentences still possible.",
-    note: "Daniels: 1 min standing rest between T reps maintains stimulus without overloading. Zone matters more than exact pace — 6:50 is fine if 6:40 feels rough.",
+    desc: "First quality day Tuesday. Only 2 threshold reps (not 3) — treat this as a test to find your current fitness. Comfortably hard, short sentences still possible. If it's a grind, you went too fast.",
+    note: "Daniels: 1 min standing rest between T reps is part of the stimulus — don't skip it. 6:50 is fine if 6:40 feels rough. Do not run tempo if back pain spiked during week 1 — convert to easy.",
     noteClass: "",
     days: [
-      { dow:1, type:"easy",    label:"Easy run",           mi:5,   detail:"5 mi @ easy pace",                                                                            tags:["drills","gym-ok"] },
-      { dow:2, type:"tempo",   label:"Threshold workout",  mi:6,   detail:"2 mi E warm-up → 3×10 min @ T pace (6:40–6:50) with 1 min rest → 1 mi cool-down",            tags:["drills","quality"] },
+      { dow:1, type:"easy",    label:"Easy run",           mi:4,   detail:"4 mi @ easy pace",                                                                            tags:["drills","gym-ok"] },
+      { dow:2, type:"tempo",   label:"Threshold workout",  mi:5,   detail:"1.5 mi E warm-up → 2×10 min @ T pace (6:40–6:50) with 1 min standing rest → 1 mi cool-down", tags:["drills","quality"] },
       { dow:3, type:"rest",    label:"Gym only",           mi:0,   detail:"No run · recover from Tuesday",                                                               tags:[] },
-      { dow:4, type:"easy",    label:"Easy run",           mi:5,   detail:"5 mi @ easy pace",                                                                            tags:["drills","gym-ok"] },
-      { dow:5, type:"strides", label:"Easy + strides",     mi:4,   detail:"4 mi easy · 6×100m strides",                                                                  tags:["drills"] },
+      { dow:4, type:"easy",    label:"Easy run",           mi:4,   detail:"4 mi @ easy pace",                                                                            tags:["drills","gym-ok"] },
+      { dow:5, type:"strides", label:"Easy + strides",     mi:3,   detail:"3 mi easy · 6×100m strides",                                                                  tags:["drills"] },
       { dow:6, type:"rest",    label:"Gym only",           mi:0,   detail:"No run",                                                                                      tags:[] },
-      { dow:0, type:"long",    label:"Long easy run",      mi:8,   detail:"8 mi @ easy pace",                                                                            tags:["drills"] },
+      { dow:0, type:"long",    label:"Long easy run",      mi:7,   detail:"7 mi @ easy pace",                                                                            tags:["drills"] },
     ]
   },
   {
@@ -344,13 +343,13 @@ const BASE_PLAN = [
     name: "Sharpening",
     badge: "Sharpen", badgeClass: "bs",
     desc: "Two quality days. Intervals raise your VO2max ceiling. Race simulation Thursday confirms readiness. Two quality days is the Daniels ceiling — don't add a third.",
-    note: "If Thursday's 4 mi at 6:45 feels controlled → you're ready. If it's a grind → start race at 7:00 and let it come to you after mile 3.",
+    note: "If Thursday's 3 mi at 6:45 feels controlled → you're ready. If it's a grind → start race at 7:00 and let it come to you after mile 3.",
     noteClass: "",
     days: [
       { dow:1, type:"easy",      label:"Easy run",            mi:4,   detail:"4 mi @ easy pace",                                                                              tags:["drills","gym-ok"] },
-      { dow:2, type:"intervals", label:"Interval workout",    mi:7,   detail:"2 mi E → 6×1K @ I pace (6:15–6:25) with 3 min jog rest → 1 mi cool",                          tags:["drills","quality"] },
+      { dow:2, type:"intervals", label:"Interval workout",    mi:6,   detail:"2 mi E → 5×1K @ I pace (6:15–6:25) with 3 min jog rest → 1 mi cool",                          tags:["drills","quality"] },
       { dow:3, type:"easy",      label:"Easy or gym only",    mi:3,   detail:"3 mi very easy if legs feel OK · gym only if heavy",                                           tags:["drills","gym-ok"] },
-      { dow:4, type:"tempo",     label:"Race simulation",     mi:6,   detail:"1 mi E → 4 mi @ exactly 6:45 → 1 mi cool · note exactly how it feels",                       tags:["drills","quality"] },
+      { dow:4, type:"tempo",     label:"Race simulation",     mi:5,   detail:"1 mi E → 3 mi @ exactly 6:45 → 1 mi cool · note exactly how it feels",                       tags:["drills","quality"] },
       { dow:5, type:"strides",   label:"Easy + strides",      mi:4,   detail:"4 mi easy · 8×100m strides",                                                                   tags:["drills"] },
       { dow:6, type:"rest",      label:"Gym only",            mi:0,   detail:"No run",                                                                                       tags:[] },
       { dow:0, type:"long",      label:"Long easy run",       mi:6,   detail:"6 mi @ easy pace (shorter — two hard days this week)",                                         tags:["drills"] },
@@ -375,210 +374,126 @@ const BASE_PLAN = [
   }
 ];
 
-/* ============================================================
- * MODULE 3 — TRAINING RULES (pure functions, no DOM access)
- * ============================================================ */
 const Rules = {
   isQuality    : type => ['tempo','intervals'].includes(type),
   isAdjustable : type => ['easy','long','strides'].includes(type),
   isRest       : type => ['rest'].includes(type),
   isRunnable   : type => !['rest','race'].includes(type),
-
-  /* Safely adjust a run's mileage: cap at maxRunDelta, floor at minRunMi */
   safeAdjust(origMi, delta) {
     const capped = Math.sign(delta) * Math.min(Math.abs(delta), CFG.maxRunDelta);
     return Math.max(CFG.minRunMi, Math.round((origMi + capped) * 2) / 2);
   },
-
-  /* How many miles can next week safely target given last week's actual? */
-  safeWeeklyMax(lastActualMi) {
-    return lastActualMi * 1.10; // 10% ramp cap (conservative, Daniels)
-  },
-
-  /* Does this day's workout count as a run (vs gym/rest)? */
+  safeWeeklyMax(lastActualMi) { return lastActualMi * 1.10; },
   isRunDay(type) { return !['rest'].includes(type); }
 };
 
-/* ============================================================
- * MODULE 4 — ACTIVITY STORE (localStorage abstraction)
- * Planned runs live in BASE_PLAN. Actuals live here.
- * Keys: "${week}-${dow}"  e.g. "2-4" = Week 2 Thursday
- * status: 'done' | 'short' | 'skip' | 'tired'
- * ============================================================ */
 const Store = {
   KEY: 'pt_v3',
-
-  get() {
-    try { return JSON.parse(localStorage.getItem(this.KEY) || '{}'); } catch { return {}; }
-  },
-
-  save(log) {
-    try { localStorage.setItem(this.KEY, JSON.stringify(log)); } catch {}
-  },
-
+  get() { try { return JSON.parse(localStorage.getItem(this.KEY) || '{}'); } catch { return {}; } },
+  save(log) { try { localStorage.setItem(this.KEY, JSON.stringify(log)); } catch {} },
   set(week, dow, status, mi, reason) {
     const log = this.get();
     log[`${week}-${dow}`] = { status, mi: mi !== null ? mi : undefined, reason: reason || '', ts: Date.now() };
     this.save(log);
   },
-
-  remove(week, dow) {
-    const log = this.get();
-    delete log[`${week}-${dow}`];
-    this.save(log);
-  },
-
-  entry(week, dow) {
-    return this.get()[`${week}-${dow}`] || null;
-  }
+  remove(week, dow) { const log = this.get(); delete log[`${week}-${dow}`]; this.save(log); },
+  entry(week, dow) { return this.get()[`${week}-${dow}`] || null; }
 };
 
-/* ============================================================
- * MODULE 5 — ADAPT ENGINE
- * Takes BASE_PLAN + activity log → produces adjustments with reasons.
- * No DOM access. Returns plain data structures.
- *
- * Output:
- *   adjustments: { "w-dow": { mi?, label?, detail?, fatigueWarning? }, ... }
- *   alerts: string[]   — shown in the banner at top of plan tab
- * ============================================================ */
 const Adapt = {
-
-  /* Main entry point */
   compute(log, today) {
     const adjustments = {};
     const alerts = [];
     const curW = this._currentWeek(today);
-    const weekStats = this._weekStats(log);
-
-    // Rule A: Missed quality runs — informational, no auto-reschedule
     this._ruleA_missedQuality(log, curW, today, alerts);
-
-    // Rule B: Weekly mileage deficit — reduce future easy runs to safe ramp
-    this._ruleB_rampAdjust(log, weekStats, curW, adjustments, alerts);
-
-    // Rule C: Fatigue flag — next quality run gets a warning
+    this._ruleB_cascadeForward(log, curW, today, adjustments, alerts);
     this._ruleC_fatigue(log, curW, today, adjustments, alerts);
-
-    // Rule D: Multiple skips this week — note and hold volume
-    this._ruleD_multiSkip(log, curW, today, adjustments, alerts);
-
+    this._ruleD_multiSkip(log, curW, alerts);
     return { adjustments, alerts };
   },
 
-  /* ── RULE A: Missed quality workouts ── */
   _ruleA_missedQuality(log, curW, today, alerts) {
-    // Check completed weeks
     for (let w = 1; w < curW; w++) {
-      const week = BASE_PLAN[w - 1];
-      week.days.forEach(day => {
+      BASE_PLAN[w - 1].days.forEach(day => {
         if (!Rules.isQuality(day.type)) return;
         const entry = log[`${w}-${day.dow}`];
-        if (!entry || entry.status === 'skip' || entry.status === 'tired') {
-          alerts.push(`Week ${w} ${day.label} was not completed. Quality sessions are not auto-rescheduled — rescheduling risks stacking hard days back-to-back. Continue with plan as written.`);
-        }
+        if (!entry || entry.status === 'skip' || entry.status === 'tired')
+          alerts.push(`Week ${w} ${day.label} was not completed. Quality sessions are not rescheduled — doing so risks stacking hard days. Continue as written.`);
       });
     }
-    // Check current week quality that is past
     if (curW > 0 && curW <= BASE_PLAN.length) {
-      const week = BASE_PLAN[curW - 1];
-      week.days.forEach(day => {
+      BASE_PLAN[curW - 1].days.forEach(day => {
         if (!Rules.isQuality(day.type)) return;
         const runD = this._runDate(curW, day.dow);
         if (runD >= today) return;
         const entry = log[`${curW}-${day.dow}`];
-        if (!entry || entry.status === 'skip') {
-          alerts.push(`This week's ${day.label} was missed. Do not try to squeeze it in if it would land back-to-back with another hard day. Mark it skipped and continue.`);
-        }
+        if (!entry || entry.status === 'skip')
+          alerts.push(`This week's ${day.label} was missed. Do not squeeze it in back-to-back with another hard day. Mark it skipped and continue.`);
       });
     }
   },
 
-  /* ── RULE B: Ramp-rate adjustment ── */
-  _ruleB_rampAdjust(log, weekStats, curW, adjustments, alerts) {
-    if (curW <= 1) return; // nothing to analyze yet
-
-    // Find last week with actual data
-    let lastActual = null;
-    let lastW = 0;
-    for (let w = curW - 1; w >= 1; w--) {
-      if (weekStats[w] && weekStats[w].hasData) {
-        lastActual = weekStats[w].actual;
-        lastW = w;
-        break;
-      }
-    }
-    if (lastActual === null) return;
-
-    const lastPlanned = weekStats[lastW] ? weekStats[lastW].planned : 0;
-    const deficit = lastPlanned - lastActual;
-    const defPct = lastPlanned > 0 ? deficit / lastPlanned : 0;
-
-    if (defPct <= CFG.deficitPct) {
-      if (deficit > 0.5) {
-        alerts.push(`Last completed week: ${lastActual.toFixed(1)} mi vs ${lastPlanned} mi planned. Minor shortfall — no adjustment needed. Continue on plan.`);
-      }
-      return;
-    }
-
-    // Significant deficit — apply ramp rule to current/next unstarted weeks
-    const safeMax = Rules.safeWeeklyMax(lastActual);
-
-    for (let w = curW; w <= BASE_PLAN.length; w++) {
-      if (weekStats[w] && weekStats[w].hasData) continue; // week already started, skip
-
-      const week = BASE_PLAN[w - 1];
-      let plannedTotal = 0;
-      week.days.forEach(d => { plannedTotal += d.mi || 0; });
-
-      if (plannedTotal <= safeMax) break; // within safe range, stop cascading
-
-      // How much to cut?
-      const excess = plannedTotal - safeMax;
-      const adjustable = week.days.filter(d =>
-        Rules.isAdjustable(d.type) && !log[`${w}-${d.dow}`]
-      );
-      if (adjustable.length === 0) break;
-
+  _ruleB_cascadeForward(log, curW, today, adjustments, alerts) {
+    const alertedWeeks = new Set();
+    for (let w = 2; w <= BASE_PLAN.length; w++) {
+      const prevEff = this._weekEffective(log, w - 1, curW, adjustments);
+      const safeMax = prevEff * 1.10;
+      let thisPlanned = 0;
+      BASE_PLAN[w - 1].days.forEach(d => {
+        const key = `${w}-${d.dow}`;
+        thisPlanned += (adjustments[key] && adjustments[key].mi != null) ? adjustments[key].mi : (d.mi || 0);
+      });
+      if (thisPlanned <= safeMax + 0.5) continue;
+      const weekHasAnyLog = BASE_PLAN[w - 1].days.some(d => log[`${w}-${d.dow}`]);
+      if (weekHasAnyLog) continue;
+      const excess = thisPlanned - safeMax;
+      const adjustable = BASE_PLAN[w - 1].days.filter(d => Rules.isAdjustable(d.type) && !log[`${w}-${d.dow}`]);
+      if (adjustable.length === 0) continue;
       const perRun = excess / adjustable.length;
-
+      let anyChanged = false;
       adjustable.forEach(day => {
         const key = `${w}-${day.dow}`;
         const curMi = (adjustments[key] && adjustments[key].mi != null) ? adjustments[key].mi : day.mi;
         const newMi = Rules.safeAdjust(curMi, -perRun);
-        if (newMi < curMi) {
+        if (newMi < curMi - 0.1) {
           adjustments[key] = adjustments[key] || {};
           adjustments[key].mi = newMi;
-          adjustments[key].reason = `↓ ${(curMi - newMi).toFixed(1)} mi — last week was ${lastActual.toFixed(1)} mi actual vs ${lastPlanned} mi planned (${(defPct * 100).toFixed(0)}% short). Rebuilding gradually rather than jumping back. Max +10%/week (Daniels).`;
+          adjustments[key].reason = `↓ ${(curMi - newMi).toFixed(1)} mi — week ${w - 1} effective: ${prevEff.toFixed(1)} mi → safe max for week ${w}: ${safeMax.toFixed(1)} mi (Daniels +10% ramp cap). Plan total updated.`;
+          anyChanged = true;
         }
       });
-
-      alerts.push(`Week ${w}: easy runs reduced to rebuild safely. Last completed week: ${lastActual.toFixed(1)} mi actual (${(defPct * 100).toFixed(0)}% below plan). Mileage will rebuild gradually — do not add back-fill miles.`);
-
-      // Cascade: update safeMax for next week
-      let newWeekTotal = 0;
-      week.days.forEach(d => {
-        const key = `${w}-${d.dow}`;
-        newWeekTotal += (adjustments[key] && adjustments[key].mi != null) ? adjustments[key].mi : (d.mi || 0);
-      });
-      lastActual = newWeekTotal;
+      if (anyChanged && !alertedWeeks.has(w)) {
+        alertedWeeks.add(w);
+        alerts.push(`Week ${w} adjusted: previous week projects ${prevEff.toFixed(1)} mi → week ${w} safe max ${safeMax.toFixed(1)} mi. Easy runs reduced. Plan total updated below.`);
+      }
     }
   },
 
-  /* ── RULE C: Fatigue flag ── */
+  _weekEffective(log, w, curW, adjustments) {
+    const week = BASE_PLAN[w - 1];
+    if (!week) return 0;
+    let total = 0;
+    week.days.forEach(day => {
+      const key = `${w}-${day.dow}`;
+      const entry = log[key];
+      const adjMi = adjustments[key] && adjustments[key].mi != null ? adjustments[key].mi : null;
+      const planMi = adjMi !== null ? adjMi : (day.mi || 0);
+      if (entry) {
+        if (entry.status === 'done') total += planMi;
+        else if (entry.status === 'short' || entry.status === 'tired') total += entry.mi != null ? entry.mi : planMi;
+      } else {
+        if (w >= curW) total += planMi;
+      }
+    });
+    return total;
+  },
+
   _ruleC_fatigue(log, curW, today, adjustments, alerts) {
     if (!curW || curW > BASE_PLAN.length) return;
-    const week = BASE_PLAN[curW - 1];
-    const hasFatigue = week.days.some(d => {
-      const e = log[`${curW}-${d.dow}`];
-      return e && e.status === 'tired';
-    });
+    const hasFatigue = BASE_PLAN[curW - 1].days.some(d => { const e = log[`${curW}-${d.dow}`]; return e && e.status === 'tired'; });
     if (!hasFatigue) return;
-
-    // Find next quality run after today
     for (let w = curW; w <= BASE_PLAN.length; w++) {
-      const wd = BASE_PLAN[w - 1];
-      for (const day of wd.days) {
+      for (const day of BASE_PLAN[w - 1].days) {
         if (!Rules.isQuality(day.type)) continue;
         const runD = this._runDate(w, day.dow);
         if (runD <= today) continue;
@@ -586,179 +501,91 @@ const Adapt = {
         if (!log[key]) {
           adjustments[key] = adjustments[key] || {};
           adjustments[key].fatigueWarning = true;
-          adjustments[key].reason = `⚠ Fatigue flagged this week. Consider converting this to an easy run if still tired. Reduce intensity before reducing volume (Daniels principle). If you feel recovered, run as planned.`;
-          alerts.push(`Fatigue detected this week. Next quality run flagged — convert to easy if still feeling heavy. Intensity first, then volume.`);
+          adjustments[key].reason = `⚠ Fatigue flagged this week. Convert to easy run if still tired. Reduce intensity before volume (Daniels). Run as planned if fully recovered.`;
+          alerts.push(`Fatigue flagged this week. Next quality session marked — convert to easy if still heavy. Your back especially: don't force a quality day on top of soreness.`);
           return;
         }
       }
     }
   },
 
-  /* ── RULE D: Multiple skips this week ── */
-  _ruleD_multiSkip(log, curW, today, adjustments, alerts) {
+  _ruleD_multiSkip(log, curW, alerts) {
     if (!curW || curW > BASE_PLAN.length) return;
-    const week = BASE_PLAN[curW - 1];
     let skipCount = 0;
-    week.days.forEach(d => {
-      const e = log[`${curW}-${d.dow}`];
-      if (e && e.status === 'skip') skipCount++;
-    });
-    if (skipCount >= 3) {
-      alerts.push(`${skipCount} runs skipped this week. Do not try to make them up — that creates an unsafe mileage spike. Continue with what's remaining, keeping easy runs easy.`);
-    }
-  },
-
-  /* ── HELPERS ── */
-
-  _weekStats(log) {
-    const stats = {};
-    BASE_PLAN.forEach((week, idx) => {
-      const w = idx + 1;
-      let planned = 0, actual = 0, hasData = false;
-      week.days.forEach(day => {
-        planned += day.mi || 0;
-        const e = log[`${w}-${day.dow}`];
-        if (e) {
-          hasData = true;
-          if (e.status === 'done' || e.status === 'short' || e.status === 'tired') {
-            actual += (e.mi != null ? e.mi : (day.mi || 0));
-          }
-        }
-      });
-      stats[w] = { planned, actual, hasData };
-    });
-    return stats;
+    BASE_PLAN[curW - 1].days.forEach(d => { const e = log[`${curW}-${d.dow}`]; if (e && e.status === 'skip') skipCount++; });
+    if (skipCount >= 2) alerts.push(`${skipCount} runs skipped this week. Plan total has been reduced and future weeks adjusted. Do not try to make up missed miles — the cascade already handled it.`);
   },
 
   _currentWeek(today) {
     for (let w = 1; w <= BASE_PLAN.length; w++) {
-      const ws = this._weekStart(w);
-      const we = new Date(ws); we.setDate(we.getDate() + 6);
+      const ws = this._weekStart(w); const we = new Date(ws); we.setDate(we.getDate() + 6);
       if (today >= ws && today <= we) return w;
     }
     return BASE_PLAN.length;
   },
-
-  _weekStart(w) {
-    const d = new Date(CFG.planStart);
-    d.setDate(d.getDate() + (w - 1) * 7);
-    d.setHours(0, 0, 0, 0);
-    return d;
-  },
-
-  _runDate(week, dow) {
-    const ws = this._weekStart(week);
-    const off = dow === 0 ? 6 : dow - 1;
-    const d = new Date(ws); d.setDate(d.getDate() + off); d.setHours(0, 0, 0, 0);
-    return d;
-  }
+  _weekStart(w) { const d = new Date(CFG.planStart); d.setDate(d.getDate() + (w-1)*7); d.setHours(0,0,0,0); return d; },
+  _runDate(week, dow) { const ws = this._weekStart(week); const off = dow===0?6:dow-1; const d = new Date(ws); d.setDate(d.getDate()+off); d.setHours(0,0,0,0); return d; }
 };
 
-/* ============================================================
- * DATE UTILITIES (used by both Adapt and UI)
- * ============================================================ */
-function weekStart(w) {
-  const d = new Date(CFG.planStart);
-  d.setDate(d.getDate() + (w - 1) * 7);
-  d.setHours(0, 0, 0, 0);
-  return d;
-}
-
-function runDate(week, dow) {
-  const ws = weekStart(week);
-  const off = dow === 0 ? 6 : dow - 1;
-  const d = new Date(ws); d.setDate(d.getDate() + off); d.setHours(0, 0, 0, 0);
-  return d;
-}
-
-function sameDay(a, b) {
-  return a.getFullYear() === b.getFullYear()
-    && a.getMonth() === b.getMonth()
-    && a.getDate() === b.getDate();
-}
-
-function fmtDate(d) {
-  return d.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
-}
-
-function fmtFull(d) {
-  return d.toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric' });
-}
-
+function weekStart(w) { const d = new Date(CFG.planStart); d.setDate(d.getDate()+(w-1)*7); d.setHours(0,0,0,0); return d; }
+function runDate(week, dow) { const ws = weekStart(week); const off = dow===0?6:dow-1; const d = new Date(ws); d.setDate(d.getDate()+off); d.setHours(0,0,0,0); return d; }
+function sameDay(a,b) { return a.getFullYear()===b.getFullYear()&&a.getMonth()===b.getMonth()&&a.getDate()===b.getDate(); }
+function fmtDate(d) { return d.toLocaleDateString('en-US',{month:'short',day:'numeric'}); }
+function fmtFull(d) { return d.toLocaleDateString('en-US',{weekday:'long',month:'long',day:'numeric'}); }
 const DOWNAMES = ['SUN','MON','TUE','WED','THU','FRI','SAT'];
 
-/* ============================================================
- * MODULE 6 — RENDERING
- * Builds HTML from BASE_PLAN + adaptations.
- * ============================================================ */
-
 function renderPlan() {
-  const today = new Date(); today.setHours(0, 0, 0, 0);
+  const today = new Date(); today.setHours(0,0,0,0);
   const log = Store.get();
   const { adjustments, alerts } = Adapt.compute(log, today);
-
   const container = document.getElementById('panel-plan');
   let html = '';
 
-  // ── Adaptive alerts banner ──
-  if (alerts.length > 0) {
-    html += `<div class="adapt-alert">
-      <div class="adapt-title">⚡ Plan adapted</div>
-      ${alerts.map(a => `<div class="adapt-item">${_esc(a)}</div>`).join('')}
-    </div>`;
-  }
-
-  // ── Determine current week ──
-  let curWeek = null;
-  for (let w = 1; w <= BASE_PLAN.length; w++) {
-    const ws = weekStart(w); const we = new Date(ws); we.setDate(we.getDate() + 6);
-    if (today >= ws && today <= we) { curWeek = w; break; }
-  }
-  const isPlanOver = today > (() => { const d = new Date(CFG.raceDate); d.setHours(23,59,59,0); return d; })();
-
-  // ── Week cards ──
-  BASE_PLAN.forEach(weekData => {
-    const w = weekData.week;
-    const ws = weekStart(w);
-    const we = new Date(ws); we.setDate(we.getDate() + 6);
-    const isCurrent = w === curWeek;
-    const isPast = we < today;
-    const isOpen = isCurrent;
-
-    // Compute adjusted week total for subtitle
-    let weekTotal = 0;
+  let baseTotalMi = 0, adjustedTotalMi = 0;
+  BASE_PLAN.forEach((weekData, idx) => {
+    const w = idx + 1;
     weekData.days.forEach(day => {
+      baseTotalMi += day.mi || 0;
       const key = `${w}-${day.dow}`;
       const adj = adjustments[key];
+      adjustedTotalMi += (adj && adj.mi != null) ? adj.mi : (day.mi || 0);
+    });
+  });
+  const totalChanged = Math.abs(baseTotalMi - adjustedTotalMi) > 0.4;
+  html += `<div style="display:flex;justify-content:space-between;align-items:center;background:var(--s2);border:1px solid var(--b1);border-radius:10px;padding:10px 13px;margin-bottom:8px;font-size:12px;">
+    <span style="color:var(--t3)">Plan total</span>
+    <span style="font-family:'JetBrains Mono',monospace;color:${totalChanged ? 'var(--yw)' : 'var(--t1)'};font-weight:500">
+      ${totalChanged ? `${adjustedTotalMi.toFixed(1)} mi <span style="color:var(--t3);text-decoration:line-through;font-size:10px">${baseTotalMi.toFixed(1)}</span>` : `${baseTotalMi.toFixed(1)} mi`}
+    </span>
+  </div>`;
+
+  if (alerts.length > 0) {
+    html += `<div class="adapt-alert"><div class="adapt-title">⚡ Plan adapted</div>${alerts.map(a=>`<div class="adapt-item">${_esc(a)}</div>`).join('')}</div>`;
+  }
+
+  let curWeek = null;
+  for (let w = 1; w <= BASE_PLAN.length; w++) {
+    const ws = weekStart(w); const we = new Date(ws); we.setDate(we.getDate()+6);
+    if (today >= ws && today <= we) { curWeek = w; break; }
+  }
+
+  BASE_PLAN.forEach(weekData => {
+    const w = weekData.week;
+    const ws = weekStart(w); const we = new Date(ws); we.setDate(we.getDate()+6);
+    const isCurrent = w === curWeek;
+    const isPast = we < today;
+    let weekTotal = 0;
+    weekData.days.forEach(day => {
+      const key = `${w}-${day.dow}`; const adj = adjustments[key];
       weekTotal += (adj && adj.mi != null) ? adj.mi : (day.mi || 0);
     });
-
     let cardClass = 'week-card';
     if (isCurrent) cardClass += ' current open';
     else if (isPast) cardClass += ' past';
-    if (!isCurrent && !isPast) cardClass += ' open'; // default open upcoming
-
+    if (!isCurrent && !isPast) cardClass += ' open';
     const chevron = `<svg class="wchev" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>`;
-
-    html += `<div class="${cardClass}" id="wk${w}">
-      <div class="week-hd" onclick="togW('wk${w}')">
-        ${isCurrent ? '<div class="cur-pip"></div>' : ''}
-        <div class="wnum">${w}</div>
-        <div class="wmeta">
-          <div class="wname">${_esc(weekData.name)}</div>
-          <div class="wsub">~${Math.round(weekTotal)} miles · ${_esc(weekData.badge.toLowerCase())}</div>
-        </div>
-        <span class="wbadge ${weekData.badgeClass}">${_esc(weekData.badge)}</span>
-        ${chevron}
-      </div>
-      <div class="week-body">
-        <div class="week-desc">${_esc(weekData.desc)}</div>
-        <div class="days">${weekData.days.map(day => _renderDay(w, day, log, adjustments, today, isCurrent)).join('')}</div>
-        <div class="note ${weekData.noteClass}">${_esc(weekData.note)}</div>
-      </div>
-    </div>`;
+    html += `<div class="${cardClass}" id="wk${w}"><div class="week-hd" onclick="togW('wk${w}')">${isCurrent?'<div class="cur-pip"></div>':''}<div class="wnum">${w}</div><div class="wmeta"><div class="wname">${_esc(weekData.name)}</div><div class="wsub">~${Math.round(weekTotal)} miles · ${_esc(weekData.badge.toLowerCase())}</div></div><span class="wbadge ${weekData.badgeClass}">${_esc(weekData.badge)}</span>${chevron}</div><div class="week-body"><div class="week-desc">${_esc(weekData.desc)}</div><div class="days">${weekData.days.map(day=>_renderDay(w,day,log,adjustments,today,isCurrent)).join('')}</div><div class="note ${weekData.noteClass}">${_esc(weekData.note)}</div></div></div>`;
   });
-
   container.innerHTML = html;
 }
 
@@ -770,315 +597,139 @@ function _renderDay(w, day, log, adjustments, today, isCurrentWeek) {
   const isPast = d < today && !sameDay(d, today);
   const isToday = sameDay(d, today);
   const isFutureFar = d > today && Math.round((d - today) / 86400000) > 2;
-
-  // Effective mileage (adjusted or base)
   const effectiveMi = adj.mi != null ? adj.mi : day.mi;
-  // Effective label/detail
   const effectiveLabel = adj.label || day.label;
   const effectiveDetail = adj.detail || day.detail.replace(/^(\d+(?:\.\d+)?) mi/, effectiveMi + ' mi');
-
-  // Row classes
   let rowClass = 'day-row';
-  if (day.type === 'rest')    rowClass += ' rest';
-  if (day.type === 'race')    rowClass += ' race';
-  if (Rules.isQuality(day.type) && !entry) rowClass += ' quality';
-
+  if (day.type==='rest') rowClass+=' rest';
+  if (day.type==='race') rowClass+=' race';
+  if (Rules.isQuality(day.type) && !entry) rowClass+=' quality';
   if (entry) {
-    if (entry.status === 'done')  rowClass += ' done';
-    if (entry.status === 'short') rowClass += ' short';
-    if (entry.status === 'skip')  rowClass += ' skipped';
-    if (entry.status === 'tired') rowClass += ' tired';
+    if (entry.status==='done') rowClass+=' done';
+    if (entry.status==='short') rowClass+=' short';
+    if (entry.status==='skip') rowClass+=' skipped';
+    if (entry.status==='tired') rowClass+=' tired';
   } else {
-    if (isPast) rowClass += ' past';
-    if (isToday) rowClass += ' today';
+    if (isPast) rowClass+=' past';
+    if (isToday) rowClass+=' today';
   }
-  if (adj.reason && !entry) rowClass += ' adjusted';
-
-  // Status icon
+  if (adj.reason && !entry) rowClass+=' adjusted';
   let statusIcon = '';
   if (entry) {
-    const icons = { done: '✓', short: '↙', skip: '✕', tired: '~' };
-    const colors = { done: 'var(--gr)', short: 'var(--or)', skip: 'var(--rd)', tired: 'var(--yw)' };
-    statusIcon = `<div class="status-icon" style="color:${colors[entry.status] || 'var(--t3)'}">${icons[entry.status] || ''}</div>`;
+    const icons={done:'✓',short:'↙',skip:'✕',tired:'~'};
+    const colors={done:'var(--gr)',short:'var(--or)',skip:'var(--rd)',tired:'var(--yw)'};
+    statusIcon=`<div class="status-icon" style="color:${colors[entry.status]||'var(--t3)'}">${icons[entry.status]||''}</div>`;
   } else if (isToday) {
-    statusIcon = `<div class="today-arrow">← now</div>`;
+    statusIcon=`<div class="today-arrow">← now</div>`;
   }
-
-  // Tags
-  const tagMap = { drills: ['d', 'Drills first'], 'gym-ok': ['g', 'Gym after OK'], quality: ['t', 'Quality'] };
-  let tagHtml = '';
+  const tagMap={drills:['d','Drills first'],'gym-ok':['g','Gym after OK'],quality:['t','Quality']};
+  let tagHtml='';
   if (day.tags && day.tags.length) {
-    const filteredTags = day.tags.filter(t => t !== 'quality'); // quality shown via row style
+    const filteredTags=day.tags.filter(t=>t!=='quality');
     if (filteredTags.length) {
-      tagHtml = `<div class="dtags">${filteredTags.map(t => {
-        const [cls, lbl] = tagMap[t] || ['g', t];
-        return `<span class="dtag ${cls}">${lbl}</span>`;
-      }).join('')}${adj.reason ? '<span class="dtag adj">⚡ adjusted</span>' : ''}</div>`;
-    } else if (adj.reason) {
-      tagHtml = `<div class="dtags"><span class="dtag adj">⚡ adjusted</span></div>`;
-    }
-  } else if (adj.reason) {
-    tagHtml = `<div class="dtags"><span class="dtag adj">⚡ adjusted</span></div>`;
-  }
-
-  // Adjustment reason
-  let adjReasonHtml = '';
+      tagHtml=`<div class="dtags">${filteredTags.map(t=>{const[cls,lbl]=tagMap[t]||['g',t];return`<span class="dtag ${cls}">${lbl}</span>`;}).join('')}${adj.reason?'<span class="dtag adj">⚡ adjusted</span>':''}</div>`;
+    } else if (adj.reason) { tagHtml=`<div class="dtags"><span class="dtag adj">⚡ adjusted</span></div>`; }
+  } else if (adj.reason) { tagHtml=`<div class="dtags"><span class="dtag adj">⚡ adjusted</span></div>`; }
+  let adjReasonHtml='';
   if (adj.reason && !entry) {
-    const cls = adj.fatigueWarning ? 'adj-reason adj-reason-fatigue' : 'adj-reason';
-    adjReasonHtml = `<div class="${cls}">${_esc(adj.reason)}</div>`;
+    const cls=adj.fatigueWarning?'adj-reason adj-reason-fatigue':'adj-reason';
+    adjReasonHtml=`<div class="${cls}">${_esc(adj.reason)}</div>`;
   }
-
-  // Log buttons (show on: non-rest, non-race, within logging window, not already logged)
-  let logHtml = '';
-  const canLog = !Rules.isRest(day.type) && day.type !== 'race';
+  let logHtml='';
+  const canLog=!Rules.isRest(day.type)&&day.type!=='race';
   if (canLog && !isFutureFar) {
     if (!entry) {
-      logHtml = `
-        <div class="log-btns">
-          <button class="lbtn done" onclick="App.markDone(${w},${day.dow})">Done</button>
-          <button class="lbtn short" onclick="App.showMiInput(${w},${day.dow},'short')">Ran short</button>
-          <button class="lbtn skip" onclick="App.markSkip(${w},${day.dow})">Skipped</button>
-          <button class="lbtn tired" onclick="App.showMiInput(${w},${day.dow},'tired')">Tired/Sore</button>
-        </div>
-        <div class="mi-input-row" id="mi-row-${w}-${day.dow}">
-          <label>Actual miles:</label>
-          <input type="number" id="mi-inp-${w}-${day.dow}" value="${effectiveMi}" min="0" max="30" step="0.25">
-          <button class="mi-save" onclick="App.saveMi(${w},${day.dow})">Save</button>
-        </div>`;
+      logHtml=`<div class="log-btns"><button class="lbtn done" onclick="App.markDone(${w},${day.dow})">Done</button><button class="lbtn short" onclick="App.showMiInput(${w},${day.dow},'short')">Ran short</button><button class="lbtn skip" onclick="App.markSkip(${w},${day.dow})">Skipped</button><button class="lbtn tired" onclick="App.showMiInput(${w},${day.dow},'tired')">Tired/Sore</button></div><div class="mi-input-row" id="mi-row-${w}-${day.dow}"><label>Actual miles:</label><input type="number" id="mi-inp-${w}-${day.dow}" value="${effectiveMi}" min="0" max="30" step="0.25"><button class="mi-save" onclick="App.saveMi(${w},${day.dow})">Save</button></div>`;
     } else {
-      logHtml = `<div class="log-btns"><button class="lbtn undo" onclick="App.undo(${w},${day.dow})">Undo</button></div>`;
+      logHtml=`<div class="log-btns"><button class="lbtn undo" onclick="App.undo(${w},${day.dow})">Undo</button></div>`;
     }
   }
-
-  // Logged mileage note
-  let loggedMiNote = '';
-  if (entry && (entry.status === 'done' || entry.status === 'short' || entry.status === 'tired') && entry.mi != null) {
-    const diff = entry.mi - day.mi;
-    const diffStr = diff !== 0 ? ` (planned: ${day.mi} mi${diff > 0 ? ', +' : ', '}${diff.toFixed(1)})` : '';
-    loggedMiNote = `<div style="font-size:11px;color:var(--t3);margin-top:3px">${entry.mi} mi logged${diffStr}</div>`;
+  let loggedMiNote='';
+  if (entry&&(entry.status==='done'||entry.status==='short'||entry.status==='tired')&&entry.mi!=null) {
+    const diff=entry.mi-day.mi;
+    const diffStr=diff!==0?` (planned: ${day.mi} mi${diff>0?', +':',' }${diff.toFixed(1)})`:'';
+    loggedMiNote=`<div style="font-size:11px;color:var(--t3);margin-top:3px">${entry.mi} mi logged${diffStr}</div>`;
   }
-
-  return `<div class="${rowClass}">
-    <div class="dow">${DOWNAMES[d.getDay()]}</div>
-    <div class="dcont">
-      <div class="dtype">${_esc(effectiveLabel)}</div>
-      <div class="ddet">${_esc(effectiveDetail)}</div>
-      ${loggedMiNote}
-      ${tagHtml}
-      ${adjReasonHtml}
-      ${logHtml}
-    </div>
-    ${statusIcon}
-  </div>`;
+  return `<div class="${rowClass}"><div class="dow">${DOWNAMES[d.getDay()]}</div><div class="dcont"><div class="dtype">${_esc(effectiveLabel)}</div><div class="ddet">${_esc(effectiveDetail)}</div>${loggedMiNote}${tagHtml}${adjReasonHtml}${logHtml}</div>${statusIcon}</div>`;
 }
 
 function renderLog() {
-  const log = Store.get();
-  const entries = document.getElementById('log-entries');
-
-  let totalMi = 0, done = 0, skip = 0, short = 0;
-  let totalRunDays = 0;
-  BASE_PLAN.forEach(week => {
-    week.days.forEach(d => { if (Rules.isRunnable(d.type)) totalRunDays++; });
-  });
-
-  const keys = Object.keys(log).sort((a, b) => {
-    const [aw, ad] = a.split('-').map(Number);
-    const [bw, bd] = b.split('-').map(Number);
-    return (aw * 10 + ad) - (bw * 10 + bd);
-  });
-
+  const log=Store.get();
+  const entries=document.getElementById('log-entries');
+  let totalMi=0,done=0,skip=0,short=0,totalRunDays=0;
+  BASE_PLAN.forEach(week=>{week.days.forEach(d=>{if(Rules.isRunnable(d.type))totalRunDays++;});});
+  const keys=Object.keys(log).sort((a,b)=>{const[aw,ad]=a.split('-').map(Number);const[bw,bd]=b.split('-').map(Number);return(aw*10+ad)-(bw*10+bd);});
   if (!keys.length) {
-    entries.innerHTML = '<div style="font-size:12px;color:var(--t3);padding:8px 0">No activity yet — go to Plan tab and log a run.</div>';
+    entries.innerHTML='<div style="font-size:12px;color:var(--t3);padding:8px 0">No activity yet — go to Plan tab and log a run.</div>';
   } else {
-    entries.innerHTML = keys.map(key => {
-      const e = log[key];
-      const [w, dow] = key.split('-').map(Number);
-      const weekData = BASE_PLAN[w - 1]; if (!weekData) return '';
-      const dayData = weekData.days.find(d => d.dow === dow); if (!dayData) return '';
-      const d = runDate(w, dow);
-      const actualMi = e.mi != null ? e.mi : dayData.mi;
-
-      if (e.status === 'done' || e.status === 'short' || e.status === 'tired') {
-        totalMi += actualMi;
-        if (e.status === 'done') done++;
-        if (e.status === 'short' || e.status === 'tired') short++;
-      }
-      if (e.status === 'skip') skip++;
-
-      const statusLabels = { done: 'Done', short: 'Ran short', skip: 'Skipped', tired: 'Tired/Sore' };
-      const miDetail = (e.status !== 'skip')
-        ? `${actualMi} mi${e.mi != null && Math.abs(e.mi - dayData.mi) > 0.1 ? ` (planned: ${dayData.mi} mi)` : ''}`
-        : '';
-      const reasonHtml = e.reason ? `<div class="le-detail">${_esc(e.reason)}</div>` : '';
-
-      return `<div class="log-entry">
-        <div class="le-top">
-          <div class="le-day">${fmtDate(d)} — ${DOWNAMES[d.getDay()]}</div>
-          <span class="le-status ${e.status}">${statusLabels[e.status] || e.status}</span>
-        </div>
-        <div class="le-type">${dayData.label}${miDetail ? ' · ' + miDetail : ''}</div>
-        ${reasonHtml}
-      </div>`;
+    entries.innerHTML=keys.map(key=>{
+      const e=log[key];const[w,dow]=key.split('-').map(Number);
+      const weekData=BASE_PLAN[w-1];if(!weekData)return'';
+      const dayData=weekData.days.find(d=>d.dow===dow);if(!dayData)return'';
+      const d=runDate(w,dow);const actualMi=e.mi!=null?e.mi:dayData.mi;
+      if(e.status==='done'||e.status==='short'||e.status==='tired'){totalMi+=actualMi;if(e.status==='done')done++;else short++;}
+      if(e.status==='skip')skip++;
+      const statusLabels={done:'Done',short:'Ran short',skip:'Skipped',tired:'Tired/Sore'};
+      const miDetail=(e.status!=='skip')?`${actualMi} mi${e.mi!=null&&Math.abs(e.mi-dayData.mi)>0.1?` (planned: ${dayData.mi} mi)`:''}` :'';
+      const reasonHtml=e.reason?`<div class="le-detail">${_esc(e.reason)}</div>`:'';
+      return `<div class="log-entry"><div class="le-top"><div class="le-day">${fmtDate(d)} — ${DOWNAMES[d.getDay()]}</div><span class="le-status ${e.status}">${statusLabels[e.status]||e.status}</span></div><div class="le-type">${dayData.label}${miDetail?' · '+miDetail:''}</div>${reasonHtml}</div>`;
     }).join('');
   }
-
-  document.getElementById('log-mi').textContent = totalMi.toFixed(1);
-  document.getElementById('log-done').textContent = `${done + short} / ${totalRunDays}`;
-  document.getElementById('log-skip').textContent = skip;
-  document.getElementById('log-short').textContent = short;
+  document.getElementById('log-mi').textContent=totalMi.toFixed(1);
+  document.getElementById('log-done').textContent=`${done+short} / ${totalRunDays}`;
+  document.getElementById('log-skip').textContent=skip;
+  document.getElementById('log-short').textContent=short;
 }
 
-/* ============================================================
- * MODULE 7 — APP CONTROLLER (interaction handlers + init)
- * ============================================================ */
 const App = {
-
-  markDone(w, dow) {
-    const day = _findDay(w, dow);
-    Store.set(w, dow, 'done', day ? day.mi : null, '');
-    _refresh();
+  markDone(w,dow){const day=_findDay(w,dow);Store.set(w,dow,'done',day?day.mi:null,'');_refresh();},
+  markSkip(w,dow){const reason=prompt('Optional: why did you skip? (press OK to leave blank)')||'';Store.set(w,dow,'skip',null,reason);_refresh();},
+  showMiInput(w,dow,mode){const row=document.getElementById(`mi-row-${w}-${dow}`);if(!row)return;row.style.display=row.style.display==='flex'?'none':'flex';row.dataset.mode=mode;},
+  saveMi(w,dow){
+    const inp=document.getElementById(`mi-inp-${w}-${dow}`);
+    const row=document.getElementById(`mi-row-${w}-${dow}`);
+    const mi=parseFloat(inp?inp.value:0)||0;
+    const mode=row?row.dataset.mode:'short';
+    const status=mode==='tired'?'tired':'short';
+    const day=_findDay(w,dow);
+    const reason=mode==='tired'?`Flagged tired/sore. Ran ${mi} mi (planned: ${day?day.mi:'?'} mi). Adaptive engine will monitor next quality session.`:`Ran short: ${mi} mi vs ${day?day.mi:'?'} mi planned.`;
+    Store.set(w,dow,status,mi,reason);_refresh();
   },
-
-  markSkip(w, dow) {
-    const reason = prompt('Optional: why did you skip? (press OK to leave blank)') || '';
-    Store.set(w, dow, 'skip', null, reason);
-    _refresh();
-  },
-
-  showMiInput(w, dow, mode) {
-    // Store mode so saveMi knows which status to use
-    const row = document.getElementById(`mi-row-${w}-${dow}`);
-    if (!row) return;
-    row.style.display = row.style.display === 'flex' ? 'none' : 'flex';
-    row.dataset.mode = mode;
-  },
-
-  saveMi(w, dow) {
-    const inp = document.getElementById(`mi-inp-${w}-${dow}`);
-    const row = document.getElementById(`mi-row-${w}-${dow}`);
-    const mi = parseFloat(inp ? inp.value : 0) || 0;
-    const mode = row ? row.dataset.mode : 'short';
-    const status = mode === 'tired' ? 'tired' : 'short';
-    const day = _findDay(w, dow);
-    const reason = mode === 'tired'
-      ? `Flagged tired/sore. Ran ${mi} mi (planned: ${day ? day.mi : '?'} mi). Adaptive engine will monitor next quality session.`
-      : `Ran short: ${mi} mi vs ${day ? day.mi : '?'} mi planned.`;
-    Store.set(w, dow, status, mi, reason);
-    _refresh();
-  },
-
-  undo(w, dow) {
-    Store.remove(w, dow);
-    _refresh();
-  }
+  undo(w,dow){Store.remove(w,dow);_refresh();}
 };
 
-/* ============================================================
- * INIT + GLOBAL HELPERS
- * ============================================================ */
 function init() {
-  const today = new Date(); today.setHours(0, 0, 0, 0);
-  const raceClean = new Date(CFG.raceDate); raceClean.setHours(0, 0, 0, 0);
-  const planClean = new Date(CFG.planStart); planClean.setHours(0, 0, 0, 0);
-
-  // Header date + countdown
-  document.getElementById('hdr-date').textContent = fmtFull(today);
-  const daysOut = Math.round((raceClean - today) / 86400000);
-  document.getElementById('hdr-days').textContent =
-    daysOut > 0 ? daysOut : daysOut === 0 ? 'Race today!' : 'Done';
-
-  // Progress bar
-  const totalDays = Math.round((raceClean - planClean) / 86400000);
-  const elapsed = Math.max(0, Math.round((today - planClean) / 86400000));
-  document.getElementById('prog').style.width = Math.min(100, Math.round((elapsed / totalDays) * 100)) + '%';
-
-  // Header stats
-  const log = Store.get();
-  let totalMi = 0, totalDone = 0, totalSkip = 0;
-  Object.values(log).forEach(e => {
-    if (e.status === 'done' || e.status === 'short' || e.status === 'tired') {
-      totalMi += e.mi || 0; totalDone++;
-    }
-    if (e.status === 'skip') totalSkip++;
-  });
-  document.getElementById('stat-miles').textContent = totalMi.toFixed(1);
-  document.getElementById('stat-done').textContent = totalDone;
-  document.getElementById('stat-skip').textContent = totalSkip;
-
-  // Today card
-  let foundToday = false;
-  for (const weekData of BASE_PLAN) {
-    for (const day of weekData.days) {
-      const d = runDate(weekData.week, day.dow);
-      if (sameDay(d, today)) {
-        foundToday = true;
-        const isRest = Rules.isRest(day.type);
-        const tc = document.getElementById('today-card');
-        tc.className = 'today-card' + (isRest ? ' rest-card' : '');
-        document.getElementById('today-label').textContent = isRest ? 'Today — rest day' : 'Today\'s workout';
-        document.getElementById('today-name').textContent = day.label;
-        document.getElementById('today-detail').textContent = day.detail;
-        break;
-      }
-    }
-    if (foundToday) break;
+  const today=new Date();today.setHours(0,0,0,0);
+  const raceClean=new Date(CFG.raceDate);raceClean.setHours(0,0,0,0);
+  const planClean=new Date(CFG.planStart);planClean.setHours(0,0,0,0);
+  document.getElementById('hdr-date').textContent=fmtFull(today);
+  const daysOut=Math.round((raceClean-today)/86400000);
+  document.getElementById('hdr-days').textContent=daysOut>0?daysOut:daysOut===0?'Race today!':'Done';
+  const totalDays=Math.round((raceClean-planClean)/86400000);
+  const elapsed=Math.max(0,Math.round((today-planClean)/86400000));
+  document.getElementById('prog').style.width=Math.min(100,Math.round((elapsed/totalDays)*100))+'%';
+  const log=Store.get();let totalMi=0,totalDone=0,totalSkip=0;
+  Object.values(log).forEach(e=>{if(e.status==='done'||e.status==='short'||e.status==='tired'){totalMi+=e.mi||0;totalDone++;}if(e.status==='skip')totalSkip++;});
+  document.getElementById('stat-miles').textContent=totalMi.toFixed(1);
+  document.getElementById('stat-done').textContent=totalDone;
+  document.getElementById('stat-skip').textContent=totalSkip;
+  let foundToday=false;
+  for(const weekData of BASE_PLAN){for(const day of weekData.days){const d=runDate(weekData.week,day.dow);if(sameDay(d,today)){foundToday=true;const isRest=Rules.isRest(day.type);const tc=document.getElementById('today-card');tc.className='today-card'+(isRest?' rest-card':'');document.getElementById('today-label').textContent=isRest?'Today — rest day':"Today's workout";document.getElementById('today-name').textContent=day.label;document.getElementById('today-detail').textContent=day.detail;break;}}if(foundToday)break;}
+  if(!foundToday){
+    const tc=document.getElementById('today-card');
+    if(daysOut===0){document.getElementById('today-name').textContent='Race Day — Peachtree 10K';document.getElementById('today-detail').textContent='Mile 1: 6:55 · Miles 2–4: 6:45 · Miles 5–6.2: race it home. Go.';}
+    else if(daysOut<0){document.getElementById('today-name').textContent='Race complete!';document.getElementById('today-detail').textContent='Hope you crushed it.';tc.className='today-card';tc.style.borderColor='var(--gr-b)';tc.style.background='var(--gr-bg)';}
+    else if(today<planClean){tc.className='today-card rest-card';document.getElementById('today-label').textContent='Plan starts';document.getElementById('today-name').textContent='Monday June 8';document.getElementById('today-detail').textContent=`${Math.round((planClean-today)/86400000)} days until plan starts. Get your drills dialed in.`;}
+    else{tc.className='today-card rest-card';document.getElementById('today-label').textContent='Today';document.getElementById('today-name').textContent='Rest day';document.getElementById('today-detail').textContent='No run today. Gym, recover, prepare.';}
   }
-  if (!foundToday) {
-    const tc = document.getElementById('today-card');
-    if (daysOut === 0) {
-      document.getElementById('today-name').textContent = 'Race Day — Peachtree 10K';
-      document.getElementById('today-detail').textContent = 'Mile 1: 6:55 · Miles 2–4: 6:45 · Miles 5–6.2: race it home. Go.';
-    } else if (daysOut < 0) {
-      document.getElementById('today-name').textContent = 'Race complete!';
-      document.getElementById('today-detail').textContent = 'Hope you crushed it.';
-      tc.className = 'today-card'; tc.style.borderColor = 'var(--gr-b)'; tc.style.background = 'var(--gr-bg)';
-    } else if (today < planClean) {
-      tc.className = 'today-card rest-card';
-      document.getElementById('today-label').textContent = 'Plan starts';
-      document.getElementById('today-name').textContent = 'Monday June 8';
-      document.getElementById('today-detail').textContent = `${Math.round((planClean - today) / 86400000)} days until plan starts. Get your drills dialed in.`;
-    } else {
-      tc.className = 'today-card rest-card';
-      document.getElementById('today-label').textContent = 'Today';
-      document.getElementById('today-name').textContent = 'Rest day';
-      document.getElementById('today-detail').textContent = 'No run today. Gym, recover, prepare.';
-    }
-  }
-
   renderPlan();
 }
 
-function _refresh() {
-  renderPlan();
-  const logPanel = document.getElementById('panel-log');
-  if (logPanel.classList.contains('active')) renderLog();
-}
-
-function switchTab(t) {
-  document.querySelectorAll('.tab').forEach((b, i) => {
-    b.classList.toggle('active', ['plan','log','zones','drills'][i] === t);
-  });
-  document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
-  document.getElementById('panel-' + t).classList.add('active');
-  if (t === 'log') renderLog();
-}
-
-function togW(id) {
-  document.getElementById(id).classList.toggle('open');
-}
-
-function _findDay(w, dow) {
-  const week = BASE_PLAN[w - 1]; if (!week) return null;
-  return week.days.find(d => d.dow === dow) || null;
-}
-
-function _esc(str) {
-  if (!str) return '';
-  return String(str)
-    .replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')
-    .replace(/"/g,'&quot;');
-}
+function _refresh(){renderPlan();const logPanel=document.getElementById('panel-log');if(logPanel.classList.contains('active'))renderLog();}
+function switchTab(t){document.querySelectorAll('.tab').forEach((b,i)=>{b.classList.toggle('active',['plan','log','zones','drills'][i]===t);});document.querySelectorAll('.panel').forEach(p=>p.classList.remove('active'));document.getElementById('panel-'+t).classList.add('active');if(t==='log')renderLog();}
+function togW(id){document.getElementById(id).classList.toggle('open');}
+function _findDay(w,dow){const week=BASE_PLAN[w-1];if(!week)return null;return week.days.find(d=>d.dow===dow)||null;}
+function _esc(str){if(!str)return'';return String(str).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
 
 init();
 </script>
